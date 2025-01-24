@@ -5,4 +5,83 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login"/>
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <!-- Fondo decorativo -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="420dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="-12dp"
+        android:src="@drawable/circle2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <!-- Campo Email -->
+
+    <!-- Campo Password -->
+
+    <!-- Botón Sign In -->
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="332dp"
+        android:backgroundTint="@color/gray"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="408dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/gray"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textAllCaps="false"
+        android:textColor="@color/green"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="40dp" />
+
+    <!-- Flecha derecha como imagen para el botón -->
+    <ImageView
+        android:id="@+id/btnArrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_arrow_right"
+        app:layout_constraintTop_toTopOf="@id/btnSignIn"
+        app:layout_constraintBottom_toBottomOf="@id/btnSignIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="40dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
