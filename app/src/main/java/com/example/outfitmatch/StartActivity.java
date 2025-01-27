@@ -31,5 +31,10 @@ public class StartActivity extends AppCompatActivity {
             Intent intent = new Intent(StartActivity.this, Login.class);
             startActivity(intent);
         });
+
+        singUp.setOnClickListener(view -> {
+            Intent intent = new Intent(StartActivity.this, SingUp.class);
+            startActivity(intent);
+        });
     }
 }

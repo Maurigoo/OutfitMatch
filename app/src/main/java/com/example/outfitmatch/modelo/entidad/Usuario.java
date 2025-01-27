@@ -2,15 +2,20 @@ package com.example.outfitmatch.modelo.entidad;
 
 public class Usuario {
 
+    private String name;
     private String email;
     private String password;
+    private String phone;
 
-    public String getPassword() {
-        return password;
+    public Usuario(String nuevoName, String nuevoEmail, String nuevoPass, String nuevoPhone) {
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -21,11 +26,29 @@ public class Usuario {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
-                "email='" + email + '\'' +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }

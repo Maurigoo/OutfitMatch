@@ -28,9 +28,9 @@ public class Login extends AppCompatActivity {
         });
 
 
-        emailUsuario  = findViewById(R.id.etEmail);
-        passwordUsuario = findViewById(R.id.etPassword);
-        signInBtn = findViewById(R.id.btnSignIn); //aqui cambiamos la imagen de la flecha la convertimos en boton creo q quedaria mejor
+        emailUsuario  = findViewById(R.id.SignInEmail);
+        passwordUsuario = findViewById(R.id.SignInPassword);
+        signInBtn = findViewById(R.id.SignInBoton); //aqui cambiamos la imagen de la flecha la convertimos en boton creo q quedaria mejor
 
         //luego llamamos a gestorUsuario para hacer la validacion
     }

@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <EditText
         android:id="@+id/SignUpName"
         android:layout_width="330dp"
@@ -31,8 +32,7 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.391" />
-
+        app:layout_constraintVertical_bias="0.382" />
 
     <EditText
         android:id="@+id/SignUpEmail"
@@ -89,10 +89,10 @@
         app:layout_constraintVertical_bias="0.64" />
 
     <Button
-        android:id="@+id/btnSignIn"
+        android:id="@+id/SignUpBoton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="40dp"
         android:background="@android:color/transparent"
         android:text="Sign Up"
         android:textAllCaps="false"
@@ -101,17 +101,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
+        app:layout_constraintVertical_bias="0.819" />
 
     <ImageView
-        android:id="@+id/btnArrow"
+        android:id="@+id/SignUpBoton2"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="40dp"
         android:src="@drawable/siguiente"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnSignIn"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintHorizontal_bias="0.806"
+        app:layout_constraintStart_toEndOf="@+id/SignUpBoton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.821" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
