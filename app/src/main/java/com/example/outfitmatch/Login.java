@@ -3,6 +3,7 @@ package com.example.outfitmatch;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ public class Login extends AppCompatActivity {
     private EditText emailUsuario;
     private EditText passwordUsuario;
     private Button signInBtn;
+    private ImageButton signInbtnRound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,10 @@ public class Login extends AppCompatActivity {
 
         emailUsuario  = findViewById(R.id.SignInEmail);
         passwordUsuario = findViewById(R.id.SignInPassword);
-        signInBtn = findViewById(R.id.SignInBoton); //aqui cambiamos la imagen de la flecha la convertimos en boton creo q quedaria mejor
+        signInBtn = findViewById(R.id.SignInBoton);
+        signInbtnRound = findViewById(R.id.SignInBotonRound);
+
+
 
         //luego llamamos a gestorUsuario para hacer la validacion
     }
