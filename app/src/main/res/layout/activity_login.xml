@@ -30,7 +30,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/SignInEmail"
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="332dp"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/SignInPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -66,7 +66,7 @@
     <!-- Flecha derecha como imagen para el botón -->
 
     <Button
-        android:id="@+id/btnSignIn"
+        android:id="@+id/SignInBoton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
@@ -76,19 +76,21 @@
         android:textColor="@color/green"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/SignInBoton2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
+        app:layout_constraintVertical_bias="0.768" />
 
     <ImageView
-        android:id="@+id/btnArrow"
+        android:id="@+id/SignInBoton2"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="40dp"
         android:src="@drawable/siguiente"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnSignIn"
-        app:layout_constraintVertical_bias="0.038" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.771" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
