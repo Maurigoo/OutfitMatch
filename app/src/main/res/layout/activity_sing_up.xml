@@ -103,6 +103,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.819" />
 
+<<<<<<< HEAD
     <ImageView
         android:id="@+id/SignUpBoton2"
         android:layout_width="40dp"
@@ -114,5 +115,20 @@
         app:layout_constraintStart_toEndOf="@+id/SignUpBoton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.821" />
+=======
+    <!--aqui he cambiado la imagen por boton para q el user lo pueda usar -->
+    <ImageButton
+        android:id="@+id/SignUnBotonRound"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/round_button"
+        android:src="@drawable/arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.752" />
+
+>>>>>>> 7e15842e7942b6ff714f9c2251e1cde4d2968a73
 
 </androidx.constraintlayout.widget.ConstraintLayout>
