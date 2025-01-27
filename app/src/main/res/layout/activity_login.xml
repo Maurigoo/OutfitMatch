@@ -63,8 +63,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Flecha derecha como imagen para el botón -->
-
     <Button
         android:id="@+id/SignInBoton"
         android:layout_width="wrap_content"
@@ -76,21 +74,22 @@
         android:textColor="@color/green"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/SignInBoton2"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.768" />
 
-    <ImageView
-        android:id="@+id/SignInBoton2"
+    <!-- he cambiado la imagen por boton para q el user lo pueda pulsar -->
+    <ImageButton
+        android:id="@+id/SignInBotonRound"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="40dp"
-        android:src="@drawable/siguiente"
+        android:background="@drawable/round_button"
+        android:src="@drawable/arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.771" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
