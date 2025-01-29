@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class StartActivity extends AppCompatActivity {
-    Button login, singUp;
+    Button login, signUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +25,15 @@ public class StartActivity extends AppCompatActivity {
         });
 
         login = findViewById(R.id.loginButton);
-        singUp = findViewById(R.id.signupButton);
+        signUp = findViewById(R.id.signupButton);
 
         login.setOnClickListener(view -> {
             Intent intent = new Intent(StartActivity.this, Login.class);
             startActivity(intent);
         });
 
-        singUp.setOnClickListener(view -> {
-            Intent intent = new Intent(StartActivity.this, SingUp.class);
+        signUp.setOnClickListener(view -> {
+            Intent intent = new Intent(StartActivity.this, SignUp.class);
             startActivity(intent);
         });
     }

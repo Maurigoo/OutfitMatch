@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SingUp">
+    tools:context=".SignUp">
 
     <ImageView
 
@@ -109,12 +109,12 @@
         android:layout_height="48dp"
         android:layout_marginEnd="48dp"
         android:background="@drawable/round_button"
-        android:src="@drawable/arrow"
         android:contentDescription="Botón para registrarse"
+        android:src="@drawable/arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.821" />
+        app:layout_constraintVertical_bias="0.819" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

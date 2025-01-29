@@ -30,11 +30,10 @@ public class Login extends AppCompatActivity {
         });
 
 
-        emailUsuario  = findViewById(R.id.SignInEmail);
+        emailUsuario = findViewById(R.id.SignInEmail);
         passwordUsuario = findViewById(R.id.SignInPassword);
         signInBtn = findViewById(R.id.SignInBoton);
         signInbtnRound = findViewById(R.id.SignInBotonRound);
-
 
 
         //luego llamamos a gestorUsuario para hacer la validacion

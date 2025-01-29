@@ -1,6 +1,8 @@
 package com.example.outfitmatch.modelo.entidad;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
 
     private String name;
     private String email;
