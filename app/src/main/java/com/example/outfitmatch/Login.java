@@ -14,7 +14,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
 import com.google.firebase.auth.FirebaseAuth;
+
+import com.example.outfitmatch.modelo.entidad.Usuario;
+
 
 public class Login extends AppCompatActivity {
 
@@ -85,5 +89,6 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 }
