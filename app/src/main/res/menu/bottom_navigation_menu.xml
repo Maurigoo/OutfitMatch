@@ -11,10 +11,7 @@
         android:id="@+id/nav_add"
         android:icon="@drawable/ic_add"
         android:title="Add" />
-    <item
-        android:id="@+id/nav_community"
-        android:icon="@drawable/ic_community"
-        android:title="Community" />
+
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/profile"
