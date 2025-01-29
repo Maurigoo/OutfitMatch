@@ -41,19 +41,20 @@
     
 
     <!-- Barra de navegación inferior -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/boton_navigation"
         android:layout_width="350dp"
         android:layout_height="64dp"
         android:layout_marginStart="4dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_nav"
         app:itemIconTint="@drawable/bottom_nav_selector"
         app:itemTextColor="@drawable/bottom_nav_selector"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
