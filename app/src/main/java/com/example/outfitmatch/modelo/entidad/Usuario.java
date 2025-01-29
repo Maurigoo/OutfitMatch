@@ -12,6 +12,10 @@ public class Usuario implements Serializable {
     public Usuario(String nuevoName, String nuevoEmail, String nuevoPass, String nuevoPhone) {
     }
 
+    public Usuario(){
+        super();
+    }
+
     public String getName() {
         return name;
     }
