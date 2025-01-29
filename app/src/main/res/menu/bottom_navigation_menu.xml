@@ -5,7 +5,7 @@
         android:title="Home" />
     <item
         android:id="@+id/nav_clothes"
-        android:icon="@drawable/percha_de_ropa_1"
+        android:icon="@drawable/ic_clothes"
         android:title="Clothes" />
     <item
         android:id="@+id/nav_add"

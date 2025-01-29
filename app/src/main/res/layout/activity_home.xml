@@ -44,7 +44,7 @@
         android:id="@+id/boton_navigation"
         android:layout_width="350dp"
         android:layout_height="64dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/rounded_nav"
         app:itemIconTint="@drawable/bottom_nav_selector"
