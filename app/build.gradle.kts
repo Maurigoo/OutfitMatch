@@ -47,4 +47,13 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
 
+
+    implementation ("com.lorentzos.swipecards:library:1.0.9")
+    implementation ("com.google.code.gson:gson:2.8.8") // Para guardar favoritos
+
+    implementation ("androidx.recyclerview:recyclerview:1.2.1") // o la versión más reciente
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4") // o la versión más reciente
+
+
+
 }

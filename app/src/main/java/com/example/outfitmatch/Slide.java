@@ -1,8 +1,8 @@
 package com.example.outfitmatch;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Slide;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -11,32 +11,31 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Home extends AppCompatActivity {
+public class Slide extends AppCompatActivity {
 
-    Button articles, ideas;
+    Button like, x, outfit;
 
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_slide);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        articles = findViewById(R.id.botonArticles);
-        ideas = findViewById(R.id.botonIdeas);
+        like = findViewById(R.id.botonLike);
+        x = findViewById(R.id.botonX);
+        outfit = findViewById(R.id.botonOutfit);
 
-        articles.setOnClickListener(view -> {
-            Intent intent = new Intent(Home.this, Clothes.class);
+        outfit.setOnClickListener(view -> {
+            Intent intent = new Intent(Slide.this, Outfits.class);
             startActivity(intent);
         });
 
-        ideas.setOnClickListener(view -> {
-            Intent intent = new Intent(Home.this, Slide.class);
-            startActivity(intent);
-        });
+
     }
 }
