@@ -33,6 +33,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.appcompat)
@@ -48,11 +49,14 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
 
 
-    implementation ("com.lorentzos.swipecards:library:1.0.9")
     implementation ("com.google.code.gson:gson:2.8.8") // Para guardar favoritos
 
     implementation ("androidx.recyclerview:recyclerview:1.2.1") // o la versión más reciente
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4") // o la versión más reciente
+
+    // https://mvnrepository.com/artifact/com.yuyakaido.android/card-stack-view
+    implementation ("com.github.yuyakaido:CardStackView:v2.3.4")
+
 
 
 

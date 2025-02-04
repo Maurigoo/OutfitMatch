@@ -35,7 +35,7 @@ public class Home extends AppCompatActivity {
         });
 
         ideas.setOnClickListener(view -> {
-            Intent intent = new Intent(Home.this, Slide.class);
+            Intent intent = new Intent(Home.this, Transition.class);
             startActivity(intent);
         });
     }

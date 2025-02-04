@@ -51,7 +51,7 @@
             android:name=".AddClothesAlbum"
             android:exported="false" />
         <activity
-            android:name=".Slide"
+            android:name=".Transition"
             android:exported="false" />
         <activity
             android:name=".Clothes"

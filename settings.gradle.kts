@@ -14,10 +14,14 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
-        mavenCentral()
+        google();
+        mavenCentral();
+        maven {
+            setUrl("https://jitpack.io");
+        }
     }
 }
+
 
 rootProject.name = "OutfitMatch"
 include(":app")
