@@ -43,19 +43,19 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation(platform("com.google.firebase:firebase-bom:33.8.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.firebase:firebase-firestore")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
 
 
-    implementation ("com.google.code.gson:gson:2.8.8") // Para guardar favoritos
+    implementation (libs.gson) // Para guardar favoritos
 
-    implementation ("androidx.recyclerview:recyclerview:1.2.1") // o la versión más reciente
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4") // o la versión más reciente
+    implementation (libs.recyclerview) // o la versión más reciente
+    implementation (libs.constraintlayout.v214) // o la versión más reciente
 
     // https://mvnrepository.com/artifact/com.yuyakaido.android/card-stack-view
-    implementation ("com.github.yuyakaido:CardStackView:v2.3.4")
+    implementation (libs.cardstackview)
 
 
 
