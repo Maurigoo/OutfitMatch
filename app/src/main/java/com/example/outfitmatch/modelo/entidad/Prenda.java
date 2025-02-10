@@ -6,9 +6,25 @@ import java.util.List;
 public class Prenda {
 
     private String talla;
-    private List<Material> materiales;//he pensado q una prenda tiene mas de un material pero si quereis
-                                        //para simplificarlo lo dejamos sin array list
+    private String materiales;
     private String color;
+    private int imagenResId;
+
+
+    public Prenda(String talla, String materiales, String color, int imagenResId) {
+        this.talla = talla;
+        this.materiales = materiales;
+        this.color = color;
+        this.imagenResId = imagenResId;
+    }
+
+    public int getImagenResId() {
+        return imagenResId;
+    }
+
+    public void setImagenResId(int imagenResId) {
+        this.imagenResId = imagenResId;
+    }
 
     public String getTalla() {
         return talla;
@@ -18,11 +34,11 @@ public class Prenda {
         this.talla = talla;
     }
 
-    public List<Material> getMateriales() {
+    public String getMateriales() {
         return materiales;
     }
 
-    public void setMateriales(List<Material> materiales) {
+    public void setMateriales(String materiales) {
         this.materiales = materiales;
     }
 

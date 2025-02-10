@@ -36,51 +36,53 @@
         android:id="@+id/cardStackView"
         android:layout_width="208dp"
         android:layout_height="303dp"
-        app:layout_constraintBottom_toTopOf="@id/botonOutfit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.537"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintVertical_bias="0.31" />
 
-    <ImageButton
+
+    <Button
         android:id="@+id/botonLike"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:layout_marginEnd="28dp"
-        android:background="@color/white"
-        android:contentDescription="Botón para registrarse"
-        android:src="@drawable/like"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@color/background_menu"
+        app:icon="@drawable/corazon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
-
-    <ImageButton
-        android:id="@+id/botonX"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:layout_marginEnd="296dp"
-        android:background="@color/white"
-        android:contentDescription="Botón para registrarse"
-        android:src="@drawable/x"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
-
-    <ImageButton
-        android:id="@+id/botonOutfit"
-        android:layout_width="237dp"
-        android:layout_height="80dp"
-        android:background="@color/white"
-        android:contentDescription="Botón para registrarse"
-        android:src="@drawable/outfits"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.805" />
+        app:layout_constraintVertical_bias="0.599" />
+
+    <Button
+        android:id="@+id/botonX"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:backgroundTint="@color/green"
+        app:icon="@drawable/x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.599" />
+
+    <Button
+        android:id="@+id/botonOufits"
+        android:layout_width="149dp"
+        android:layout_height="63dp"
+        android:backgroundTint="@color/azulClaro"
+        android:text="Outfits"
+        android:textColor="@color/background_menu"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.722" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/boton_navigation"
