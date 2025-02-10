@@ -57,6 +57,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.yuyakaido.android/card-stack-view
     implementation (libs.cardstackview)
+    implementation (libs.firebase.storage)
 
 
 
