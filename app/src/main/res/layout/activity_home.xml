@@ -13,39 +13,41 @@
     <!-- Botón "Ideas" -->
 
 
+    <!-- Barra de navegación inferior -->
+
     <Button
         android:id="@+id/botonArticles"
         android:layout_width="120dp"
         android:layout_height="50dp"
+        android:backgroundTint="@color/background_menu"
         android:text="Artículos"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintHorizontal_bias="0.223"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
+        app:layout_constraintVertical_bias="0.129" />
 
     <Button
         android:id="@+id/botonIdeas"
         android:layout_width="120dp"
         android:layout_height="50dp"
+        android:backgroundTint="@color/background_menu"
         android:text="Ideas"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintHorizontal_bias="0.804"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117" />
-
-
-    <!-- Barra de navegación inferior -->
+        app:layout_constraintVertical_bias="0.129" />
 
     <Button
         android:id="@+id/botonOufits"
         android:layout_width="120dp"
         android:layout_height="50dp"
+        android:backgroundTint="@color/green"
         android:text="Oufits"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +55,7 @@
         app:layout_constraintHorizontal_bias="0.539"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.205" />
+        app:layout_constraintVertical_bias="0.21" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/boton_navigation"
@@ -85,5 +87,5 @@
         app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.295" />
+        app:layout_constraintVertical_bias="0.322" />
 </androidx.constraintlayout.widget.ConstraintLayout>
