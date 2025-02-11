@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrar Prendas"
+        android:text="@string/registrarprendas"
         android:textColor="@color/green"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -23,6 +23,7 @@
 
     <ImageButton
         android:id="@+id/botonBuscarTienda"
+        android:contentDescription="@string/boton"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:background="@color/white"
@@ -36,6 +37,7 @@
 
     <ImageButton
         android:id="@+id/botonBuscarAlbum"
+        android:contentDescription="@string/boton"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:background="@color/white"
@@ -49,6 +51,7 @@
 
     <ImageButton
         android:id="@+id/botonAlbum"
+        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="172dp"

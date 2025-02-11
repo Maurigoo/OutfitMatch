@@ -8,22 +8,16 @@
     android:background="@color/white"
     tools:context=".Login">
 
-    <!-- Fondo decorativo -->
-
-    <!-- Campo Email -->
-
-    <!-- Campo Password -->
-
-    <!-- Botón Sign In -->
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="420dp"
         android:layout_height="330dp"
+        android:contentDescription="@string/deco"
         android:src="@drawable/circle2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -32,62 +26,66 @@
     <EditText
         android:id="@+id/SignInEmail"
         android:layout_width="330dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="332dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/gray"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.445" />
 
     <EditText
         android:id="@+id/SignInPassword"
         android:layout_width="330dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="408dp"
         android:layout_marginEnd="40dp"
         android:backgroundTint="@color/gray"
-        android:hint="Password"
+        android:hint="@string/pass"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.566" />
 
     <Button
         android:id="@+id/SignInBoton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
         android:background="@android:color/transparent"
-        android:text="Sign In"
+        android:text="@string/signin"
         android:textAllCaps="false"
         android:textColor="@color/green"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.768" />
+        app:layout_constraintVertical_bias="0.769" />
 
-    <!-- he cambiado la imagen por boton para q el user lo pueda pulsar -->
     <ImageButton
         android:id="@+id/SignInBotonRound"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@drawable/round_button"
+        android:contentDescription="@string/boton"
         android:src="@drawable/arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.771" />
 

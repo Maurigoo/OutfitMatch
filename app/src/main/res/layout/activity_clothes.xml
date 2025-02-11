@@ -10,6 +10,7 @@
     <!-- Botón de Camisas -->
     <ImageButton
         android:id="@+id/botonShirts"
+        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="40dp"
@@ -23,6 +24,7 @@
     <!-- Botón de Todos -->
     <ImageButton
         android:id="@+id/botonAll"
+        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="216dp"
@@ -36,6 +38,7 @@
     <!-- Botón de Pantalones -->
     <ImageButton
         android:id="@+id/botonPants"
+        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="40dp"
@@ -49,6 +52,7 @@
     <!-- Botón de Vestidos -->
     <ImageButton
         android:id="@+id/botonDresses"
+        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="216dp"
@@ -62,6 +66,7 @@
     <!-- Botón de Zapatos -->
     <ImageButton
         android:id="@+id/botonShoes"
+        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="40dp"
@@ -75,6 +80,7 @@
     <!-- Botón de Accesorios -->
     <ImageButton
         android:id="@+id/botonAccessories"
+        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="216dp"
