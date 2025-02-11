@@ -19,7 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Clothes extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    //private RecyclerView recyclerView;
     private AdaptadorClothes adapter;
 
     @Override
@@ -53,8 +53,8 @@ public class Clothes extends AppCompatActivity {
         });
 
 
-        recyclerView = findViewById(R.id.recyclerViewClothes);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+//        recyclerView = findViewById(R.id.recyclerViewClothes);
+    //    recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         // Obtener la categoría pasada desde ClothesActivity
         String categoria = getIntent().getStringExtra("categoria");
@@ -72,7 +72,7 @@ public class Clothes extends AppCompatActivity {
         adapter = new AdaptadorClothes(prendas, prenda ->
                 Toast.makeText(this, "Seleccionaste: " + prenda.getTalla(), Toast.LENGTH_SHORT).show()
         );
-        recyclerView.setAdapter(adapter);
+        //recyclerView.setAdapter(adapter);
     }
 
     private List<Integer> obtenerImagenesPorCategoria(String categoria) {
