@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.outfitmatch.adaptador.AdaptadorTransition;
-import com.example.outfitmatch.modelo.entidad.Prenda;
+import com.example.outfitmatch.modelo.entidad.*;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
@@ -77,9 +77,10 @@ public class Transition extends AppCompatActivity {
     private List<Prenda> getPrendas() {
         List<Prenda> prendas = new ArrayList<>();
 
-        prendas.add(new Prenda("M", null, "Rojo", R.drawable.prenda1));
-        prendas.add(new Prenda("L", null, "Azul", R.drawable.prenda2));
-        prendas.add(new Prenda("S", null, "Negro", R.drawable.prenda3));
+
+        prendas.add(new Prenda(R.drawable.prenda1, "M", "Rojo", "Algodón"));
+        prendas.add(new Prenda(R.drawable.prenda2, "L", "Azul", "Poliéster"));
+        prendas.add(new Prenda(R.drawable.prenda3, "S", "Negro", "Seda"));
 
         return prendas;
     }

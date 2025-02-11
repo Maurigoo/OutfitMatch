@@ -31,7 +31,7 @@ public class AdaptadorTransition extends RecyclerView.Adapter<AdaptadorTransitio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Prenda prenda = prendas.get(position);
-        holder.imgCardPrenda.setImageResource(prenda.getImagenResId());
+        holder.imgCardPrenda.setImageResource(prenda.getImageResource());
     }
 
     @Override
