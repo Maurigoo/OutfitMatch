@@ -12,77 +12,94 @@
         android:id="@+id/botonShirts"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/rectanglegreen"
         android:src="@drawable/shirts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.185" />
 
     <!-- Botón de Todos -->
     <ImageButton
         android:id="@+id/botonAll"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="236dp"
+        android:layout_marginEnd="216dp"
         android:background="@drawable/rectanglegreen"
         android:src="@drawable/all"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.185" />
 
     <!-- Botón de Pantalones -->
     <ImageButton
         android:id="@+id/botonPants"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/rectanglegreen"
         android:src="@drawable/pants"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.465" />
 
     <!-- Botón de Vestidos -->
     <ImageButton
         android:id="@+id/botonDresses"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="236dp"
+        android:layout_marginEnd="216dp"
         android:background="@drawable/rectanglegreen"
         android:src="@drawable/dresses"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.465" />
 
     <!-- Botón de Zapatos -->
     <ImageButton
         android:id="@+id/botonShoes"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/rectanglegreen"
         android:src="@drawable/shoes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.808" />
+        app:layout_constraintVertical_bias="0.738" />
 
     <!-- Botón de Accesorios -->
     <ImageButton
         android:id="@+id/botonAccessories"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="236dp"
+        android:layout_marginEnd="216dp"
         android:background="@drawable/rectanglegreen"
         android:src="@drawable/accessories"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.808" />
+        app:layout_constraintVertical_bias="0.738" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/boton_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_nav"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
