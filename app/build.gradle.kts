@@ -58,7 +58,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.yuyakaido.android/card-stack-view
     implementation (libs.cardstackview)
 
-
+    implementation ("com.google.android.material:material:1.9.0")
 
 
 }
