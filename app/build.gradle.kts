@@ -59,7 +59,7 @@ dependencies {
     implementation (libs.cardstackview)
     implementation (libs.firebase.storage)
 
-
+    implementation ("com.google.android.material:material:1.9.0")
 
 
 }
