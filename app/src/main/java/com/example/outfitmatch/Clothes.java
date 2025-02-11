@@ -38,14 +38,14 @@ public class Clothes extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
 
-                if (itemId == R.id.nav_clothes){
+                if (itemId == R.id.nav_home){
                     return true;
-                } else if (itemId == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), Perfil.class));
+                } else if (itemId == R.id.nav_clothes) {
+                    startActivity(new Intent(getApplicationContext(), Clothes.class));
                 } else if (itemId == R.id.nav_add) {
                     startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-                } else if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home.class));
+                } else if (itemId == R.id.nav_profile) {
+                    startActivity(new Intent(getApplicationContext(), Perfil.class));
                 }
                 overridePendingTransition(0, 0);
                 return true;
