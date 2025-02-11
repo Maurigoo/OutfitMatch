@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">OutfitMatch</string>
+
+    <string name="deco">deco</string>
+    <string name="boton">boton</string>
+    <string name="fotoPerfil">foto perfil</string>
+    <string name="deslizar">deslizar</string>
+
+    <string name="welcome">Welcome!</string>
+    <string name="ready">ready to create your outfit?</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign up</string>
+
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
+    <string name="signin">Sign In</string>
+
+    <string name="name">Name</string>
+    <string name="phone">Number Phone</string>
+
+    <string name="outfits">Outfits</string>
+    <string name="ideas">Ideas</string>
+    <string name="articulos">Artículos</string>
+
+    <string name="profile">Profile</string>
+
+    <string name="swipe">Swipe and choose the outfits you like</string>
+
+    <string name="zara">Zara</string>
+    <string name="bershka">Bershka</string>
+    <string name="registrarprendas">Registrar Prendas</string>
 </resources>

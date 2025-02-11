@@ -8,8 +8,8 @@
     tools:context=".SignUp">
 
     <ImageView
-
         android:layout_width="240dp"
+        android:contentDescription="@string/deco"
         android:layout_height="240dp"
         android:layout_marginStart="188dp"
         android:rotation="90"
@@ -21,100 +21,106 @@
     <EditText
         android:id="@+id/SignUpName"
         android:layout_width="330dp"
-        android:layout_height="48dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/gray"
-        android:hint="Name"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:autofillHints="name"
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintVertical_bias="0.364" />
 
     <EditText
         android:id="@+id/SignUpEmail"
         android:layout_width="330dp"
-        android:layout_height="48dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/gray"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
+        android:autofillHints="emailAddress"
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.467" />
+        app:layout_constraintVertical_bias="0.446" />
 
     <EditText
         android:id="@+id/SignUpPassword"
         android:layout_width="330dp"
-        android:layout_height="48dp"
+        android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:backgroundTint="@color/gray"
-        android:hint="Password"
+        android:hint="@string/pass"
         android:inputType="textPassword"
+        android:autofillHints="password"
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
+        app:layout_constraintVertical_bias="0.529" />
 
     <EditText
         android:id="@+id/SignUpPhone"
         android:layout_width="330dp"
-        android:layout_height="48dp"
+        android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:backgroundTint="@color/gray"
-        android:hint="Number Phone"
+        android:hint="@string/phone"
+        android:inputType="phone"
+        android:autofillHints="phone"
         android:padding="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64" />
+        app:layout_constraintVertical_bias="0.612" />
 
     <Button
         android:id="@+id/SignUpBoton"
         android:layout_width="150dp"
         android:layout_height="48dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="28dp"
         android:background="@android:color/transparent"
-        android:text="Sign Up"
+        android:text="@string/signup"
         android:textAllCaps="false"
         android:textColor="@color/green"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.819" />
+        app:layout_constraintVertical_bias="0.769" />
 
     <ImageButton
         android:id="@+id/SignUpBotonRound"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/round_button"
-        android:contentDescription="Botón para registrarse"
+        android:contentDescription="@string/boton"
         android:src="@drawable/arrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.819" />
+        app:layout_constraintVertical_bias="0.769" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
