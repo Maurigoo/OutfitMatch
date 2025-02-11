@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends AppCompatActivity {
 
-    Button articles, ideas;
+    Button articles, ideas, outfit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class Home extends AppCompatActivity {
 
         articles = findViewById(R.id.botonArticles);
         ideas = findViewById(R.id.botonIdeas);
+        outfit = findViewById(R.id.botonOufits);
 
         articles.setOnClickListener(view -> {
             Intent intent = new Intent(Home.this, Clothes.class);
@@ -58,6 +59,11 @@ public class Home extends AppCompatActivity {
 
         ideas.setOnClickListener(view -> {
             Intent intent = new Intent(Home.this, Transition.class);
+            startActivity(intent);
+        });
+
+        outfit.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, Outfits.class);
             startActivity(intent);
         });
     }
