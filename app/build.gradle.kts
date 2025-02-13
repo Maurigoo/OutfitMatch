@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.firebase.inappmessaging)
+    implementation(libs.cronet.embedded)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -59,7 +60,11 @@ dependencies {
     implementation (libs.cardstackview)
     implementation (libs.firebase.storage)
 
-    implementation ("com.google.android.material:material:1.9.0")
+    implementation (libs.material.v190)
+    implementation (libs.glide)
+    annotationProcessor (libs.compiler)
+
+
 
 
 }
