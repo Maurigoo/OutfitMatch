@@ -17,53 +17,53 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.594"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.087" />
 
     <ImageButton
         android:id="@+id/botonBuscarTienda"
-        android:contentDescription="@string/boton"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:background="@color/white"
+        android:contentDescription="@string/boton"
         android:src="@drawable/buscartienda2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.794"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.262" />
+        app:layout_constraintVertical_bias="0.174" />
 
     <ImageButton
         android:id="@+id/botonBuscarAlbum"
-        android:contentDescription="@string/boton"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:background="@color/white"
+        android:contentDescription="@string/boton"
         android:src="@drawable/seleccionar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.269"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.262" />
+        app:layout_constraintVertical_bias="0.174" />
 
+    <!-- Aquí se agregará la imagen desde Firebase Storage -->
     <ImageButton
         android:id="@+id/botonAlbum"
-        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="172dp"
+        android:layout_marginEnd="132dp"
         android:background="@drawable/rectanglegrey"
+        android:contentDescription="@string/boton"
         android:src="@drawable/album"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.351" />
 
-    <!-- Aquí se agregará la imagen desde Firebase Storage -->
     <ImageView
         android:id="@+id/imageViewPrenda"
         android:layout_width="200dp"
