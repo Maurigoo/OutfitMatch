@@ -3,13 +3,15 @@ package com.example.outfitmatch;
 import static androidx.activity.result.ActivityResultCallerKt.registerForActivityResult;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -22,16 +24,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.bumptech.glide.Glide;
 
-
+/**
+ * Clase que permite a los usuarios agregar prendas desde la galería o una tienda.
+ * También maneja la navegación entre diferentes secciones de la aplicación.
+ */
 public class AddClothesAlbum extends AppCompatActivity {
 
     private ImageButton buscarTienda, album;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private DaoPrenda daoPrenda;
 
+    /**
+     * Método llamado cuando se crea la actividad. Se encarga de inicializar la interfaz y los eventos de los botones.
+     * @param savedInstanceState Estado previo de la actividad, si existe.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,11 +85,13 @@ public class AddClothesAlbum extends AppCompatActivity {
         buscarTienda = findViewById(R.id.botonBuscarTienda);
         album = findViewById(R.id.botonAlbum);
 
+        // Configura la acción para buscar prendas en la tienda
         buscarTienda.setOnClickListener(v -> {
             Intent intent = new Intent(AddClothesAlbum.this, AddClothesStore.class);
             startActivity(intent);
         });
 
+        // Configura la acción para seleccionar una imagen de la galería
         album.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
@@ -89,38 +99,59 @@ public class AddClothesAlbum extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método que sube una imagen seleccionada a Firebase Storage.
+     * @param imagenUri URI de la imagen seleccionada.
+     */
     private void subirImagenAFirebase(Uri imagenUri) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String userId = user.getUid();
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-            StorageReference fileReference = storageRef.child("images/" + userId + "/" + System.currentTimeMillis() + ".jpg");
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Subiendo imagen...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
 
-            // Subir la imagen a Firebase Storage
-            fileReference.putFile(imagenUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        // Obtener la URL de la imagen subida
-                        fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                            // Ahora tienes la URL de descarga
-                            String imageUrl = uri.toString();
-                            // Aquí puedes usar la URL de la imagen para actualizar la UI o guardarla en tu base de datos
-                            Toast.makeText(this, "Imagen subida con éxito", Toast.LENGTH_SHORT).show();
-                            cargarImagenEnUI(imageUrl); // Llamada a la función que carga la imagen en la interfaz
+            new Handler().postDelayed(() -> {
+                String userId = user.getUid();
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference fileReference = storageRef.child("images/" + userId + "/" + System.currentTimeMillis() + ".jpg");
+
+                // Subir la imagen a Firebase Storage
+                fileReference.putFile(imagenUri)
+                        .addOnSuccessListener(taskSnapshot -> {
+                            fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                                String imageUrl = uri.toString();
+                                mostrarDialogoExito();
+                                cargarImagenEnUI(imageUrl);
+                                progressDialog.dismiss();
+                            });
+                        })
+                        .addOnFailureListener(e -> {
+                            progressDialog.dismiss();
                         });
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Error al subir imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-        } else {
-            Toast.makeText(this, "Debes iniciar sesión para subir imágenes", Toast.LENGTH_SHORT).show();
+            }, 2000);
         }
     }
 
-    private void cargarImagenEnUI(String imageUrl) {
-        ImageView imageView = findViewById(R.id.imageViewPrenda); // Aquí pones el ID de tu ImageView
-        Glide.with(this)
-                .load(imageUrl) // La URL de la imagen subida
-                .into(imageView); // Carga la imagen en el ImageView
+    /**
+     * Método que muestra un diálogo de éxito cuando la imagen ha sido subida correctamente.
+     */
+    private void mostrarDialogoExito() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Éxito")
+                .setMessage("Imagen subida con éxito")
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 
+    /**
+     * Método que carga la imagen subida en la interfaz de usuario.
+     * @param imageUrl URL de la imagen subida.
+     */
+    private void cargarImagenEnUI(String imageUrl) {
+        ImageView imageView = findViewById(R.id.imageViewPrenda); // ImageView donde se mostrará la imagen
+        Glide.with(this)
+                .load(imageUrl) // Carga la imagen desde la URL
+                .into(imageView); // Muestra la imagen en el ImageView
+    }
 }
