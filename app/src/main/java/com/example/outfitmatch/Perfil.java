@@ -1,8 +1,10 @@
 package com.example.outfitmatch;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -12,13 +14,37 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Perfil extends AppCompatActivity {
+    private FirebaseAuth  mAuth;
+    private TextView nombreUsuario, emailUsuario;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+
+        nombreUsuario = findViewById(R.id.nameTextView);
+        emailUsuario = findViewById(R.id.emailTextView);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser usuarioActual = mAuth.getCurrentUser();
+
+        if (usuarioActual != null){
+            String name = usuarioActual.getDisplayName();
+            String email = usuarioActual.getEmail();
+
+            nombreUsuario.setText(name != null ? name : "Nombre no disponible");
+            emailUsuario.setText(email != null ? email : "Email no disponible");
+        }else {
+            nombreUsuario.setText("No hay usuario autenticado");
+            emailUsuario.setText("");
+        }
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
