@@ -2,115 +2,70 @@ package com.example.outfitmatch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.outfitmatch.adaptador.AdaptadorClothes;
-import com.example.outfitmatch.modelo.entidad.Prenda;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Clothes extends AppCompatActivity {
-
-    //private RecyclerView recyclerView;
-    private AdaptadorClothes adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
 
+        ImageButton botonShirts = findViewById(R.id.botonShirts);
+        ImageButton botonPants = findViewById(R.id.botonPants);
+        ImageButton botonShoes = findViewById(R.id.botonShoes);
+        ImageButton botonDresses = findViewById(R.id.botonDresses);
+        ImageButton botonAccessories = findViewById(R.id.botonAccessories);
+        ImageButton botonAll = findViewById(R.id.botonAll);
 
+        // Listener para cada botón
+        botonShirts.setOnClickListener(view -> openClothesListActivity("Shirts"));
+        botonPants.setOnClickListener(view -> openClothesListActivity("Pants"));
+        botonShoes.setOnClickListener(view -> openClothesListActivity("Shoes"));
+        botonDresses.setOnClickListener(view -> openClothesListActivity("Dresses"));
+        botonAccessories.setOnClickListener(view -> openClothesListActivity("Accessories"));
+        botonAll.setOnClickListener(view -> openClothesListActivity("All"));
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_clothes);
 
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener(){
-
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
 
-                if (itemId == R.id.nav_home){
+                if (itemId == R.id.nav_home) {
+                    startActivity(new Intent(getApplicationContext(), Home.class));
+                    overridePendingTransition(0, 0);
                     return true;
                 } else if (itemId == R.id.nav_clothes) {
                     startActivity(new Intent(getApplicationContext(), Clothes.class));
+                    overridePendingTransition(0, 0);
+                    return true;
                 } else if (itemId == R.id.nav_add) {
                     startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
+                    overridePendingTransition(0, 0);
+                    return true;
                 } else if (itemId == R.id.nav_profile) {
                     startActivity(new Intent(getApplicationContext(), Perfil.class));
+                    overridePendingTransition(0, 0);
+                    return true;
                 }
-                overridePendingTransition(0, 0);
-                return true;
+                return false;
             }
         });
-
-
-//        recyclerView = findViewById(R.id.recyclerViewClothes);
-    //    recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-        // Obtener la categoría pasada desde ClothesActivity
-        String categoria = getIntent().getStringExtra("categoria");
-
-        // Generar la lista de imágenes según la categoría
-        List<Integer> imagenes = obtenerImagenesPorCategoria(categoria);
-
-        // Configurar el adaptador con las imágenes obtenidas
-        List<Prenda> prendas = new ArrayList<>();
-        for (Integer imagen : imagenes) {
-            prendas.add(new Prenda(imagen, "M", "Algodón", "Blanco"));
-        }
-
-
-        adapter = new AdaptadorClothes(prendas, prenda ->
-                Toast.makeText(this, "Seleccionaste: " + prenda.getTalla(), Toast.LENGTH_SHORT).show()
-        );
-        //recyclerView.setAdapter(adapter);
     }
 
-    private List<Integer> obtenerImagenesPorCategoria(String categoria) {
-        List<Integer> imagenes = new ArrayList<>();
-        switch (categoria) {
-            case "shirts":
-                imagenes.add(R.drawable.shirt1);
-                imagenes.add(R.drawable.shirt2);
-                imagenes.add(R.drawable.shirt3);
-                break;
-            case "pants":
-                imagenes.add(R.drawable.pants1);
-                imagenes.add(R.drawable.pants2);
-                imagenes.add(R.drawable.pants3);
-                break;
-            case "shoes":
-                imagenes.add(R.drawable.shoes1);
-                imagenes.add(R.drawable.shoes2);
-                imagenes.add(R.drawable.shoes3);
-                break;
-            case "dresses":
-                imagenes.add(R.drawable.dress1);
-                imagenes.add(R.drawable.dress2);
-                imagenes.add(R.drawable.dress3);
-                break;
-            case "accessories":
-                imagenes.add(R.drawable.accessory1);
-                imagenes.add(R.drawable.accessory2);
-                imagenes.add(R.drawable.accessory3);
-                break;
-            case "all":
-                imagenes.add(R.drawable.shirt1);
-                imagenes.add(R.drawable.pants1);
-                imagenes.add(R.drawable.shoes1);
-                imagenes.add(R.drawable.dress1);
-                imagenes.add(R.drawable.accessory1);
-                break;
-        }
-        return imagenes;
+    // Método para abrir la actividad de lista de ropa
+    private void openClothesListActivity(String category) {
+        Intent intent = new Intent(Clothes.this, ClothesListActivity.class);
+        intent.putExtra("CATEGORY", category);  // Pasar la categoría seleccionada
+        startActivity(intent);
     }
 }

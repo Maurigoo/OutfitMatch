@@ -53,7 +53,7 @@ public class Home extends AppCompatActivity {
         outfit = findViewById(R.id.botonOufits);
 
         articles.setOnClickListener(view -> {
-            Intent intent = new Intent(Home.this, ClothesActivity.class);
+            Intent intent = new Intent(Home.this, Clothes.class);
             startActivity(intent);
         });
 

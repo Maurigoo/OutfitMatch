@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.outfitmatch.adaptador.AdaptadorClothes;
@@ -25,7 +25,8 @@ public class ClothesListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_clothes_list);
 
         recyclerView = findViewById(R.id.recyclerViewClothes);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // Cambia a GridLayoutManager con 2 columnas
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         // Obtener la categoría seleccionada desde el Intent
         String category = getIntent().getStringExtra("CATEGORY");
@@ -49,40 +50,52 @@ public class ClothesListActivity extends AppCompatActivity {
         // Aquí debes cargar las prendas correspondientes a la categoría seleccionada
         switch (category) {
             case "Shirts":
-
-                clothesList.add(new Prenda(R.drawable.shirt1, "M", "Algodón", "Blanco"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "M", "Algodón", "Blanco"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
                 clothesList.add(new Prenda(R.drawable.shirt2, "32", "Denim", "Azul"));
                 clothesList.add(new Prenda(R.drawable.shirt2, "32", "Denim", "Azul"));
-                clothesList.add(new Prenda(R.drawable.shirt2, "32", "Denim", "Azul"));
-                clothesList.add(new Prenda(R.drawable.shirt2, "32", "Denim", "Azul"));
-                clothesList.add(new Prenda(R.drawable.shirt2, "32", "Denim", "Azul"));
-
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "32", "Denim", "Azul"));
                 break;
             case "Pants":
                 clothesList.add(new Prenda(R.drawable.pants1, "32", "Denim", "Azul"));
                 clothesList.add(new Prenda(R.drawable.pants2, "34", "Lino", "Negro"));
                 clothesList.add(new Prenda(R.drawable.pants2, "34", "Lino", "Negro"));
+                clothesList.add(new Prenda(R.drawable.pants1, "32", "Denim", "Azul"));
+                clothesList.add(new Prenda(R.drawable.pants2, "34", "Lino", "Negro"));
                 break;
             case "Shoes":
                 clothesList.add(new Prenda(R.drawable.shoes1, "42", "Cuero", "Marrón"));
                 clothesList.add(new Prenda(R.drawable.shoes2, "40", "Sintético", "Negro"));
+                clothesList.add(new Prenda(R.drawable.shoes1, "42", "Cuero", "Marrón"));
+                clothesList.add(new Prenda(R.drawable.shoes1, "42", "Cuero", "Marrón"));
                 clothesList.add(new Prenda(R.drawable.shoes2, "40", "Sintético", "Negro"));
                 clothesList.add(new Prenda(R.drawable.shoes2, "40", "Sintético", "Negro"));
                 break;
             case "Dresses":
                 clothesList.add(new Prenda(R.drawable.dress1, "S", "Seda", "Rojo"));
                 clothesList.add(new Prenda(R.drawable.dress2, "M", "Algodón", "Blanco"));
+                clothesList.add(new Prenda(R.drawable.dress1, "S", "Seda", "Rojo"));
+                clothesList.add(new Prenda(R.drawable.dress1, "S", "Seda", "Rojo"));
                 clothesList.add(new Prenda(R.drawable.dress2, "M", "Algodón", "Blanco"));
                 clothesList.add(new Prenda(R.drawable.dress2, "M", "Algodón", "Blanco"));
                 break;
             case "Accessories":
                 clothesList.add(new Prenda(R.drawable.accessory1, "Único", "Metal", "Plateado"));
                 clothesList.add(new Prenda(R.drawable.accessory2, "Único", "Cuero", "Negro"));
+                clothesList.add(new Prenda(R.drawable.accessory1, "Único", "Metal", "Plateado"));
+                clothesList.add(new Prenda(R.drawable.accessory1, "Único", "Metal", "Plateado"));
                 clothesList.add(new Prenda(R.drawable.accessory2, "Único", "Cuero", "Negro"));
                 clothesList.add(new Prenda(R.drawable.accessory2, "Único", "Cuero", "Negro"));
                 break;
             case "All":
-                clothesList.add(new Prenda(R.drawable.shirt1, "M", "Algodón", "Blanco"));
+                clothesList.add(new Prenda(R.drawable.basic_shirt, "M", "Algodón", "Blanco"));
                 clothesList.add(new Prenda(R.drawable.pants1, "32", "Denim", "Azul"));
                 clothesList.add(new Prenda(R.drawable.shoes1, "42", "Cuero", "Marrón"));
                 clothesList.add(new Prenda(R.drawable.dress1, "S", "Seda", "Rojo"));
