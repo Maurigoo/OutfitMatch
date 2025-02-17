@@ -1,5 +1,6 @@
 package com.example.outfitmatch;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,10 +11,9 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.outfitmatch.R;
+import com.example.outfitmatch.StartActivity;
 import com.example.outfitmatch.modelo.entidad.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,13 +31,6 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
-
-        // Configuración para la pantalla de inicio
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         // Inicialización de Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -72,9 +65,17 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
+        // Crear un ProgressDialog
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Registrando usuario...");
+        progressDialog.setCancelable(false); // El usuario no puede cancelar la operación
+        progressDialog.show();
+
         // Registrar usuario en Firebase Authentication
         mAuth.createUserWithEmailAndPassword(nuevoEmail, nuevoPass)
                 .addOnCompleteListener(this, task -> {
+                    progressDialog.dismiss();  // Desaparecer el ProgressDialog una vez que se termine
+
                     if (task.isSuccessful()) {
                         // Obtener el usuario registrado
                         FirebaseUser user = mAuth.getCurrentUser();
