@@ -3,25 +3,49 @@ package com.example.outfitmatch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.outfitmatch.adaptador.AdaptadorOutfits;
+import com.example.outfitmatch.modelo.entidad.Prenda;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Outfits extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private AdaptadorOutfits adapter;
+    private List<Prenda> savedOutfits = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outfits);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
+        recyclerView = findViewById(R.id.recyclerViewClothes);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Recibir los outfits guardados desde la actividad anterior
+        Intent intent = getIntent();
+        if (intent != null) {
+            savedOutfits = (List<Prenda>) intent.getSerializableExtra("savedOutfits");
+            if (savedOutfits == null) {
+                savedOutfits = new ArrayList<>();
+            }
+        }
+
+        // Configurar el adaptador con los outfits guardados
+        adapter = new AdaptadorOutfits(savedOutfits);
+        recyclerView.setAdapter(adapter);
+
+        // Configurar BottomNavigationView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

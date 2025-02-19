@@ -2,20 +2,20 @@ package com.example.outfitmatch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-
+import com.example.outfitmatch.Outfits;
+import com.example.outfitmatch.R;
 import com.example.outfitmatch.adaptador.AdaptadorTransition;
-import com.example.outfitmatch.modelo.entidad.*;
+import com.example.outfitmatch.modelo.entidad.Prenda;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
+import com.yuyakaido.android.cardstackview.CardStackListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +27,11 @@ public class Transition extends AppCompatActivity {
     CardStackLayoutManager manager;
     AdaptadorTransition adapter;
 
+    private List<Prenda> savedOutfits = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_transition);
 
         like = findViewById(R.id.botonLike);
@@ -42,14 +43,21 @@ public class Transition extends AppCompatActivity {
 
         outfit.setOnClickListener(view -> {
             Intent intent = new Intent(Transition.this, Outfits.class);
+            intent.putExtra("savedOutfits", (ArrayList<Prenda>) savedOutfits);
             startActivity(intent);
         });
 
-        like.setOnClickListener(view -> swipeCard(Direction.Right));
+        like.setOnClickListener(view -> {
+            int topPosition = manager.getTopPosition();
+            if (topPosition > 0) {
+                Prenda prenda = getPrendas().get(topPosition - 1);
+                savedOutfits.add(prenda);
+                saveOutfitsToPreferences(savedOutfits);
+                swipeCard(Direction.Right);
+            }
+        });
 
         x.setOnClickListener(view -> swipeCard(Direction.Left));
-
-
     }
 
     private void swipeCard(Direction direction) {
@@ -60,6 +68,7 @@ public class Transition extends AppCompatActivity {
     }
 
     private void setupCardStackView() {
+        // Initialize the CardStackLayoutManager
         manager = new CardStackLayoutManager(this);
         manager.setVisibleCount(3);
         manager.setTranslationInterval(8.0f);
@@ -69,19 +78,62 @@ public class Transition extends AppCompatActivity {
         manager.setDirections(Direction.HORIZONTAL);
         manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
 
+        // Set up the adapter for the view
         adapter = new AdaptadorTransition(getPrendas());
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
+
+        // Set the listener on the CardStackLayoutManager
+        manager.setStackFrom(Direction.HORIZONTAL);
+        cardStackView.setCardStackListener(new CardStackListener() {
+            @Override
+            public void onCardDragging(Direction direction, float ratio) {
+                // Handle card dragging
+            }
+
+            @Override
+            public void onCardSwiped(Direction direction) {
+                if (direction == Direction.Right) {
+                    int topPosition = manager.getTopPosition() - 1;
+                    if (topPosition >= 0) {
+                        Prenda prenda = getPrendas().get(topPosition);
+                        savedOutfits.add(prenda);
+                        saveOutfitsToPreferences(savedOutfits);
+                    }
+                }
+            }
+
+            @Override
+            public void onCardRewound() {
+                // Handle card rewind
+            }
+
+            @Override
+            public void onCardCanceled() {
+                // Handle card cancel
+            }
+
+            @Override
+            public void onCardAppeared(View view, int position) {
+                // Handle card appearance
+            }
+
+            @Override
+            public void onCardDisappeared(View view, int position) {
+                // Handle card disappearance
+            }
+        });
     }
 
     private List<Prenda> getPrendas() {
         List<Prenda> prendas = new ArrayList<>();
-
-
         prendas.add(new Prenda(R.drawable.prenda1, "M", "Rojo", "Algodón"));
         prendas.add(new Prenda(R.drawable.prenda2, "L", "Azul", "Poliéster"));
         prendas.add(new Prenda(R.drawable.prenda3, "S", "Negro", "Seda"));
-
         return prendas;
+    }
+
+    private void saveOutfitsToPreferences(List<Prenda> outfits) {
+        // Save the list of outfits in SharedPreferences
     }
 }

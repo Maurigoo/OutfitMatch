@@ -1,6 +1,8 @@
 package com.example.outfitmatch.modelo.entidad;
 
-public class Prenda {
+import java.io.Serializable;
+
+public class Prenda implements Serializable {
     private int imageResource;
     private String talla;
     private String material;

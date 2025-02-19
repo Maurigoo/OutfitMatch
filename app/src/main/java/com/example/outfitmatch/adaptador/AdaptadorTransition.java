@@ -1,4 +1,4 @@
-package com.example.outfitmatch.adaptador;
+ package com.example.outfitmatch.adaptador;
 
 import android.view.LayoutInflater;
 import android.view.View;
