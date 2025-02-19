@@ -16,6 +16,7 @@ import com.yuyakaido.android.cardstackview.Direction;
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 import com.yuyakaido.android.cardstackview.CardStackListener;
+import com.yuyakaido.android.cardstackview.StackFrom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,24 +69,8 @@ public class Transition extends AppCompatActivity {
     }
 
     private void setupCardStackView() {
-        // Initialize the CardStackLayoutManager
-        manager = new CardStackLayoutManager(this);
-        manager.setVisibleCount(3);
-        manager.setTranslationInterval(8.0f);
-        manager.setScaleInterval(0.95f);
-        manager.setSwipeThreshold(0.3f);
-        manager.setMaxDegree(20.0f);
-        manager.setDirections(Direction.HORIZONTAL);
-        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
-
-        // Set up the adapter for the view
-        adapter = new AdaptadorTransition(getPrendas());
-        cardStackView.setLayoutManager(manager);
-        cardStackView.setAdapter(adapter);
-
-        // Set the listener on the CardStackLayoutManager
-        manager.setStackFrom(Direction.HORIZONTAL);
-        cardStackView.setCardStackListener(new CardStackListener() {
+        // Initialize the CardStackLayoutManager with CardStackListener
+        manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
             public void onCardDragging(Direction direction, float ratio) {
                 // Handle card dragging
@@ -123,6 +108,21 @@ public class Transition extends AppCompatActivity {
                 // Handle card disappearance
             }
         });
+
+        // Set properties for the manager
+        manager.setStackFrom(StackFrom.None); // Corrected usage
+        manager.setVisibleCount(3);
+        manager.setTranslationInterval(8.0f);
+        manager.setScaleInterval(0.95f);
+        manager.setSwipeThreshold(0.3f);
+        manager.setMaxDegree(20.0f);
+        manager.setDirections(Direction.HORIZONTAL);
+        manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
+
+        // Set up the adapter for the view
+        adapter = new AdaptadorTransition(getPrendas());
+        cardStackView.setLayoutManager(manager);
+        cardStackView.setAdapter(adapter);
     }
 
     private List<Prenda> getPrendas() {
