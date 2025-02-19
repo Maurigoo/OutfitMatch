@@ -2,38 +2,43 @@ package com.example.outfitmatch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Slide;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends AppCompatActivity {
 
     Button articles, ideas, outfit;
+    ImageView gifImageView; // Declara el ImageView para el GIF
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Inicializa el ImageView para el GIF
+        gifImageView = findViewById(R.id.gifImageView);
+
+        // Cargar el GIF con Glide para que se reproduzca infinitamente
+        Glide.with(this)
+                .load(R.drawable.hanger_animation) // Asegúrate de que el GIF esté en la carpeta res/drawable
+                .into(gifImageView);
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
 
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener(){
-
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
 
-                if (itemId == R.id.nav_home){
+                if (itemId == R.id.nav_home) {
                     return true;
                 } else if (itemId == R.id.nav_clothes) {
                     startActivity(new Intent(getApplicationContext(), Clothes.class));
@@ -47,7 +52,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-
+        // Botones para las otras actividades
         articles = findViewById(R.id.botonArticles);
         ideas = findViewById(R.id.botonIdeas);
         outfit = findViewById(R.id.botonOufits);
