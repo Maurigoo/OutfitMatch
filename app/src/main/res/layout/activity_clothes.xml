@@ -12,100 +12,122 @@
     <!-- GIF en la parte superior -->
 
     <!-- Botón de Camisas -->
-    <ImageView
-        android:id="@+id/gifImageView"
-        android:layout_width="145dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/gif_description"
-        android:src="@drawable/hanger_animation"
+
+
+    <!-- Botón de Todos -->
+
+    <!-- Botón de Pantalones -->
+
+    <!-- Botón de Vestidos -->
+
+    <!-- Botón de Zapatos -->
+
+    <!-- Botón de Accesorios -->
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="272dp"
+        android:layout_height="170dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.849"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.009" />
+
+    <TextView
+        android:id="@+id/totalPrendasText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 prendas"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/boton_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.194" />
 
     <ImageButton
         android:id="@+id/botonShirts"
-        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="36dp"
         android:background="@drawable/rectangleblue"
+        android:contentDescription="@string/boton"
         android:src="@drawable/shirts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintVertical_bias="0.281" />
 
-    <!-- Botón de Todos -->
     <ImageButton
         android:id="@+id/botonAll"
-        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="216dp"
         android:background="@drawable/rectangleblue"
+        android:contentDescription="@string/boton"
         android:src="@drawable/all"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintVertical_bias="0.281" />
 
-    <!-- Botón de Pantalones -->
     <ImageButton
         android:id="@+id/botonPants"
-        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="36dp"
         android:background="@drawable/rectangleblue"
+        android:contentDescription="@string/boton"
         android:src="@drawable/pants"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.465" />
+        app:layout_constraintVertical_bias="0.544" />
 
-    <!-- Botón de Vestidos -->
     <ImageButton
         android:id="@+id/botonDresses"
-        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="216dp"
         android:background="@drawable/rectangleblue"
+        android:contentDescription="@string/boton"
         android:src="@drawable/dresses"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.465" />
+        app:layout_constraintVertical_bias="0.544" />
 
-    <!-- Botón de Zapatos -->
     <ImageButton
         android:id="@+id/botonShoes"
-        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="36dp"
         android:background="@drawable/rectangleblue"
+        android:contentDescription="@string/boton"
         android:src="@drawable/shoes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.738" />
+        app:layout_constraintVertical_bias="0.799" />
 
-    <!-- Botón de Accesorios -->
     <ImageButton
         android:id="@+id/botonAccessories"
-        android:contentDescription="@string/boton"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginEnd="216dp"
         android:background="@drawable/rectangleblue"
+        android:contentDescription="@string/boton"
         android:src="@drawable/accessories"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.738" />
+        app:layout_constraintVertical_bias="0.799" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/boton_navigation"
