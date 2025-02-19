@@ -6,9 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ClothesActivity">
+    tools:context=".Clothes"
+    tools:ignore="ExtraText">
+
+    <!-- GIF en la parte superior -->
 
     <!-- Botón de Camisas -->
+    <ImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="145dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/gif_description"
+        android:src="@drawable/hanger_animation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.849"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/botonShirts"
         android:contentDescription="@string/boton"

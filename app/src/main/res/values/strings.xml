@@ -29,4 +29,5 @@
     <string name="zara">Zara</string>
     <string name="bershka">Bershka</string>
     <string name="registrarprendas">Registrar Prendas</string>
+    <string name="gif_description" />
 </resources>
