@@ -3,23 +3,18 @@ package com.example.outfitmatch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.outfitmatch.adaptador.AdaptadorClothes;
-import com.example.outfitmatch.modelo.entidad.Prenda;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class StartActivity extends AppCompatActivity {
+
     Button login, signUp;
 
     @Override
@@ -36,17 +31,26 @@ public class StartActivity extends AppCompatActivity {
         login = findViewById(R.id.loginButton);
         signUp = findViewById(R.id.signupButton);
 
-        login.setOnClickListener(view -> {
-            Intent intent = new Intent(StartActivity.this, Login.class);
+        // Verificar si el usuario ya está autenticado
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null) {
+            // Si el usuario ya está autenticado, redirigirlo a la actividad principal (por ejemplo, HomeActivity)
+            Intent intent = new Intent(StartActivity.this, Home.class);
             startActivity(intent);
-        });
+            finish(); // Evitar que el usuario regrese a esta pantalla
+        } else {
+            // Si el usuario no está autenticado, permitir que inicie sesión o se registre
+            login.setOnClickListener(view -> {
+                Intent intent = new Intent(StartActivity.this, Login.class);
+                startActivity(intent);
+            });
 
-        signUp.setOnClickListener(view -> {
-            Intent intent = new Intent(StartActivity.this, SignUp.class);
-            startActivity(intent);
-        });
-
-
-
+            signUp.setOnClickListener(view -> {
+                Intent intent = new Intent(StartActivity.this, SignUp.class);
+                startActivity(intent);
+            });
+        }
     }
-    }
+}
