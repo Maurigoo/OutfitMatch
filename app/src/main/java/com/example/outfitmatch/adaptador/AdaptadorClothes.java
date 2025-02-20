@@ -1,5 +1,6 @@
 package com.example.outfitmatch.adaptador;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.outfitmatch.R;
 import com.example.outfitmatch.modelo.entidad.Prenda;
 
@@ -35,13 +37,24 @@ public class AdaptadorClothes extends RecyclerView.Adapter<AdaptadorClothes.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Prenda prenda = prendas.get(position);
-        holder.imageViewClothes.setImageResource(prenda.getImagen());
+
+        // Log para verificar la URL de la imagen
+        Log.d("AdaptadorClothes", "URL de imagen: " + prenda.getImagenUrl());
+
+        // Cargar imagen desde la URL usando Glide
+        Glide.with(holder.itemView.getContext())
+                .load(prenda.getImagenUrl())  // Asegúrate que esta URL sea válida
+                .into(holder.imageViewClothes);
+
+        // Cargar el resto de los datos
         holder.textViewTalla.setText("Talla: " + prenda.getTalla());
         holder.textViewMateriales.setText("Material: " + prenda.getMaterial());
         holder.textViewColor.setText("Color: " + prenda.getColor());
 
+        // Manejar clic en el item
         holder.itemView.setOnClickListener(v -> listener.onItemClick(prenda));
     }
+
 
     @Override
     public int getItemCount() {
