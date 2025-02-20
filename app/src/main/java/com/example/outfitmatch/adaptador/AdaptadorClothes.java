@@ -35,7 +35,7 @@ public class AdaptadorClothes extends RecyclerView.Adapter<AdaptadorClothes.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Prenda prenda = prendas.get(position);
-        holder.imageViewClothes.setImageResource(prenda.getImageResource());
+        holder.imageViewClothes.setImageResource(prenda.getImagen());
         holder.textViewTalla.setText("Talla: " + prenda.getTalla());
         holder.textViewMateriales.setText("Material: " + prenda.getMaterial());
         holder.textViewColor.setText("Color: " + prenda.getColor());

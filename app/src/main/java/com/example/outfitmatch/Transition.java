@@ -152,9 +152,10 @@ public class Transition extends AppCompatActivity {
 
     private List<Prenda> getPrendas() {
         List<Prenda> prendas = new ArrayList<>();
-        prendas.add(new Prenda(R.drawable.prenda1, "M", "Rojo", "Algodón"));
-        prendas.add(new Prenda(R.drawable.prenda2, "L", "Azul", "Poliéster"));
-        prendas.add(new Prenda(R.drawable.prenda3, "S", "Negro", "Seda"));
+        prendas.add(new Prenda(R.drawable.prenda1, "M", "Rojo", "Algodón", "Shirts"));
+        prendas.add(new Prenda(R.drawable.prenda2, "L", "Azul", "Poliéster", "Pants"));
+        prendas.add(new Prenda(R.drawable.prenda3, "S", "Negro", "Seda", "Dresses"));
+
         return prendas;
     }
 
