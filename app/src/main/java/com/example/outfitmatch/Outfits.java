@@ -57,7 +57,7 @@ public class Outfits extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), Clothes.class));
                 } else if (itemId == R.id.nav_add) {
                     startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-                } else if (itemId == R.id.nav_profile) {
+                 } else if (itemId == R.id.nav_profile) {
                     startActivity(new Intent(getApplicationContext(), Perfil.class));
                 }
 
