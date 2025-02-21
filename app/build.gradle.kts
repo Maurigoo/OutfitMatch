@@ -66,5 +66,19 @@ dependencies {
 
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
+    // HTTP client para solicitudes a APIs (OpenWeatherMap)
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+
+// JSON parsing
+    implementation ("org.json:json:20210307")
+
+// Biblioteca para obtener la ubicación del dispositivo
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+// Glide (ya lo tienes para cargar el GIF)
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+
 
 }

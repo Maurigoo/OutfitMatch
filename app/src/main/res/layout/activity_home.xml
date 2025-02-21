@@ -9,20 +9,19 @@
     tools:context=".Home"
     tools:ignore="ExtraText">
 
+
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="392dp"
-        android:layout_height="426dp"
+        android:layout_width="430dp"
+        android:layout_height="440dp"
+        android:layout_centerInParent="true"
         android:layout_marginTop="4dp"
         android:contentDescription="@string/deco"
         android:src="@drawable/fondoazulpercha"
-        android:layout_centerInParent="true"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <ImageView
         android:id="@+id/gifImageView"
@@ -114,16 +113,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Dom 26 ene\n9 / 1 °C"
+        android:text="Cargando clima..."
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:gravity="center"
+        android:maxLines="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.565"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.476" />
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/boton_navigation"
