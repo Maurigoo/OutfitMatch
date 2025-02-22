@@ -58,7 +58,7 @@ Sigue estos pasos para instalar y ejecutar **OutfitMatch** en tu dispositivo And
 
 1. Clona este repositorio a tu máquina local:
    ```bash
-   git clone https://github.com/tu-usuario/OutfitMatch.git
+   git clone https://github.com/marouaEzzaki/OutfitMatch.git
 
 2. Abre el proyecto en Android Studio.
 3. Asegúrate de tener las dependencias necesarias descargadas y configuradas (como Firebase).
