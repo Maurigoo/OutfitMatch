@@ -63,17 +63,17 @@ public class Clothes extends AppCompatActivity {
 
                 if (itemId == R.id.nav_home) {
                     startActivity(new Intent(getApplicationContext(), Home.class));
-                    overridePendingTransition(0, 0);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     return true;
                 } else if (itemId == R.id.nav_clothes) {
                     return true;
                 } else if (itemId == R.id.nav_add) {
                     startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-                    overridePendingTransition(0, 0);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     return true;
                 } else if (itemId == R.id.nav_profile) {
                     startActivity(new Intent(getApplicationContext(), Perfil.class));
-                    overridePendingTransition(0, 0);
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     return true;
                 }
                 return false;

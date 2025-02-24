@@ -66,7 +66,7 @@ public class AddClothesAlbum extends AppCompatActivity {
                 } else if (itemId == R.id.nav_home) {
                     startActivity(new Intent(getApplicationContext(), Home.class));
                 }
-                overridePendingTransition(0, 0);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             }
         });

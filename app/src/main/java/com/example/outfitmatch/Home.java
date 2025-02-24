@@ -21,29 +21,30 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Locale;
-import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Home extends AppCompatActivity {
 
     Button articles, ideas, outfit;
-    ImageView gifImageView; // ImageView para el GIF
-    TextView tvWeather; // TextView para mostrar clima
-
+    private ImageView gifImageView;
+    private TextView tvWeather;
     private FusedLocationProviderClient fusedLocationClient;
+    private static final String API_KEY = "a7bc60d2c1304f9cad2150757252402"; // Reemplaza con tu clave de WeatherAPI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        // Inicialización de vistas
         gifImageView = findViewById(R.id.gifImageView);
-        tvWeather = findViewById(R.id.tvWeather); // TextView para clima
+        tvWeather = findViewById(R.id.tvWeather);
 
-        // Cargar el GIF usando Glide
-        Glide.with(this)
-                .load(R.drawable.hanger_animation) // Asegúrate de que el GIF esté en res/drawable
-                .into(gifImageView);
+        Glide.with(this).load(R.drawable.hanger_animation).into(gifImageView);
 
         // Configurar BottomNavigationView
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
@@ -63,7 +64,7 @@ public class Home extends AppCompatActivity {
                 } else if (itemId == R.id.nav_profile) {
                     startActivity(new Intent(getApplicationContext(), Perfil.class));
                 }
-                overridePendingTransition(0, 0);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             }
         });
@@ -88,51 +89,57 @@ public class Home extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Inicializar cliente de ubicación
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        // Obtener ubicación y clima
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getWeatherData();
     }
 
-    // Obtener datos de ubicación y clima
     private void getWeatherData() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }
 
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, location -> {
-                    if (location != null) {
-                        fetchWeather(location.getLatitude(), location.getLongitude());
-                    } else {
-                        Toast.makeText(this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    // Generar datos simulados de clima
-    private void fetchWeather(double lat, double lon) {
-        // Generar datos de clima simulados
-        Random random = new Random();
-        int tempActual = random.nextInt(15) + 10; // Genera una temperatura entre 10°C y 25°C
-        int tempMin = tempActual - random.nextInt(3); // Min 2-3 grados menos
-        int tempMax = tempActual + random.nextInt(3); // Max 2-3 grados más
-
-        String[] weatherConditions = {"Soleado", "Nublado", "Lluvia ligera", "Tormenta", "Niebla"};
-        String weatherCondition = weatherConditions[random.nextInt(weatherConditions.length)];
-
-        // Mostrar en el TextView
-        runOnUiThread(() -> {
-            String simulatedWeather = String.format(Locale.getDefault(),
-                    "Condición: %s\nTemp actual: %d°C\nMin: %d°C / Max: %d°C",
-                    weatherCondition, tempActual, tempMin, tempMax);
-            tvWeather.setText(simulatedWeather);
+        fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
+            if (location != null) {
+                fetchWeather(location.getLatitude(), location.getLongitude());
+            } else {
+                Toast.makeText(this, "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
-    // Manejar respuesta de permisos
+    private void fetchWeather(double lat, double lon) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.weatherapi.com/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClimaAPI api = retrofit.create(ClimaAPI.class);
+        Call<Clima> call = api.getClima(API_KEY, lat + "," + lon);
+
+        call.enqueue(new Callback<Clima>() {
+            @Override
+            public void onResponse(Call<Clima> call, Response<Clima> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Clima clima = response.body();
+                    String weatherInfo = String.format(Locale.getDefault(),
+                            "📍 %s, %s\n⛅ %s\n🌡 %d°C",
+                            clima.getLocation().getName(),
+                            clima.getLocation().getCountry(),
+                            clima.getCurrent().getCondition().getText(),
+                            (int) clima.getCurrent().getTemp_c());
+                    tvWeather.setText(weatherInfo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Clima> call, Throwable t) {
+                Toast.makeText(Home.this, "Error al obtener el clima", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
