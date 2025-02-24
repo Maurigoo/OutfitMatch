@@ -11,6 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
         android:text="@string/registrarprendas"
         android:textColor="@color/background_menu"
         android:textSize="32sp"
