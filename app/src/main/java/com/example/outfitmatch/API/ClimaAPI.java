@@ -1,4 +1,6 @@
-package com.example.outfitmatch;
+package com.example.outfitmatch.API;
+
+import com.example.outfitmatch.Clima;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
