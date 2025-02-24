@@ -1,13 +1,11 @@
 package com.example.outfitmatch;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +33,6 @@ public class Perfil extends AppCompatActivity {
     private ImageView profileImage;
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +81,6 @@ public class Perfil extends AppCompatActivity {
         });
     }
 
-    // Selector de imágenes usando ActivityResultLauncher (en vez de onActivityResult)
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -112,11 +108,21 @@ public class Perfil extends AppCompatActivity {
         if (user != null) {
             StorageReference storageRef = storage.getReference().child("profile_images/" + user.getUid() + ".jpg");
 
+            // Mostrar ProgressDialog
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Actualizando foto de perfil...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
             storageRef.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                        loadProfileImage();
+                        loadProfileImage(); // Actualizar la imagen en el perfil
+                        progressDialog.dismiss(); // Ocultar ProgressDialog cuando termine
                     }))
-                    .addOnFailureListener(Throwable::printStackTrace);
+                    .addOnFailureListener(e -> {
+                        progressDialog.dismiss(); // Ocultar ProgressDialog si hay un error
+                        e.printStackTrace();
+                    });
         }
     }
 
@@ -128,10 +134,9 @@ public class Perfil extends AppCompatActivity {
 
             storageRef.getDownloadUrl().addOnSuccessListener(uri -> Glide.with(this)
                             .load(uri)
-                            .transform(new CircleCrop())  // Para imagen circular
+                            .transform(new CircleCrop())
                             .into(profileImage))
                     .addOnFailureListener(e -> {
-                        // Si la imagen no existe en Firebase, cargar imagen por defecto
                         Glide.with(this)
                                 .load(R.drawable.fotoperfil)
                                 .transform(new CircleCrop())
