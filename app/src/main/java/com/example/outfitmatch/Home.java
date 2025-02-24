@@ -19,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Locale;
 
@@ -32,9 +34,10 @@ public class Home extends AppCompatActivity {
 
     Button articles, ideas, outfit;
     private ImageView gifImageView;
-    private TextView tvWeather;
+    private TextView tvWeather, userGreetingTextView;
     private FusedLocationProviderClient fusedLocationClient;
     private static final String API_KEY = "a7bc60d2c1304f9cad2150757252402"; // Reemplaza con tu clave de WeatherAPI
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,17 @@ public class Home extends AppCompatActivity {
 
         gifImageView = findViewById(R.id.gifImageView);
         tvWeather = findViewById(R.id.tvWeather);
+        userGreetingTextView = findViewById(R.id.saludoUsuario);
+        mAuth = FirebaseAuth.getInstance();
+
+        // Configurar saludo personalizado para el usuario actual
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            String name = currentUser.getDisplayName();
+            userGreetingTextView.setText(name != null ? "Hello, " + name : "Hello, User");
+        } else {
+            userGreetingTextView.setText("Hello, Guest");
+        }
 
         Glide.with(this).load(R.drawable.hanger_animation).into(gifImageView);
 
@@ -89,7 +103,6 @@ public class Home extends AppCompatActivity {
             startActivity(intent);
         });
 
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getWeatherData();
     }
@@ -124,7 +137,7 @@ public class Home extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Clima clima = response.body();
                     String weatherInfo = String.format(Locale.getDefault(),
-                            "📍 %s, %s\n⛅ %s\n🌡 %d°C",
+                            "\uD83D\uDCCD %s, %s\n⛅ %s\n\uD83C\uDF21 %d°C",
                             clima.getLocation().getName(),
                             clima.getLocation().getCountry(),
                             clima.getCurrent().getCondition().getText(),
