@@ -4,21 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="16dp"
     tools:context=".AddClothesDetails">
 
     <!-- Imagen seleccionada -->
-
-    <!-- EditText para el color -->
-
-    <!-- EditText para la talla -->
-
-    <!-- EditText para el material -->
-
     <ImageView
         android:id="@+id/imageViewSelected"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_width="377dp"
+        android:layout_height="318dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,60 +21,72 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.016" />
 
+    <!-- EditText para el color -->
     <EditText
         android:id="@+id/editTextColor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Color"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.313" />
+        app:layout_constraintVertical_bias="0.593" />
 
+    <!-- Spinner para seleccionar el tipo de prenda -->
+    <Spinner
+        android:id="@+id/spinnerTipo"
+        android:backgroundTint="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.512" />
+
+    <!-- EditText para la talla -->
     <EditText
         android:id="@+id/editTextTalla"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Talla"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.401" />
+        app:layout_constraintVertical_bias="0.68" />
 
+    <!-- EditText para el material -->
     <EditText
         android:id="@+id/editTextMaterial"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Material"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Spinner para seleccionar el tipo de prenda -->
-
-    <!-- Botón para subir la prenda -->
-
-    <Spinner
-        android:id="@+id/spinnerTipo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.596" />
+        app:layout_constraintVertical_bias="0.769" />
 
+    <!-- Botón para subir la prenda -->
     <Button
         android:id="@+id/buttonUpload"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/background_menu"
         android:text="Subir Prenda"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
