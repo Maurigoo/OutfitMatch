@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -57,19 +58,14 @@ public class AddClothesDetails extends AppCompatActivity {
         imageUri = getIntent().getParcelableExtra("IMAGE_URI");
         Glide.with(this).load(imageUri).into(imageViewSelected);
 
-        buttonUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadClothesToFirebase();
-            }
-        });
+        buttonUpload.setOnClickListener(v -> uploadClothesToFirebase());
     }
 
     private void uploadClothesToFirebase() {
-        String color = editTextColor.getText().toString();
-        String talla = editTextTalla.getText().toString();
-        String material = editTextMaterial.getText().toString();
-        String tipo = spinnerTipo.getSelectedItem().toString();
+        String color = editTextColor.getText().toString().trim();
+        String talla = editTextTalla.getText().toString().trim();
+        String material = editTextMaterial.getText().toString().trim();
+        String tipo = spinnerTipo.getSelectedItem().toString().trim();
 
         if (color.isEmpty() || talla.isEmpty() || material.isEmpty() || tipo.isEmpty() || imageUri == null) {
             Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
@@ -93,19 +89,14 @@ public class AddClothesDetails extends AppCompatActivity {
 
                         // Crear objeto Prenda
                         Prenda prenda = new Prenda(0, talla, material, color, tipo);
+                        prenda.setImagenUrl(imageUrl); // Asegúrate de que Prenda tenga este campo
 
                         // Guardar en Firestore
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        DocumentReference prendaRef = db.collection("prendas").document(userId).collection("user_prendas").document();
+                        DocumentReference prendaRef = db.collection("prendas").document(userId)
+                                .collection("user_prendas").document();
 
-                        Map<String, Object> prendaMap = new HashMap<>();
-                        prendaMap.put("imagen", imageUrl);
-                        prendaMap.put("talla", talla);
-                        prendaMap.put("material", material);
-                        prendaMap.put("color", color);
-                        prendaMap.put("tipo", tipo);
-
-                        prendaRef.set(prendaMap)
+                        prendaRef.set(prenda)
                                 .addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(AddClothesDetails.this, "Prenda subida con éxito", Toast.LENGTH_SHORT).show();
@@ -114,11 +105,17 @@ public class AddClothesDetails extends AppCompatActivity {
                                     }
                                     progressDialog.dismiss();
                                     finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(AddClothesDetails.this, "Error en Firestore", Toast.LENGTH_SHORT).show();
+                                    Log.e("Firestore", "Error al guardar prenda", e);
+                                    progressDialog.dismiss();
                                 });
 
                     }))
                     .addOnFailureListener(e -> {
                         Toast.makeText(AddClothesDetails.this, "Error al subir imagen", Toast.LENGTH_SHORT).show();
+                        Log.e("FirebaseStorage", "Error al subir imagen", e);
                         progressDialog.dismiss();
                     });
         }
