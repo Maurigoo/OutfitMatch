@@ -85,7 +85,7 @@ public class AddClothesDetails extends AppCompatActivity {
         if (user != null) {
             String userId = user.getUid();
             StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-            StorageReference fileRef = storageRef.child("images/" + tipo + "/" + System.currentTimeMillis() + ".jpg");
+            StorageReference fileRef = storageRef.child("images/" + tipo + "/" +   System.currentTimeMillis() + ".jpg");
 
             fileRef.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
