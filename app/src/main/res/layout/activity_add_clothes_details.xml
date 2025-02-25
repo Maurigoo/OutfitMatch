@@ -26,13 +26,12 @@
         android:id="@+id/spinnerTipo"
         android:layout_width="349dp"
         android:layout_height="51dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/button_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintVertical_bias="0.52" />
 
     <EditText
         android:id="@+id/editTextTalla"

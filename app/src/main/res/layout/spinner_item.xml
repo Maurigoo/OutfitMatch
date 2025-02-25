@@ -2,7 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="100dp"
     android:layout_height="48dp"
-    android:background="@color/white"
+    android:background="@drawable/button_style"
     android:fontFamily="@font/autour_one"
     android:gravity="center_vertical"
     android:padding="8dp"
