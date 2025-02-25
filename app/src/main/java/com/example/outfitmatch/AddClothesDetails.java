@@ -48,10 +48,14 @@ public class AddClothesDetails extends AppCompatActivity {
         spinnerTipo = findViewById(R.id.spinnerTipo);
         buttonUpload = findViewById(R.id.buttonUpload);
 
-        // Configuración del Spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.tipo_prenda_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Configuración actualizada del Spinner con layouts personalizados
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.tipo_prenda_array,        // Asegúrate de que este array está definido en strings.xml
+                R.layout.spinner_item             // Layout personalizado para el Spinner cerrado
+        );
+
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item); // Layout para los ítems desplegables
         spinnerTipo.setAdapter(adapter);
 
         // Obtener la URI de la imagen seleccionada
@@ -60,6 +64,7 @@ public class AddClothesDetails extends AppCompatActivity {
 
         buttonUpload.setOnClickListener(v -> uploadClothesToFirebase());
     }
+
 
     private void uploadClothesToFirebase() {
         String color = editTextColor.getText().toString().trim();
