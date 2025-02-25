@@ -58,7 +58,7 @@
         android:fontFamily="@font/autour_one"
         android:text="ready to create your outfit?"
         android:textColor="@color/gray"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
