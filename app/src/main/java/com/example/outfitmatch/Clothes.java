@@ -1,27 +1,21 @@
 package com.example.outfitmatch;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.example.outfitmatch.modelo.entidad.Prenda;
 import com.example.outfitmatch.modelo.negocio.GestorPrenda;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Clothes extends AppCompatActivity {
@@ -33,11 +27,38 @@ public class Clothes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
 
-
+        // Inicializar el TextView para mostrar el total de prendas
         totalPrendasText = findViewById(R.id.totalPrendasText);
 
+        // Obtener el UID del usuario actual
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid(); // Obtener el UID
 
+            // Llamar al método para obtener las prendas en tiempo real
+            GestorPrenda.getInstance().obtenerPrendasSoloFirebase(userId, new GestorPrenda.OnTotalPrendasListener() {
+                @Override
+                public void onTotalPrendas(int total, List<Prenda> prendas) {
+                    // Aquí obtienes el total de prendas de Firebase
+                    Log.d("PrendasFirebase", "Tienes " + total + " prendas en Firebase.");
 
+                    // Actualizar el TextView con el total de prendas
+                    totalPrendasText.setText("Tienes " + total + " prendas :)");
+                }
+            });
+        } else {
+            Log.e("AuthError", "Usuario no autenticado");
+        }
+
+        // Configurar los botones de categorías y la navegación inferior
+        configurarBotones();
+        configurarNavegacionInferior();
+    }
+
+    /**
+     * Configura los botones de categorías.
+     */
+    private void configurarBotones() {
         ImageButton botonShirts = findViewById(R.id.botonShirts);
         ImageButton botonPants = findViewById(R.id.botonPants);
         ImageButton botonShoes = findViewById(R.id.botonShoes);
@@ -51,7 +72,12 @@ public class Clothes extends AppCompatActivity {
         botonDresses.setOnClickListener(view -> openClothesListActivity("Dresses"));
         botonAccessories.setOnClickListener(view -> openClothesListActivity("Accessories"));
         botonAll.setOnClickListener(view -> openClothesListActivity("All"));
+    }
 
+    /**
+     * Configura la navegación inferior.
+     */
+    private void configurarNavegacionInferior() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_clothes);
 

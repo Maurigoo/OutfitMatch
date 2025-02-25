@@ -12,18 +12,19 @@
 
     <TextView
         android:id="@+id/totalPrendasText"
-        android:layout_width="188dp"
-        android:layout_height="39dp"
+        android:layout_width="288dp"
+        android:layout_height="58dp"
+        android:fontFamily="@font/autour_one"
         android:text="0 prendas"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/boton_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintHorizontal_bias="0.788"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103" />
+        app:layout_constraintVertical_bias="0.108" />
 
     <ImageButton
         android:id="@+id/botonShirts"
