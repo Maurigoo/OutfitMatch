@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
+/**
+ * Actividad que muestra las prendas del usuario y permite navegar por diferentes categorías.
+ */
 public class Clothes extends AppCompatActivity {
 
     private TextView totalPrendasText;
@@ -45,9 +49,19 @@ public class Clothes extends AppCompatActivity {
                     // Actualizar el TextView con el total de prendas
                     totalPrendasText.setText("Tienes " + total + " prendas :)");
                 }
+
+                @Override
+                public void onError(@NonNull Exception e) {
+                    // Manejo de errores al obtener prendas
+                    Log.e("PrendasFirebase", "Error al obtener prendas: " + e.getMessage());
+                    totalPrendasText.setText("Error al cargar las prendas :(");
+                    Toast.makeText(Clothes.this, "Error al cargar las prendas: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             });
         } else {
             Log.e("AuthError", "Usuario no autenticado");
+            totalPrendasText.setText("No estás autenticado.");
+            Toast.makeText(this, "Por favor, inicia sesión para ver tus prendas.", Toast.LENGTH_SHORT).show();
         }
 
         // Configurar los botones de categorías y la navegación inferior
