@@ -18,15 +18,22 @@ public class DaoPrenda {
         return instance == null ? instance = new DaoPrenda() : instance;
     }
 
+    /**
+     * Método que simula la obtención de prendas desde Firebase.
+     *
+     * @param userId   El ID del usuario.
+     * @param listener El listener para devolver las prendas obtenidas.
+     */
     public void ObtenerPrendaFirebase(String userId, OnPrendasListener listener) {
-        // Este es un ejemplo. Aquí deberías obtener los datos desde Firebase o alguna otra fuente.
-        // Vamos a simular que obtenemos dos prendas de Firebase para este ejemplo.
+        // Simulamos la obtención de prendas desde Firebase (o cualquier otra fuente de datos).
         List<Prenda> prendas = List.of(
                 new Prenda(0, "M", "Algodón", "Blanco", "Shirts"),
-                new Prenda(0, "32", "Denim", "Azul", "Pants")
+                new Prenda(0, "32", "Denim", "Azul", "Pants"),
+        new Prenda(0, "32", "Denim", "Azul", "Pants")
+
         );
 
-        // Llamamos al listener con las prendas obtenidas
+        // Llamamos al listener con las prendas obtenidas (simulación).
         listener.onPrendasObtenidas(prendas);
     }
 
