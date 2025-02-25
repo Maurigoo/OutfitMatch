@@ -16,40 +16,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.outfitmatch.modelo.persistencia.DaoPrenda;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/**
- * AddClothesAlbum es una actividad que permite al usuario seleccionar imágenes
- * desde su galería para agregar nuevas prendas o buscar prendas en la tienda.
- * También incluye una barra de navegación inferior para moverse entre pantallas.
- */
 public class AddClothesAlbum extends AppCompatActivity {
 
-    private ImageButton buscarTienda, album;  // Botones para buscar en tienda y abrir álbum
-    private ActivityResultLauncher<Intent> activityResultLauncher;  // Para seleccionar imágenes
-    private DaoPrenda daoPrenda;  // DAO para gestionar operaciones relacionadas con prendas
+    private ImageButton buscarTienda, album;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private DaoPrenda daoPrenda;
 
-    /**
-     * Método llamado al crear la actividad. Inicializa la UI y configura los listeners.
-     *
-     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_clothes_album);
 
         daoPrenda = DaoPrenda.getInstance();
+        configurarSelectorImagen();
+        configurarBottomNavigation();
+        inicializarBotones();
+    }
 
-        // Inicializa el ActivityResultLauncher para seleccionar imágenes desde la galería
+    private void configurarSelectorImagen() {
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Uri selectedImageUri = result.getData().getData();
-
                         if (selectedImageUri != null) {
-                            // Lanzar AddClothesDetailsActivity con la URI seleccionada
                             Intent intent = new Intent(AddClothesAlbum.this, AddClothesDetails.class);
-                            intent.putExtra("IMAGE_URI", selectedImageUri);
+                            intent.putExtra("IMAGE_URI", selectedImageUri.toString());
                             startActivity(intent);
                         } else {
                             Toast.makeText(this, "No se seleccionó ninguna imagen", Toast.LENGTH_SHORT).show();
@@ -57,41 +49,38 @@ public class AddClothesAlbum extends AppCompatActivity {
                     }
                 }
         );
+    }
 
-        // Configuración de la barra de navegación inferior
+    private void configurarBottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_add);  // Selecciona el ítem actual
+        bottomNavigationView.setSelectedItemId(R.id.nav_add);
 
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Class<?> targetActivity = null;
+            int itemId = item.getItemId();
 
-                if (itemId == R.id.nav_add) {
-                    return true;  // Ya estamos en esta pantalla
-                } else if (itemId == R.id.nav_clothes) {
-                    startActivity(new Intent(getApplicationContext(), Clothes.class));
-                } else if (itemId == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), Perfil.class));
-                } else if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home.class));
-                }
+            if (itemId == R.id.nav_add) return true;
+            else if (itemId == R.id.nav_clothes) targetActivity = Clothes.class;
+            else if (itemId == R.id.nav_profile) targetActivity = Perfil.class;
+            else if (itemId == R.id.nav_home) targetActivity = Home.class;
+
+            if (targetActivity != null) {
+                startActivity(new Intent(getApplicationContext(), targetActivity));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                return true;
+                finish();
             }
+            return true;
         });
+    }
 
-        // Inicializa los botones
+    private void inicializarBotones() {
         buscarTienda = findViewById(R.id.botonBuscarTienda);
         album = findViewById(R.id.botonAlbum);
 
-        // Configura la acción para buscar prendas en la tienda
         buscarTienda.setOnClickListener(v -> {
-            Intent intent = new Intent(AddClothesAlbum.this, AddClothesStore.class);
-            startActivity(intent);
+            startActivity(new Intent(AddClothesAlbum.this, AddClothesStore.class));
         });
 
-        // Configura la acción para seleccionar una imagen de la galería
         album.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");

@@ -5,8 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * AddClothesStore es una actividad que permite a los usuarios explorar tiendas de ropa en línea
@@ -14,22 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class AddClothesStore extends AppCompatActivity {
 
-    private ImageButton buscarAlbum; // Botón para regresar al álbum de prendas
+    private ImageButton buscarAlbum;
 
-    /**
-     * Método llamado al crear la actividad. Inicializa la interfaz y configura los listeners.
-     *
-     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_clothes_store);
-
-        // Inicialización del botón para regresar al álbum
+        configurarBottomNavigation();
         buscarAlbum = findViewById(R.id.botonBuscarAlbum2);
 
-        // Configura el clic para volver a AddClothesAlbum
         buscarAlbum.setOnClickListener(v -> {
             Intent intent = new Intent(AddClothesStore.this, AddClothesAlbum.class);
             startActivity(intent);
@@ -37,33 +31,55 @@ public class AddClothesStore extends AppCompatActivity {
     }
 
     /**
-     * Abre el sitio web de Zara en el navegador predeterminado.
-     *
-     * @param view Vista que disparó el evento (usualmente un botón).
+     * Método para abrir el sitio web de la tienda correspondiente.
      */
-    public void openZara(View view) {
-        String url = "https://www.zara.com";
-        openWebsite(url);
-    }
+    public void openStore(View view) {
+        String url = "";
 
-    /**
-     * Abre el sitio web de Bershka en el navegador predeterminado.
-     *
-     * @param view Vista que disparó el evento (usualmente un botón).
-     */
-    public void openBershka(View view) {
-        String url = "https://www.bershka.com";
+        if (view.getId() == R.id.botonZara) {
+            url = "https://www.zara.com";
+        } else if (view.getId() == R.id.botonBershka) {
+            url = "https://www.bershka.com";
+        } else if (view.getId() == R.id.botonPull) {
+            url = "https://www.pullandbear.com";
+        } else if (view.getId() == R.id.botonLefties) {
+            url = "https://www.lefties.com";
+        }
+
         openWebsite(url);
     }
 
     /**
      * Método auxiliar para abrir una URL en el navegador predeterminado.
-     *
-     * @param url La URL del sitio web que se desea abrir.
      */
     private void openWebsite(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         startActivity(intent);
+    }
+
+    /**
+     * Configura la barra de navegación inferior y su comportamiento al seleccionar opciones.
+     */
+    private void configurarBottomNavigation() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_add);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Class<?> targetActivity = null;
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.nav_add) return true;
+            else if (itemId == R.id.nav_clothes) targetActivity = Clothes.class;
+            else if (itemId == R.id.nav_profile) targetActivity = Perfil.class;
+            else if (itemId == R.id.nav_home) targetActivity = Home.class;
+
+            if (targetActivity != null) {
+                startActivity(new Intent(getApplicationContext(), targetActivity));
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                finish();
+            }
+            return true;
+        });
     }
 }

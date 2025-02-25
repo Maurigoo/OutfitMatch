@@ -41,6 +41,8 @@
     <string name="subirprenda">Subir Prenda</string>
 
     <string name="text">text</string>
+    <string name="pull" />
+    <string name="lefties" />
 
     <string-array name="tipo_prenda_array">
         <item>Shirts</item>
