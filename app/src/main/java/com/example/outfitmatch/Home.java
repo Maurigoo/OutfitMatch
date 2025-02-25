@@ -30,20 +30,32 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Home es la actividad principal de la aplicación.
+ * Muestra información personalizada para el usuario, el clima actual basado en la ubicación
+ * y permite la navegación entre diferentes secciones mediante una barra inferior.
+ */
 public class Home extends AppCompatActivity {
 
-    Button articles, ideas, outfit;
-    private ImageView gifImageView;
-    private TextView tvWeather, userGreetingTextView;
-    private FusedLocationProviderClient fusedLocationClient;
-    private static final String API_KEY = "a7bc60d2c1304f9cad2150757252402"; // Reemplaza con tu clave de WeatherAPI
-    private FirebaseAuth mAuth;
+    private Button articles, ideas, outfit; // Botones para navegar a diferentes secciones
+    private ImageView gifImageView;         // Imagen animada usando Glide
+    private TextView tvWeather, userGreetingTextView; // Muestra clima y saludo al usuario
 
+    private FusedLocationProviderClient fusedLocationClient; // Cliente para obtener la ubicación
+    private static final String API_KEY = "a7bc60d2c1304f9cad2150757252402"; // Clave API de WeatherAPI
+    private FirebaseAuth mAuth; // Manejo de autenticación con Firebase
+
+    /**
+     * Método llamado al crear la actividad. Inicializa vistas, clima y navegación.
+     *
+     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Inicialización de vistas
         gifImageView = findViewById(R.id.gifImageView);
         tvWeather = findViewById(R.id.tvWeather);
         userGreetingTextView = findViewById(R.id.saludoUsuario);
@@ -58,6 +70,7 @@ public class Home extends AppCompatActivity {
             userGreetingTextView.setText("Hello, Guest");
         }
 
+        // Cargar animación con Glide
         Glide.with(this).load(R.drawable.hanger_animation).into(gifImageView);
 
         // Configurar BottomNavigationView
@@ -103,12 +116,17 @@ public class Home extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Inicializar cliente de ubicación
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         getWeatherData();
     }
 
+    /**
+     * Obtiene la ubicación actual del usuario y llama a fetchWeather para obtener el clima.
+     */
     private void getWeatherData() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // Solicitar permisos si no están concedidos
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }
@@ -122,6 +140,12 @@ public class Home extends AppCompatActivity {
         });
     }
 
+    /**
+     * Llama a la API de clima usando Retrofit para obtener datos basados en la ubicación.
+     *
+     * @param lat Latitud actual del usuario.
+     * @param lon Longitud actual del usuario.
+     */
     private void fetchWeather(double lat, double lon) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.weatherapi.com/v1/")
@@ -153,6 +177,13 @@ public class Home extends AppCompatActivity {
         });
     }
 
+    /**
+     * Maneja la respuesta del usuario al cuadro de diálogo de permisos.
+     *
+     * @param requestCode  Código de solicitud.
+     * @param permissions  Lista de permisos solicitados.
+     * @param grantResults Resultados de la solicitud de permisos.
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

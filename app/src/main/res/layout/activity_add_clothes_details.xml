@@ -8,8 +8,8 @@
     android:padding="16dp"
     tools:context=".AddClothesDetails">
 
-    <!-- Imagen seleccionada -->
     <ImageView
+        android:contentDescription="@string/img"
         android:id="@+id/imageViewSelected"
         android:layout_width="377dp"
         android:layout_height="318dp"
@@ -21,75 +21,76 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.016" />
 
-    <!-- EditText para el color -->
-    <EditText
-        android:id="@+id/editTextColor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Color"
-        android:textColorHint="@color/black"
-        android:textColor="@color/black"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.593" />
 
-    <!-- Spinner para seleccionar el tipo de prenda -->
     <Spinner
         android:id="@+id/spinnerTipo"
+        android:layout_width="378dp"
+        android:layout_height="52dp"
         android:backgroundTint="@color/white"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.512" />
+        app:layout_constraintVertical_bias="0.516" />
 
-    <!-- EditText para la talla -->
     <EditText
         android:id="@+id/editTextTalla"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Talla"
+        android:hint="@string/talla"
+        android:inputType="text"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.699" />
 
-    <!-- EditText para el material -->
+    <EditText
+        android:id="@+id/editTextColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/Color"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.613" />
+
     <EditText
         android:id="@+id/editTextMaterial"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Material"
+        android:hint="@string/Material"
+        android:inputType="text"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.769" />
+        app:layout_constraintVertical_bias="0.789" />
 
-    <!-- Botón para subir la prenda -->
+
     <Button
         android:id="@+id/buttonUpload"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/background_menu"
-        android:text="Subir Prenda"
+        android:text="@string/subirprenda"
         android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

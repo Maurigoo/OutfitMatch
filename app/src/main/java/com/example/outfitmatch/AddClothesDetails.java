@@ -25,22 +25,29 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * AddClothesDetails es una actividad donde el usuario puede agregar detalles a una prenda seleccionada,
+ * como color, talla, material y tipo. La imagen se almacena en Firebase Storage y los datos en Firestore.
+ */
 public class AddClothesDetails extends AppCompatActivity {
 
-    private ImageView imageViewSelected;
-    private EditText editTextColor, editTextTalla, editTextMaterial;
-    private Spinner spinnerTipo;
-    private Button buttonUpload;
-    private Uri imageUri;
+    private ImageView imageViewSelected; // Vista previa de la imagen seleccionada
+    private EditText editTextColor, editTextTalla, editTextMaterial; // Campos de entrada de datos
+    private Spinner spinnerTipo; // Spinner para seleccionar el tipo de prenda
+    private Button buttonUpload; // Botón para subir la prenda
+    private Uri imageUri; // URI de la imagen seleccionada
 
+    /**
+     * Método llamado al crear la actividad. Inicializa la UI y configura los listeners.
+     *
+     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_clothes_details);
 
+        // Inicialización de vistas
         imageViewSelected = findViewById(R.id.imageViewSelected);
         editTextColor = findViewById(R.id.editTextColor);
         editTextTalla = findViewById(R.id.editTextTalla);
@@ -48,13 +55,12 @@ public class AddClothesDetails extends AppCompatActivity {
         spinnerTipo = findViewById(R.id.spinnerTipo);
         buttonUpload = findViewById(R.id.buttonUpload);
 
-        // Configuración actualizada del Spinner con layouts personalizados
+        // Configuración del Spinner con layouts personalizados
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.tipo_prenda_array,        // Asegúrate de que este array está definido en strings.xml
                 R.layout.spinner_item             // Layout personalizado para el Spinner cerrado
         );
-
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item); // Layout para los ítems desplegables
         spinnerTipo.setAdapter(adapter);
 
@@ -62,21 +68,26 @@ public class AddClothesDetails extends AppCompatActivity {
         imageUri = getIntent().getParcelableExtra("IMAGE_URI");
         Glide.with(this).load(imageUri).into(imageViewSelected);
 
+        // Configurar el botón para subir la prenda
         buttonUpload.setOnClickListener(v -> uploadClothesToFirebase());
     }
 
-
+    /**
+     * Sube la prenda a Firebase Storage y guarda los datos en Firestore.
+     */
     private void uploadClothesToFirebase() {
         String color = editTextColor.getText().toString().trim();
         String talla = editTextTalla.getText().toString().trim();
         String material = editTextMaterial.getText().toString().trim();
         String tipo = spinnerTipo.getSelectedItem().toString().trim();
 
+        // Validación de campos
         if (color.isEmpty() || talla.isEmpty() || material.isEmpty() || tipo.isEmpty() || imageUri == null) {
             Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Mostrar diálogo de progreso
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Subiendo prenda...");
         progressDialog.setCancelable(false);
@@ -86,15 +97,16 @@ public class AddClothesDetails extends AppCompatActivity {
         if (user != null) {
             String userId = user.getUid();
             StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-            StorageReference fileRef = storageRef.child("images/" + tipo + "/" +   System.currentTimeMillis() + ".jpg");
+            StorageReference fileRef = storageRef.child("images/" + tipo + "/" + System.currentTimeMillis() + ".jpg");
 
+            // Subir la imagen a Firebase Storage
             fileRef.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
                         String imageUrl = uri.toString();
 
-                        // Crear objeto Prenda
+                        // Crear objeto Prenda con los datos
                         Prenda prenda = new Prenda(0, talla, material, color, tipo);
-                        prenda.setImagenUrl(imageUrl); // Asegúrate de que Prenda tenga este campo
+                        prenda.setImagenUrl(imageUrl); // Establecer la URL de la imagen
 
                         // Guardar en Firestore
                         FirebaseFirestore db = FirebaseFirestore.getInstance();

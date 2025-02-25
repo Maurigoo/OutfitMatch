@@ -5,6 +5,7 @@
     <string name="boton">boton</string>
     <string name="fotoPerfil">foto perfil</string>
     <string name="deslizar">deslizar</string>
+    <string name="img">img</string>
 
     <string name="welcome">Welcome!</string>
     <string name="ready">ready to create your outfit?</string>
@@ -32,6 +33,14 @@
     <string name="bershka">Bershka</string>
     <string name="registrarprendas">Registrar Prendas</string>
     <string name="gif_description" />
+
+    <string name="talla">Talla</string>
+    <string name="Material">Material</string>
+    <string name="Color">Color</string>
+
+    <string name="subirprenda">Subir Prenda</string>
+
+    <string name="text">text</string>
 
     <string-array name="tipo_prenda_array">
         <item>Shirts</item>

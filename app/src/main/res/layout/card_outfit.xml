@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -19,6 +18,7 @@
         android:padding="16dp">
 
         <ImageView
+            android:contentDescription="@string/img"
             android:id="@+id/imgOutfit"
             android:layout_width="361dp"
             android:layout_height="359dp"
@@ -29,7 +29,7 @@
             android:id="@+id/textViewTalla"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Talla: M"
+            android:text="@string/talla"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -37,7 +37,7 @@
             android:id="@+id/textViewMaterial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Material: Algodon"
+            android:text="@string/Material"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/textViewColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Color: Rojo"
+            android:text="@string/Color"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>

@@ -12,20 +12,27 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.outfitmatch.R;
-import com.example.outfitmatch.StartActivity;
 import com.example.outfitmatch.modelo.entidad.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+/**
+ * SignUp es la actividad que permite a los usuarios crear una nueva cuenta.
+ * Utiliza Firebase Authentication para registrar nuevos usuarios.
+ */
 public class SignUp extends AppCompatActivity {
 
-    EditText name, email, password, phone;
-    Button signUp;
-    ImageButton signUpRoundButton;
-    private FirebaseAuth mAuth;
+    private EditText name, email, password, phone;     // Campos de entrada para el registro
+    private Button signUp;                             // Botón de registro principal
+    private ImageButton signUpRoundButton;             // Botón redondo de registro
+    private FirebaseAuth mAuth;                        // Instancia de FirebaseAuth
 
+    /**
+     * Método llamado al crear la actividad. Inicializa vistas y configuración.
+     *
+     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +50,22 @@ public class SignUp extends AppCompatActivity {
         signUp = findViewById(R.id.SignUpBoton);
         signUpRoundButton = findViewById(R.id.SignUpBotonRound);
 
-        // Establecer los listeners
+        // Establecer listeners para ambos botones de registro
         signUp.setOnClickListener(view -> registerUser());
-        signUpRoundButton.setOnClickListener(view -> registerUser());  // Usamos el mismo método para ambos botones
+        signUpRoundButton.setOnClickListener(view -> registerUser());  // Usa el mismo método
     }
 
+    /**
+     * Método encargado de registrar un nuevo usuario utilizando Firebase Authentication.
+     * Incluye validaciones de campos y muestra mensajes en caso de error.
+     */
     private void registerUser() {
         String nuevoName = name.getText().toString().trim();
         String nuevoEmail = email.getText().toString().trim();
         String nuevoPass = password.getText().toString().trim();
         String nuevoPhone = phone.getText().toString().trim();
 
-        // Validaciones básicas
+        // Validaciones básicas de campos
         if (TextUtils.isEmpty(nuevoName) || TextUtils.isEmpty(nuevoEmail) || TextUtils.isEmpty(nuevoPass) || TextUtils.isEmpty(nuevoPhone)) {
             Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
             return;
@@ -65,16 +76,16 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
-        // Crear un ProgressDialog
+        // Mostrar ProgressDialog durante el proceso de registro
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Registrando usuario...");
-        progressDialog.setCancelable(false); // El usuario no puede cancelar la operación
+        progressDialog.setCancelable(false); // No permitir cancelación
         progressDialog.show();
 
         // Registrar usuario en Firebase Authentication
         mAuth.createUserWithEmailAndPassword(nuevoEmail, nuevoPass)
                 .addOnCompleteListener(this, task -> {
-                    progressDialog.dismiss();  // Desaparecer el ProgressDialog una vez que se termine
+                    progressDialog.dismiss();  // Ocultar el ProgressDialog al finalizar
 
                     if (task.isSuccessful()) {
                         // Obtener el usuario registrado
@@ -90,12 +101,13 @@ public class SignUp extends AppCompatActivity {
                         // Mostrar mensaje de éxito
                         Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
 
-                        // Redirigir al LoginActivity
+                        // Redirigir al StartActivity
                         Usuario usuario = new Usuario(nuevoName, nuevoEmail, nuevoPass, nuevoPhone);
-                        Intent intent = new Intent(SignUp.this, StartActivity.class); // Redirige al StartActivity después del registro
+                        Intent intent = new Intent(SignUp.this, StartActivity.class);
                         startActivity(intent);
-                        finish(); // Finaliza esta actividad para que el usuario no pueda regresar
+                        finish(); // Finaliza la actividad para que no se pueda volver atrás
                     } else {
+                        // Mostrar mensaje de error si el registro falla
                         Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

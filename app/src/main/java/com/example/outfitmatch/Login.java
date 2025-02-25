@@ -14,15 +14,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.outfitmatch.modelo.entidad.Usuario;
 import com.example.outfitmatch.modelo.negocio.GestorUsuario;
 
+/**
+ * Login es la actividad encargada de autenticar al usuario.
+ * Permite a los usuarios iniciar sesión con su correo electrónico y contraseña,
+ * redirigiéndolos a la pantalla principal en caso de éxito o mostrando mensajes de error.
+ */
 public class Login extends AppCompatActivity {
 
-    private EditText emailUsuario;
-    private EditText passwordUsuario;
-    private Button signInBtn;
-    private ImageButton signInbtnRound;
-    private Button registerButton; // Botón para redirigir al registro
-    private ProgressDialog progressDialog;  // Diálogo de progreso
+    private EditText emailUsuario;       // Campo para ingresar el email
+    private EditText passwordUsuario;    // Campo para ingresar la contraseña
+    private Button signInBtn;            // Botón principal de inicio de sesión
+    private ImageButton signInbtnRound;  // Botón redondo alternativo de inicio de sesión
+    private Button registerButton;       // Botón para redirigir al registro
+    private ProgressDialog progressDialog;  // Diálogo de progreso para mostrar mientras se autentica
 
+    /**
+     * Método llamado al crear la actividad. Inicializa vistas y configura listeners.
+     *
+     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +47,8 @@ public class Login extends AppCompatActivity {
 
         // Configurar el ProgressDialog
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Iniciando sesión...");  // Mensaje que aparecerá en el diálogo
-        progressDialog.setCancelable(false);  // No permitir que el usuario cierre el diálogo
+        progressDialog.setMessage("Iniciando sesión...");  // Mensaje mostrado durante la autenticación
+        progressDialog.setCancelable(false);               // No permitir que el usuario cierre el diálogo
 
         // Configurar el clic del botón de inicio de sesión
         signInBtn.setOnClickListener(view -> loginUser());
@@ -52,6 +62,10 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método encargado de autenticar al usuario utilizando el correo y la contraseña ingresados.
+     * Muestra mensajes de error si los campos están vacíos o si la autenticación falla.
+     */
     private void loginUser() {
         // Obtener los valores de los campos de texto
         String email = emailUsuario.getText().toString().trim();
@@ -63,7 +77,7 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-        // Mostrar el ProgressDialog
+        // Mostrar el ProgressDialog mientras se realiza la autenticación
         progressDialog.show();
 
         // Crear un objeto Usuario con los datos ingresados
@@ -71,7 +85,7 @@ public class Login extends AppCompatActivity {
         usuario.setEmail(email);
         usuario.setPassword(password);
 
-        // Intentar iniciar sesión
+        // Intentar iniciar sesión utilizando GestorUsuario
         GestorUsuario.getInstance().iniciarSesion(usuario)
                 .addOnSuccessListener(unused -> {
                     // Ocultar el ProgressDialog
