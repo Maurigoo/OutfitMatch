@@ -17,6 +17,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ClothesListActivity extends AppCompatActivity {
 
@@ -50,6 +51,7 @@ public class ClothesListActivity extends AppCompatActivity {
             Toast.makeText(this, "No category selected", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void loadClothesFromFirestore(String category) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -61,13 +63,32 @@ public class ClothesListActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String tipo = document.getString("tipo");
                             if (category.equals("All") || category.equals(tipo)) {
-                                String imagenUrl = document.getString("imagen");
+                                // Manejo seguro del campo 'imagen'
+                                String imagenUrl = document.getString("imagenUrl");
+                                if (document.contains("imagen")) {
+                                    Object imagenObj = document.get("imagen");
+
+                                    if (imagenObj instanceof String) {
+                                        imagenUrl = (String) imagenObj;
+                                    } else if (imagenObj instanceof Map) {
+                                        Map<String, Object> imagenMap = (Map<String, Object>) imagenObj;
+                                        imagenUrl = (String) imagenMap.get("imagenUrl"); // Asegúrate de que la clave "url" existe
+                                    } else if (imagenObj instanceof List) {
+                                        List<String> imagenList = (List<String>) imagenObj;
+                                        if (!imagenList.isEmpty()) {
+                                            imagenUrl = imagenList.get(0); // Si es una lista de URLs
+                                        }
+                                    }
+                                }
+
                                 String talla = document.getString("talla");
                                 String material = document.getString("material");
                                 String color = document.getString("color");
 
                                 Prenda prenda = new Prenda(0, talla, material, color, tipo);
-                                prenda.setImagenUrl(imagenUrl); // Asegúrate de tener este campo en Prenda
+                                if (imagenUrl != null) {
+                                    prenda.setImagenUrl(imagenUrl);
+                                }
                                 clothesList.add(prenda);
                             }
                         }
@@ -77,5 +98,4 @@ public class ClothesListActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }
