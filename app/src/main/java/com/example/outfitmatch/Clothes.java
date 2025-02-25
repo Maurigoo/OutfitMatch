@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Clothes extends AppCompatActivity {
-    private PieChart pieChart;
+
     private TextView totalPrendasText;
 
     @Override
@@ -33,10 +33,9 @@ public class Clothes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
 
-        pieChart = findViewById(R.id.pieChart);
+
         totalPrendasText = findViewById(R.id.totalPrendasText);
 
-        cargarGrafico();
 
 
         ImageButton botonShirts = findViewById(R.id.botonShirts);
@@ -78,75 +77,6 @@ public class Clothes extends AppCompatActivity {
                 }
                 return false;
             }
-        });
-    }
-
-    /**
-     * Carga el gráfico circular con los datos de las prendas.
-     */
-    private void cargarGrafico() {
-        String userId = "USER_ID_AQUI"; // Reemplaza con el ID del usuario actual
-
-        GestorPrenda.getInstance().obtenerTotalPrendas(userId, (total, prendas) -> {
-            totalPrendasText.setText(total + " prendas");
-
-            List<PieEntry> entries = new ArrayList<>();
-
-            int shirts = 0, pants = 0, shoes = 0, dresses = 0, accessories = 0;
-            for (Prenda prenda : prendas) {
-                String tipo = prenda.getMaterial(); // Ajusta si hay un campo específico para tipo
-                switch (tipo) {
-                    case "Algodón":
-                        shirts++;
-                        break;
-                    case "Denim":
-                        pants++;
-                        break;
-                    case "Cuero":
-                        shoes++;
-                        break;
-                    case "Seda":
-                        dresses++;
-                        break;
-                    case "Metal":
-                        accessories++;
-                        break;
-                }
-            }
-
-            // Solo agregar entradas con valores > 0
-            if (shirts > 0) entries.add(new PieEntry(shirts, "Shirts"));
-            if (pants > 0) entries.add(new PieEntry(pants, "Pants"));
-            if (shoes > 0) entries.add(new PieEntry(shoes, "Shoes"));
-            if (dresses > 0) entries.add(new PieEntry(dresses, "Dresses"));
-            if (accessories > 0) entries.add(new PieEntry(accessories, "Accessories"));
-
-            // Configuración del DataSet con tonos azules
-            List<Integer> blueShades = new ArrayList<>();
-            blueShades.add(Color.parseColor("#4A90E2"));
-            blueShades.add(Color.parseColor("#50E3C2"));
-            blueShades.add(Color.parseColor("#007AFF"));
-            blueShades.add(Color.parseColor("#5AC8FA"));
-            blueShades.add(Color.parseColor("#34AADC"));
-
-            PieDataSet dataSet = new PieDataSet(entries, "Prendas");
-            dataSet.setColors(blueShades);
-            dataSet.setValueTextSize(14f);
-            dataSet.setValueTextColor(Color.WHITE);
-            dataSet.setSliceSpace(2f); // Espacio entre las secciones
-
-            PieData pieData = new PieData(dataSet);
-            pieChart.setData(pieData);
-
-            // Configuraciones adicionales para el gráfico completo
-            pieChart.getDescription().setEnabled(false);
-            pieChart.setUsePercentValues(true);
-            pieChart.setDrawHoleEnabled(false); // Eliminar el hueco central
-            pieChart.setEntryLabelColor(Color.BLACK);
-            pieChart.setEntryLabelTextSize(12f);
-            pieChart.getLegend().setEnabled(true);
-
-            pieChart.invalidate(); // Refrescar el gráfico
         });
     }
 
