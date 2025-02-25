@@ -2,25 +2,28 @@ package com.example.outfitmatch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.outfitmatch.Outfits;
-import com.example.outfitmatch.R;
 import com.example.outfitmatch.adaptador.AdaptadorTransition;
 import com.example.outfitmatch.modelo.entidad.Prenda;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
+import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
 import com.yuyakaido.android.cardstackview.Direction;
+import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeAnimationSetting;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
-import com.yuyakaido.android.cardstackview.CardStackListener;
-import com.yuyakaido.android.cardstackview.StackFrom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,7 @@ public class Transition extends AppCompatActivity {
     AdaptadorTransition adapter;
 
     private List<Prenda> savedOutfits = new ArrayList<>();
+    private List<Prenda> prendas = new ArrayList<>(); // Lista de prendas desde Firestore
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,24 +44,21 @@ public class Transition extends AppCompatActivity {
         setContentView(R.layout.activity_transition);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
 
-                if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home.class));
-                } else if (itemId == R.id.nav_clothes) {
-                    startActivity(new Intent(getApplicationContext(), Clothes.class));
-                } else if (itemId == R.id.nav_add) {
-                    startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-                } else if (itemId == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), Perfil.class));
-                }
-
-                overridePendingTransition(0, 0);
-                return true;
+            if (itemId == R.id.nav_home) {
+                startActivity(new Intent(getApplicationContext(), Home.class));
+            } else if (itemId == R.id.nav_clothes) {
+                startActivity(new Intent(getApplicationContext(), Clothes.class));
+            } else if (itemId == R.id.nav_add) {
+                startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
+            } else if (itemId == R.id.nav_profile) {
+                startActivity(new Intent(getApplicationContext(), Perfil.class));
             }
+
+            overridePendingTransition(0, 0);
+            return true;
         });
 
         like = findViewById(R.id.botonLike);
@@ -66,6 +67,7 @@ public class Transition extends AppCompatActivity {
         cardStackView = findViewById(R.id.cardStackView);
 
         setupCardStackView();
+        loadPrendasFromFirestore(); // Carga prendas desde Firestore
 
         outfit.setOnClickListener(view -> {
             Intent intent = new Intent(Transition.this, Outfits.class);
@@ -73,16 +75,7 @@ public class Transition extends AppCompatActivity {
             startActivity(intent);
         });
 
-        like.setOnClickListener(view -> {
-            int topPosition = manager.getTopPosition();
-            if (topPosition > 0) {
-                Prenda prenda = getPrendas().get(topPosition - 1);
-                savedOutfits.add(prenda);
-                saveOutfitsToPreferences(savedOutfits);
-                swipeCard(Direction.Right);
-            }
-        });
-
+        like.setOnClickListener(view -> swipeCard(Direction.Right));
         x.setOnClickListener(view -> swipeCard(Direction.Left));
     }
 
@@ -94,48 +87,36 @@ public class Transition extends AppCompatActivity {
     }
 
     private void setupCardStackView() {
-        // Initialize the CardStackLayoutManager with CardStackListener
         manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
-            public void onCardDragging(Direction direction, float ratio) {
-                // Handle card dragging
-            }
+            public void onCardDragging(Direction direction, float ratio) { }
 
             @Override
             public void onCardSwiped(Direction direction) {
                 if (direction == Direction.Right) {
                     int topPosition = manager.getTopPosition() - 1;
-                    if (topPosition >= 0) {
-                        Prenda prenda = getPrendas().get(topPosition);
+                    if (topPosition >= 0 && topPosition < prendas.size()) {
+                        Prenda prenda = prendas.get(topPosition);
                         savedOutfits.add(prenda);
-                        saveOutfitsToPreferences(savedOutfits);
+                        Toast.makeText(Transition.this, "Añadido a favoritos", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
-            public void onCardRewound() {
-                // Handle card rewind
-            }
+            public void onCardRewound() { }
 
             @Override
-            public void onCardCanceled() {
-                // Handle card cancel
-            }
+            public void onCardCanceled() { }
 
             @Override
-            public void onCardAppeared(View view, int position) {
-                // Handle card appearance
-            }
+            public void onCardAppeared(View view, int position) { }
 
             @Override
-            public void onCardDisappeared(View view, int position) {
-                // Handle card disappearance
-            }
+            public void onCardDisappeared(View view, int position) { }
         });
 
-        // Set properties for the manager
-        manager.setStackFrom(StackFrom.None); // Corrected usage
+        manager.setStackFrom(StackFrom.None);
         manager.setVisibleCount(3);
         manager.setTranslationInterval(8.0f);
         manager.setScaleInterval(0.95f);
@@ -144,22 +125,37 @@ public class Transition extends AppCompatActivity {
         manager.setDirections(Direction.HORIZONTAL);
         manager.setSwipeableMethod(SwipeableMethod.AutomaticAndManual);
 
-        // Set up the adapter for the view
-        adapter = new AdaptadorTransition(getPrendas());
+        adapter = new AdaptadorTransition(prendas);
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
     }
 
-    private List<Prenda> getPrendas() {
-        List<Prenda> prendas = new ArrayList<>();
-        prendas.add(new Prenda(R.drawable.prenda1, "M", "Rojo", "Algodón", "Shirts"));
-        prendas.add(new Prenda(R.drawable.prenda2, "L", "Azul", "Poliéster", "Pants"));
-        prendas.add(new Prenda(R.drawable.prenda3, "S", "Negro", "Seda", "Dresses"));
+    private void loadPrendasFromFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        return prendas;
-    }
+        db.collection("prendas").document(userId).collection("user_prendas")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        prendas.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String imagenUrl = document.getString("imagenUrl");
+                            String talla = document.getString("talla");
+                            String material = document.getString("material");
+                            String color = document.getString("color");
+                            String tipo = document.getString("tipo");
 
-    private void saveOutfitsToPreferences(List<Prenda> outfits) {
-        // Save the list of outfits in SharedPreferences
+                            Prenda prenda = new Prenda(0, talla, material, color, tipo);
+                            prenda.setImagenUrl(imagenUrl); // Establecer URL de imagen
+
+                            prendas.add(prenda);
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(this, "Error al cargar prendas", Toast.LENGTH_SHORT).show();
+                        Log.e("Firestore", "Error al obtener prendas", task.getException());
+                    }
+                });
     }
 }

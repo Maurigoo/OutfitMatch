@@ -1,6 +1,8 @@
 package com.example.outfitmatch.modelo.entidad;
 
-public class Prenda {
+import java.io.Serializable;
+
+public class Prenda implements Serializable {
 
     private int imagen; // Este se usa para recursos locales
     private String imagenUrl; // Para la URL de Firebase

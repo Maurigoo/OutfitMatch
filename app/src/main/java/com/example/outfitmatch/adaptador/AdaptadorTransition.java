@@ -1,4 +1,4 @@
- package com.example.outfitmatch.adaptador;
+package com.example.outfitmatch.adaptador;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.outfitmatch.R;
 import com.example.outfitmatch.modelo.entidad.Prenda;
 
@@ -31,7 +32,11 @@ public class AdaptadorTransition extends RecyclerView.Adapter<AdaptadorTransitio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Prenda prenda = prendas.get(position);
-        holder.imgCardPrenda.setImageResource(prenda.getImagen());
+
+        // Cargar la imagen desde la URL usando Glide
+        Glide.with(holder.itemView.getContext())
+                .load(prenda.getImagenUrl())
+                .into(holder.imgCardPrenda);
     }
 
     @Override

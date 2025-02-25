@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.outfitmatch.R;
 import com.example.outfitmatch.modelo.entidad.Prenda;
 
@@ -30,9 +31,16 @@ public class AdaptadorOutfits extends RecyclerView.Adapter<AdaptadorOutfits.Outf
     @Override
     public void onBindViewHolder(OutfitViewHolder holder, int position) {
         Prenda prenda = outfits.get(position);
-        holder.imageView.setImageResource(prenda.getImagen());
+
+        // Cargar la imagen desde la URL usando Glide
+        Glide.with(holder.itemView.getContext())
+                .load(prenda.getImagenUrl())  // Cargar desde la URL
+                .into(holder.imageView);
+
+        // Mostrar detalles de la prenda
         holder.sizeTextView.setText("Tamaño: " + prenda.getTalla());
         holder.colorTextView.setText("Color: " + prenda.getColor());
+        holder.materialTextView.setText("Material: " + prenda.getMaterial());
     }
 
     @Override
@@ -42,13 +50,14 @@ public class AdaptadorOutfits extends RecyclerView.Adapter<AdaptadorOutfits.Outf
 
     public static class OutfitViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView sizeTextView, colorTextView;
+        TextView sizeTextView, colorTextView, materialTextView;
 
         public OutfitViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imgOutfit);
             sizeTextView = itemView.findViewById(R.id.textViewTalla);
             colorTextView = itemView.findViewById(R.id.textViewColor);
+            materialTextView = itemView.findViewById(R.id.textViewMaterial);
         }
     }
 }
