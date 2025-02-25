@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.outfitmatch.adaptador.AdaptadorTransition;
 import com.example.outfitmatch.modelo.entidad.Prenda;
@@ -58,6 +59,7 @@ public class Transition extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
 

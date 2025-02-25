@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.outfitmatch.modelo.entidad.Usuario;
 import com.example.outfitmatch.modelo.negocio.GestorUsuario;
@@ -35,6 +36,7 @@ public class Login extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.outfitmatch.modelo.entidad.Prenda;
 import com.example.outfitmatch.modelo.negocio.GestorPrenda;
@@ -21,13 +22,22 @@ import java.util.List;
 
 /**
  * Actividad que muestra las prendas del usuario y permite navegar por diferentes categorías.
+ *
+ * La clase gestiona la visualización de las prendas del usuario, y ofrece una interfaz con botones para
+ * filtrar por categorías. Además, contiene un menú de navegación inferior que permite la navegación
+ * a otras pantallas de la aplicación.
  */
 public class Clothes extends AppCompatActivity {
 
     private TextView totalPrendasText;
 
+    /**
+     * Método que se ejecuta cuando se crea la actividad. Inicializa la interfaz de usuario
+     * y configura la obtención de las prendas del usuario.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
 
@@ -70,9 +80,11 @@ public class Clothes extends AppCompatActivity {
     }
 
     /**
-     * Configura los botones de categorías.
+     * Configura los botones de categorías de ropa. Cada botón al ser presionado
+     * abre una nueva actividad con la lista de prendas correspondientes a la categoría seleccionada.
      */
     private void configurarBotones() {
+        // Inicialización de los botones de categorías
         ImageButton botonShirts = findViewById(R.id.botonShirts);
         ImageButton botonPants = findViewById(R.id.botonPants);
         ImageButton botonShoes = findViewById(R.id.botonShoes);
@@ -80,6 +92,7 @@ public class Clothes extends AppCompatActivity {
         ImageButton botonAccessories = findViewById(R.id.botonAccessories);
         ImageButton botonAll = findViewById(R.id.botonAll);
 
+        // Configuración de los listeners de cada botón
         botonShirts.setOnClickListener(view -> openClothesListActivity("Shirts"));
         botonPants.setOnClickListener(view -> openClothesListActivity("Pants"));
         botonShoes.setOnClickListener(view -> openClothesListActivity("Shoes"));
@@ -89,7 +102,8 @@ public class Clothes extends AppCompatActivity {
     }
 
     /**
-     * Configura la navegación inferior.
+     * Configura la barra de navegación inferior para permitir la navegación entre pantallas principales
+     * de la aplicación (Home, Clothes, Add y Profile).
      */
     private void configurarNavegacionInferior() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
@@ -100,6 +114,7 @@ public class Clothes extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
 
+                // Navegar según la opción seleccionada
                 if (itemId == R.id.nav_home) {
                     startActivity(new Intent(getApplicationContext(), Home.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -123,7 +138,7 @@ public class Clothes extends AppCompatActivity {
     /**
      * Abre la actividad de lista de prendas según la categoría seleccionada.
      *
-     * @param category Categoría de prendas a mostrar.
+     * @param category Categoría de ropa a mostrar en la lista.
      */
     private void openClothesListActivity(String category) {
         Intent intent = new Intent(Clothes.this, ClothesListActivity.class);
