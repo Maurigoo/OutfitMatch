@@ -14,7 +14,7 @@
         android:fontFamily="@font/autour_one"
         android:text="@string/registrarprendas"
         android:textColor="@color/background_menu"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
