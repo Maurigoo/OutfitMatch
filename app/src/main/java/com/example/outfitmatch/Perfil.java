@@ -30,7 +30,7 @@ import java.io.IOException;
  * Perfil es la actividad que permite a los usuarios ver y actualizar su información personal,
  * incluyendo nombre, correo electrónico y foto de perfil. También ofrece la opción de cerrar sesión.
  */
-public class Perfil extends AppCompatActivity {
+public class  Perfil extends AppCompatActivity {
 
     private FirebaseAuth mAuth;                          // Instancia de FirebaseAuth para autenticación
     private TextView nombreUsuario, emailUsuario;        // Vistas para mostrar el nombre y correo del usuario
