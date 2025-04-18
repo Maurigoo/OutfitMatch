@@ -3,6 +3,7 @@ package com.example.outfitmatch;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ public class SignUp extends AppCompatActivity {
     private Button signUp;                             // Botón de registro principal
     private ImageButton signUpRoundButton;             // Botón redondo de registro
     private FirebaseAuth mAuth;                        // Instancia de FirebaseAuth
+    private ImageButton ojo;
 
     /**
      * Método llamado al crear la actividad. Inicializa vistas y configuración.
@@ -48,13 +50,29 @@ public class SignUp extends AppCompatActivity {
         name = findViewById(R.id.SignUpName);
         email = findViewById(R.id.SignUpEmail);
         password = findViewById(R.id.SignUpPassword);
-        phone = findViewById(R.id.SignUpPhone);
         signUp = findViewById(R.id.SignUpBoton);
         signUpRoundButton = findViewById(R.id.SignUpBotonRound);
+        ojo = findViewById(R.id.ojo_sing_up);
 
         // Establecer listeners para ambos botones de registro
         signUp.setOnClickListener(view -> registerUser());
         signUpRoundButton.setOnClickListener(view -> registerUser());  // Usa el mismo método
+
+        final boolean[] isPasswordVisible = {false};
+
+        ojo.setOnClickListener(v -> {
+            if (isPasswordVisible[0]) {
+                // Ocultar contraseña
+                password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            } else {
+                // Mostrar contraseña
+                password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            }
+
+            // Mantener el cursor al final del texto
+            password.setSelection(password.getText().length());
+            isPasswordVisible[0] = !isPasswordVisible[0];
+        });
     }
 
     /**
@@ -73,7 +91,7 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
-        if (nuevoPass.length() < 6) {
+        if (nuevoPass.length() < 8) {
             Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
             return;
         }

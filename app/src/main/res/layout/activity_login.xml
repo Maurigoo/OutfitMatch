@@ -79,6 +79,19 @@
         app:layout_constraintVertical_bias="0.769" />
 
     <ImageButton
+        android:id="@+id/ojo_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:src="@drawable/ojo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.559" />
+
+    <ImageButton
         android:id="@+id/SignInBotonRound"
         android:layout_width="48dp"
         android:layout_height="48dp"
