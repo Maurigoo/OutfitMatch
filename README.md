@@ -18,7 +18,7 @@ El equipo de desarrollo está compuesto por:
 
 - **Maroua Ezzaki Kadmiri**
 - **Avril Pino Pérez**
-- **Mauricio**
+- **Jose Mauricio Herbas**
 
 ---
 

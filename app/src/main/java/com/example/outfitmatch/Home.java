@@ -38,7 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Home extends AppCompatActivity {
 
-    private Button articles, ideas, outfit; // Botones para navegar a diferentes secciones
+    private Button articles, ideas, outfit, generarOutfit; // Botones para navegar a diferentes secciones
     private ImageView gifImageView;         // Imagen animada usando Glide
     private TextView tvWeather, userGreetingTextView; // Muestra clima y saludo al usuario
 
@@ -102,6 +102,7 @@ public class Home extends AppCompatActivity {
         articles = findViewById(R.id.botonArticles);
         ideas = findViewById(R.id.botonIdeas);
         outfit = findViewById(R.id.botonOufits);
+        generarOutfit = findViewById(R.id.botongeneraroutfit);
 
         articles.setOnClickListener(view -> {
             Intent intent = new Intent(Home.this, Clothes.class);
@@ -115,6 +116,11 @@ public class Home extends AppCompatActivity {
 
         outfit.setOnClickListener(v -> {
             Intent intent = new Intent(Home.this, Outfits.class);
+            startActivity(intent);
+        });
+
+        generarOutfit.setOnClickListener(view -> {
+            Intent intent = new Intent(Home.this, GenerarOutfit.class);
             startActivity(intent);
         });
 
