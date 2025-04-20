@@ -1,9 +1,10 @@
 package com.example.outfitmatch;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,69 +14,79 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.outfitmatch.util.LanguageManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-/**
- * StartActivity es la actividad de inicio que verifica si el usuario ya está autenticado.
- * Si el usuario está autenticado, lo redirige a la actividad principal (Home).
- * Si no está autenticado, le permite iniciar sesión o registrarse.
- */
 public class StartActivity extends AppCompatActivity {
 
-    private Button login;   // Botón para iniciar sesión
-    private Button signUp;  // Botón para registrarse
+    private Button login, signUp;
+    private ImageButton languageButton;
 
-    /**
-     * Método llamado al crear la actividad. Verifica el estado de autenticación y configura las vistas.
-     *
-     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LanguageManager.loadLocale(this); // Cargar idioma antes del layout
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
 
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);  // Habilita diseño Edge-to-Edge
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_start);
 
-        // Configurar compatibilidad con vectores en AppCompat
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(false);
 
-        // Ajustar el diseño para tener en cuenta los Insets del sistema (barras de estado, navegación, etc.)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Referencias a los botones
         login = findViewById(R.id.loginButton);
         signUp = findViewById(R.id.signupButton);
+        languageButton = findViewById(R.id.languageButton);
 
-        // Verificar si el usuario ya está autenticado
+        // Cargar idioma actual y asignar bandera
+        String lang = PreferenceManager.getDefaultSharedPreferences(this)
+                .getString("app_lang", "es");
+
+        if (lang.equals("es")) {
+            languageButton.setImageResource(R.drawable.flag_spain);
+        } else {
+            languageButton.setImageResource(R.drawable.flag_uk);
+        }
+
+        // Listener para cambiar idioma
+        languageButton.setOnClickListener(v -> {
+            String currentLang = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getString("app_lang", "es");
+            String newLang = currentLang.equals("es") ? "en" : "es";
+
+            LanguageManager.setLocale(this, newLang);
+
+            if (newLang.equals("es")) {
+                languageButton.setImageResource(R.drawable.flag_spain);
+            } else {
+                languageButton.setImageResource(R.drawable.flag_uk);
+            }
+
+            recreateActivityWithoutAnimation();
+        });
+
+        // Autenticación Firebase
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
 
         if (user != null) {
-            // Si el usuario ya está autenticado, redirigirlo a la actividad principal (Home)
-            Intent intent = new Intent(StartActivity.this, Home.class);
-            startActivity(intent);
-            finish();  // Finaliza esta actividad para que el usuario no pueda regresar con el botón "Atrás"
+            startActivity(new Intent(StartActivity.this, Home.class));
+            finish();
         } else {
-            // Si el usuario no está autenticado, configurar los botones para Login y SignUp
-
-            // Redirige al LoginActivity
-            login.setOnClickListener(view -> {
-                Intent intent = new Intent(StartActivity.this, Login.class);
-                startActivity(intent);
-            });
-
-            // Redirige al SignUpActivity
-            signUp.setOnClickListener(view -> {
-                Intent intent = new Intent(StartActivity.this, SignUp.class);
-                startActivity(intent);
-            });
+            login.setOnClickListener(view -> startActivity(new Intent(StartActivity.this, Login.class)));
+            signUp.setOnClickListener(view -> startActivity(new Intent(StartActivity.this, SignUp.class)));
         }
+    }
+
+    private void recreateActivityWithoutAnimation() {
+        overridePendingTransition(0, 0);
+        recreate();
+        overridePendingTransition(0, 0);
     }
 }

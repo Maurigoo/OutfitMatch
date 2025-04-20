@@ -50,7 +50,6 @@ public class SignUp extends AppCompatActivity {
         name = findViewById(R.id.SignUpName);
         email = findViewById(R.id.SignUpEmail);
         password = findViewById(R.id.SignUpPassword);
-        signUp = findViewById(R.id.SignUpBoton);
         signUpRoundButton = findViewById(R.id.SignUpBotonRound);
         ojo = findViewById(R.id.ojo_sing_up);
 

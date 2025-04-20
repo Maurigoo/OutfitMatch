@@ -7,39 +7,45 @@
     <string name="deslizar">deslizar</string>
     <string name="img">img</string>
 
-    <string name="welcome">Welcome!</string>
-    <string name="ready">ready to create your outfit?</string>
-
-    <string name="signup">Sign up</string>
-
+    <string name="welcome">Bienvenido!</string>
+    <string name="ready">listo para crear tu outfit?</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="signup">Registrarse</string>
     <string name="email">Email</string>
-    <string name="pass">Password</string>
+    <string name="pass">Contraseña</string>
     <string name="signin">Sign In</string>
-    <string name="login">Login</string>
-    <string name="name">Name</string>
+
+    <string name="name">Nombre</string>
     <string name="phone">Number Phone</string>
 
     <string name="outfits">Outfits</string>
     <string name="ideas">Ideas</string>
-    <string name="articulos">Artícles</string>
+    <string name="articulos">Artículos</string>
 
-    <string name="profile">Profile</string>
+    <string name="profile">Perfil</string>
 
     <string name="swipe">Swipe and choose the outfits you like</string>
 
-    <string name="perfil">Profile</string>
+    <string name="perfil">Perfil</string>
 
     <string name="zara">Zara</string>
     <string name="bershka">Bershka</string>
     <string name="registrarprendas">Registrar Prendas</string>
     <string name="gif_description" />
 
-    <string name="talla">Size</string>
+    <string name="talla">Talla</string>
     <string name="Material">Material</string>
-    <string name="Color">Colour</string>
+    <string name="Color">Color</string>
+
+    <string name="subirprenda">Subir</string>
 
     <string name="text">text</string>
-    <string name="register_button">Don\'t have an account? Sign up!</string>
+    <string name="register_button">¿No tienes cuenta? Regístrate!</string>
+    <string name="create_outfit">Crear outfit</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="hello_user">Hola user!!</string>
+    <string name="change_language" />
+    <string name="ready_home">listo para crear tu outfit?</string>
 
     <string-array name="tipo_prenda_array">
         <item>Shirts</item>
@@ -48,13 +54,4 @@
         <item>Dresses</item>
         <item>Accessories</item>
     </string-array>
-    <string name="subirprenda">Up</string>
-    <string name="create_outfit">Create outfit</string>
-    <string name="cerrar_sesion">Close session</string>
-    <string name="pull" translatable="false" />
-    <string name="lefties" translatable="false" />
-    <string name="change_language" />
-    <string name="hello_user">Hello user!!</string>
-    <string name="ready_home">ready to create your outfit?</string>
-
 </resources>

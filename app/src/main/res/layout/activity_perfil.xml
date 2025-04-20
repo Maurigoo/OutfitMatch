@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:fontFamily="@font/autour_one"
-        android:text="Cerrar Sesion"
+        android:text="@string/cerrar_sesion"
         android:textAllCaps="false"
         android:textColor="@color/red"
         android:textSize="28sp"

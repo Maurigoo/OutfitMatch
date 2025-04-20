@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:ignore="ExtraText">
 
-
+    <!-- Imagen decorativa izquierda -->
     <ImageView
-
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:src="@drawable/circle"
@@ -17,8 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Imagen decorativa derecha -->
     <ImageView
-
         android:layout_width="240dp"
         android:layout_height="240dp"
         android:src="@drawable/circle"
@@ -27,19 +27,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+    <!-- Texto de bienvenida -->
 
+    <!-- Subtítulo debajo de bienvenida -->
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="228dp"
         android:fontFamily="@font/autour_one"
         android:text="@string/welcome"
         android:textColor="#000000"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,15 +49,17 @@
         android:id="@+id/subtitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/autour_one"
         android:text="@string/ready"
         android:textColor="#888888"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcomeText" />
 
+    <!-- Botón para iniciar sesión -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="220dp"
@@ -71,6 +75,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subtitleText" />
 
+    <!-- Botón para registrarse -->
     <Button
         android:id="@+id/signupButton"
         android:layout_width="220dp"
@@ -85,4 +90,21 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
+    <!-- ImageButton para cambiar el idioma (bandera de España al principio) -->
+    <ImageButton
+        android:id="@+id/languageButton"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/change_language"
+        android:src="@drawable/flag_uk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent"
+
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="71dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

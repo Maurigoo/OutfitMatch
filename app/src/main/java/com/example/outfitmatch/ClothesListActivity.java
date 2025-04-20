@@ -1,5 +1,6 @@
 package com.example.outfitmatch;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -68,6 +69,7 @@ public class ClothesListActivity extends AppCompatActivity {
      * Método que carga las prendas desde Firestore para una categoría específica.
      * @param category La categoría de las prendas a cargar (por ejemplo, "All", "Shirts", etc.).
      */
+    @SuppressLint("NotifyDataSetChanged")
     private void loadClothesFromFirestore(String category) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Obtener el ID del usuario
 
