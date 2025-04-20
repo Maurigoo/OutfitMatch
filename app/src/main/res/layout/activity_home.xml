@@ -65,21 +65,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.123" />
 
-    <Button
-        android:id="@+id/botonArticles"
-        android:layout_width="173dp"
-        android:layout_height="95dp"
-        android:backgroundTint="@color/background_menu"
-        android:fontFamily="@font/autour_one"
-        android:text="@string/articulos"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.801" />
 
     <Button
         android:id="@+id/botonIdeas"
@@ -92,11 +77,26 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.923"
+        app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592" />
+        app:layout_constraintVertical_bias="0.616" />
 
+    <Button
+        android:id="@+id/botongeneraroutfit"
+        android:layout_width="173dp"
+        android:layout_height="95dp"
+        android:backgroundTint="@color/background_menu"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/create_outfit"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.617" />
 
     <Button
         android:id="@+id/botonOufits"
@@ -112,23 +112,23 @@
         app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.801" />
+        app:layout_constraintVertical_bias="0.817" />
 
     <Button
-        android:id="@+id/botongeneraroutfit"
+        android:id="@+id/botonArticles"
         android:layout_width="173dp"
         android:layout_height="95dp"
         android:backgroundTint="@color/background_menu"
         android:fontFamily="@font/autour_one"
-        android:text="@string/create_outfit"
+        android:text="@string/articulos"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintHorizontal_bias="0.067"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594" />
+        app:layout_constraintVertical_bias="0.817" />
 
     <TextView
         android:id="@+id/tvWeather"
