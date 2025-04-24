@@ -25,17 +25,11 @@ import com.google.firebase.auth.UserProfileChangeRequest;
  */
 public class SignUp extends AppCompatActivity {
 
-    private EditText name, email, password, phone;     // Campos de entrada para el registro
-    private Button signUp;                             // Botón de registro principal
-    private ImageButton signUpRoundButton;             // Botón redondo de registro
-    private FirebaseAuth mAuth;                        // Instancia de FirebaseAuth
+    private EditText name, email, password;
+    private ImageButton signUpRoundButton;
+    private FirebaseAuth mAuth;
     private ImageButton ojo;
 
-    /**
-     * Método llamado al crear la actividad. Inicializa vistas y configuración.
-     *
-     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
@@ -43,90 +37,69 @@ public class SignUp extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_sign_up);
 
-        // Inicialización de Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
 
-        // Referencias a las vistas
         name = findViewById(R.id.SignUpName);
         email = findViewById(R.id.SignUpEmail);
         password = findViewById(R.id.SignUpPassword);
         signUpRoundButton = findViewById(R.id.SignUpBotonRound);
         ojo = findViewById(R.id.ojo_sing_up);
 
-        // Establecer listeners para ambos botones de registro
-        signUp.setOnClickListener(view -> registerUser());
-        signUpRoundButton.setOnClickListener(view -> registerUser());  // Usa el mismo método
+        signUpRoundButton.setOnClickListener(view -> registerUser());
 
         final boolean[] isPasswordVisible = {false};
 
         ojo.setOnClickListener(v -> {
             if (isPasswordVisible[0]) {
-                // Ocultar contraseña
                 password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             } else {
-                // Mostrar contraseña
                 password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
             }
-
-            // Mantener el cursor al final del texto
             password.setSelection(password.getText().length());
             isPasswordVisible[0] = !isPasswordVisible[0];
         });
     }
 
-    /**
-     * Método encargado de registrar un nuevo usuario utilizando Firebase Authentication.
-     * Incluye validaciones de campos y muestra mensajes en caso de error.
-     */
     private void registerUser() {
         String nuevoName = name.getText().toString().trim();
         String nuevoEmail = email.getText().toString().trim();
         String nuevoPass = password.getText().toString().trim();
-        String nuevoPhone = phone.getText().toString().trim();
 
-        // Validaciones básicas de campos
-        if (TextUtils.isEmpty(nuevoName) || TextUtils.isEmpty(nuevoEmail) || TextUtils.isEmpty(nuevoPass) || TextUtils.isEmpty(nuevoPhone)) {
+        if (TextUtils.isEmpty(nuevoName) || TextUtils.isEmpty(nuevoEmail) || TextUtils.isEmpty(nuevoPass)) {
             Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (nuevoPass.length() < 8) {
-            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Mostrar ProgressDialog durante el proceso de registro
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Registrando usuario...");
-        progressDialog.setCancelable(false); // No permitir cancelación
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
-        // Registrar usuario en Firebase Authentication
         mAuth.createUserWithEmailAndPassword(nuevoEmail, nuevoPass)
                 .addOnCompleteListener(this, task -> {
-                    progressDialog.dismiss();  // Ocultar el ProgressDialog al finalizar
+                    progressDialog.dismiss();
 
                     if (task.isSuccessful()) {
-                        // Obtener el usuario registrado
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
-                            // Guardar el nombre del usuario en Firebase
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(nuevoName)
                                     .build();
                             user.updateProfile(profileUpdates);
                         }
 
-                        // Mostrar mensaje de éxito
                         Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
 
-                        // Redirigir al StartActivity
-                        Usuario usuario = new Usuario(nuevoName, nuevoEmail, nuevoPass, nuevoPhone);
+                        Usuario usuario = new Usuario(nuevoName, nuevoEmail, nuevoPass, null);
                         Intent intent = new Intent(SignUp.this, StartActivity.class);
                         startActivity(intent);
-                        finish(); // Finaliza la actividad para que no se pueda volver atrás
+                        finish();
                     } else {
-                        // Mostrar mensaje de error si el registro falla
                         Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
