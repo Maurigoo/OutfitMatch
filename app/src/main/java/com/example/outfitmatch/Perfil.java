@@ -87,6 +87,10 @@ public class Perfil extends AppCompatActivity {
             return true;
         });
 
+        Button deleteButton = findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(view -> mostrarDialogoEliminarCuenta());
+
+
         // Leer el idioma guardado
         String savedLang = getSavedLanguage();
         isSpanish = savedLang.equals("es");
@@ -215,4 +219,49 @@ public class Perfil extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    /**
+     * Muestra un cuadro de diálogo para confirmar la eliminación de la cuenta.
+     */
+    private void mostrarDialogoEliminarCuenta() {
+        new AlertDialog.Builder(this)
+                .setTitle("Eliminar cuenta")
+                .setMessage("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.")
+                .setPositiveButton("Eliminar", (dialog, which) -> eliminarCuenta())
+                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
+    }
+
+    /**
+     * Elimina la cuenta del usuario autenticado.
+     */
+    private void eliminarCuenta() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Eliminando cuenta...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            user.delete()
+                    .addOnCompleteListener(task -> {
+                        progressDialog.dismiss();
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(Perfil.this, StartActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            new AlertDialog.Builder(this)
+                                    .setTitle("Error")
+                                    .setMessage("No se pudo eliminar la cuenta. Por favor, vuelve a iniciar sesión y vuelve a intentarlo.")
+                                    .setPositiveButton("OK", null)
+                                    .create()
+                                    .show();
+                        }
+                    });
+        }
+    }
+
 }

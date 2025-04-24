@@ -46,6 +46,7 @@
     <string name="hello_user">Hola user!!</string>
     <string name="change_language" />
     <string name="ready_home">listo para crear tu outfit?</string>
+    <string name="delete_account">Eliminar contraseña</string>
 
     <string-array name="tipo_prenda_array">
         <item>Shirts</item>
