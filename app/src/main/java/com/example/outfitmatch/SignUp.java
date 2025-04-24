@@ -95,7 +95,7 @@ public class SignUp extends AppCompatActivity {
 
                         Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
 
-                        Usuario usuario = new Usuario(nuevoName, nuevoEmail, nuevoPass, null);
+                        Usuario usuario = new Usuario(nuevoName, nuevoEmail, nuevoPass);
                         Intent intent = new Intent(SignUp.this, StartActivity.class);
                         startActivity(intent);
                         finish();

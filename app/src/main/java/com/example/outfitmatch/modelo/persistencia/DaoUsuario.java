@@ -51,4 +51,9 @@ public class DaoUsuario {
             }
         });
     }
+
+    public Task<Void> resetPassword(String email) {
+        return FirebaseAuth.getInstance().sendPasswordResetEmail(email);
+    }
+
 }

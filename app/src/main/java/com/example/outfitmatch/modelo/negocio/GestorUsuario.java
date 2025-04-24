@@ -9,7 +9,7 @@ import com.google.android.gms.tasks.Tasks;
 
 /**
  * GestorUsuario es una clase singleton responsable de gestionar la lógica relacionada
- * con los usuarios, como el inicio de sesión y la validación de datos.
+ * con los usuarios, como el inicio de sesión, validación de datos y recuperación de contraseña.
  */
 public class GestorUsuario {
 
@@ -37,17 +37,13 @@ public class GestorUsuario {
      *
      * @param usuario Objeto Usuario que contiene el email y la contraseña.
      * @return Una Task<Void> que representa el resultado del inicio de sesión.
-     *         - Si la validación falla, devuelve una tarea fallida con una excepción.
-     *         - Si la validación es exitosa, delega la autenticación a DaoUsuario.
      */
     public Task<Void> iniciarSesion(Usuario usuario) {
         String validationError = validarUsuario(usuario);
         if (validationError != null) {
-            // Retorna una tarea fallida si la validación no pasa
             return Tasks.forException(new Exception(validationError));
         }
 
-        // Delegar la autenticación al DaoUsuario
         return daoUsuario.signIn(usuario.getEmail(), usuario.getPassword());
     }
 
@@ -66,10 +62,23 @@ public class GestorUsuario {
             return "La contraseña es obligatoria";
         }
 
-        if (usuario.getPassword().length() < 6) {
-            return "La contraseña debe tener al menos 6 caracteres";
+        if (usuario.getPassword().length() < 8) {
+            return "La contraseña debe tener al menos 8 caracteres";
         }
 
         return null;  // Datos válidos
+    }
+
+    /**
+     * Envía un correo electrónico para restablecer la contraseña del usuario.
+     *
+     * @param email Dirección de correo del usuario.
+     * @return Task<Void> que indica si el correo fue enviado correctamente.
+     */
+    public Task<Void> enviarResetPassword(String email) {
+        if (TextUtils.isEmpty(email)) {
+            return Tasks.forException(new Exception("El correo electrónico no puede estar vacío"));
+        }
+        return daoUsuario.resetPassword(email);
     }
 }

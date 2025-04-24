@@ -7,12 +7,14 @@ public class Usuario implements Serializable {
     private String name;
     private String email;
     private String password;
-    private String phone;
 
-    public Usuario(String nuevoName, String nuevoEmail, String nuevoPass, String nuevoPhone) {
+    public Usuario(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
-    public Usuario(){
+    public Usuario() {
         super();
     }
 
@@ -40,21 +42,12 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
                 '}';
     }
 }
