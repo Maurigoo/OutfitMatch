@@ -25,7 +25,6 @@ public class Login extends AppCompatActivity {
 
     private EditText emailUsuario;       // Campo para ingresar el email
     private EditText passwordUsuario;    // Campo para ingresar la contraseña
-    private Button signInBtn;            // Botón principal de inicio de sesión
     private ImageButton signInbtnRound;  // Botón redondo alternativo de inicio de sesión
     private Button registerButton;       // Botón para redirigir al registro
     private ProgressDialog progressDialog;  // Diálogo de progreso para mostrar mientras se autentica
@@ -45,7 +44,6 @@ public class Login extends AppCompatActivity {
         // Inicializar vistas
         emailUsuario = findViewById(R.id.SignInEmail);
         passwordUsuario = findViewById(R.id.SignInPassword);
-        signInBtn = findViewById(R.id.SignInBoton);
         signInbtnRound = findViewById(R.id.SignInBotonRound);
         registerButton = findViewById(R.id.registerButton); // Botón de registro
         ojo = findViewById(R.id.ojo_login);
@@ -57,7 +55,6 @@ public class Login extends AppCompatActivity {
         progressDialog.setCancelable(false);               // No permitir que el usuario cierre el diálogo
 
         // Configurar el clic del botón de inicio de sesión
-        signInBtn.setOnClickListener(view -> loginUser());
         signInbtnRound.setOnClickListener(view -> loginUser());
 
         // Configurar el clic del botón de registro
