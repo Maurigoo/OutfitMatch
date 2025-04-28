@@ -5,8 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".Perfil">
+    android:background="?attr/backgroundColor"
+
+tools:context=".Perfil">
 
     <TextView
         android:id="@+id/textView"
@@ -87,6 +88,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.52" />
+
+
+    <ImageButton
+        android:id="@+id/btnChangeMode"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/moonicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="16dp" />
 
     <ImageButton
         android:id="@+id/btnChangeLang"

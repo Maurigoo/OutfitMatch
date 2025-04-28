@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores existentes -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#32CD32</color>
@@ -8,7 +8,11 @@
     <color name="azulClaro">#88FFFB</color>
     <color name="background_menu">#00B8BF</color>
     <color name="red">#FF0000</color>
+    <color name="primaryColor">#1F1F1F</color> <!-- Color oscuro para el modo claro -->
+    <color name="primaryColorDark">#121212</color> <!-- Color aún más oscuro para el modo oscuro -->
+    <color name="primaryColorLight">#333333</color> <!-- Color intermedio para el modo claro -->
 
-
-
+    <!-- Colores para texto -->
+    <color name="textPrimary">#FFFFFF</color> <!-- Texto blanco para el modo oscuro -->
+    <color name="textSecondary">#B0BEC5</color> <!-- Texto secundario -->
 </resources>

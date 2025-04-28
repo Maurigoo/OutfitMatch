@@ -2,12 +2,13 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.OutfitMatch" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-        <item name="android:windowBackground">@color/white</item>
-
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryColorDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/primaryColorLight</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="backgroundColor">@color/white</item> <!-- Fondo blanco para el modo claro -->
+        <item name="android:textColorPrimary">@color/black</item> <!-- Texto negro para el modo claro -->
     </style>
 
     <style name="Theme.OutfitMatch" parent="Base.Theme.OutfitMatch" />
