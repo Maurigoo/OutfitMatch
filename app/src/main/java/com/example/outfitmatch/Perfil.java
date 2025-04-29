@@ -49,6 +49,8 @@ public class Perfil extends AppCompatActivity {
     @SuppressLint({"SetTextI18n", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeManager.applyTheme(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
@@ -120,6 +122,7 @@ public class Perfil extends AppCompatActivity {
         isDarkMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
         updateIcon(isDarkMode);
 
+        /**
         btnChangeMode.setOnClickListener(v -> {
             int currentMode = AppCompatDelegate.getDefaultNightMode();
             if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -131,8 +134,19 @@ public class Perfil extends AppCompatActivity {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
             }
+            recreate();
         });
 
+    **/
+
+        btnChangeMode.setOnClickListener(v -> {
+            boolean isCurrentlyDarkMode = SettingsManager.isDarkModeEnabled(this);
+            // Guardar la nueva preferencia
+            SettingsManager.saveThemePreference(this, !isCurrentlyDarkMode);
+
+            // Recrear la actividad actual para aplicar el nuevo tema
+            recreate();
+        });
 
 
     }
@@ -148,7 +162,7 @@ public class Perfil extends AppCompatActivity {
     private void updateIcon(boolean darkMode) {
         // Cambiar el icono entre la luna y el sol
         if (darkMode) {
-            btnChangeMode.setImageResource(R.drawable.sunicon);  // Icono de sol para modo oscuro
+            btnChangeMode.setImageResource(R.drawable.suniconwhite);  // Icono de sol para modo oscuro
         } else {
             btnChangeMode.setImageResource(R.drawable.moonicon);  // Icono de luna para modo claro
         }
