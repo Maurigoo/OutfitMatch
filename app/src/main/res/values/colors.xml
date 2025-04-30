@@ -5,6 +5,7 @@
     <color name="green">#32CD32</color>
     <color name="lighblue">#00CED1</color>
     <color name="gray">#7B7676</color>
+    <color name="graydark">#565453</color>
     <color name="azulClaro">#88FFFB</color>
     <color name="background_menu">#00B8BF</color>
     <color name="red">#FF0000</color>
