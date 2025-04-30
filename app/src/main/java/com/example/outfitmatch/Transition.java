@@ -138,7 +138,7 @@ public class Transition extends AppCompatActivity {
                     if (topPosition >= 0 && topPosition < prendas.size()) {
                         Prenda prenda = prendas.get(topPosition);
                         savedOutfits.add(prenda);
-                        Toast.makeText(Transition.this, "Añadido a favoritos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Transition.this, getString(R.string.añadido_favoritos), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

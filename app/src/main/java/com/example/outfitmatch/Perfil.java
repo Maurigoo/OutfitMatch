@@ -224,7 +224,7 @@ public class Perfil extends AppCompatActivity {
             StorageReference storageRef = storage.getReference().child("profile_images/" + user.getUid() + ".jpg");
 
             ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Actualizando foto de perfil...");
+            progressDialog.setMessage(getString(R.string.actualizando_fotoperfil));
             progressDialog.setCancelable(false);
             progressDialog.show();
 
@@ -264,10 +264,10 @@ public class Perfil extends AppCompatActivity {
 
     private void mostrarDialogoCerrarSesion() {
         new AlertDialog.Builder(this)
-                .setTitle("Cerrar sesión")
-                .setMessage("¿Está seguro de que desea cerrar sesión?")
-                .setPositiveButton("Sí", (dialog, which) -> cerrarSesion())
-                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .setTitle(getString(R.string.cerrar_sesion))
+                .setMessage(getString(R.string.seguro_cerrar_sesion))
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> cerrarSesion())
+                .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
     }

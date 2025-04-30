@@ -50,7 +50,15 @@
     <string name="confirmar_contrasena">Confirma tu contraseña</string>
     <string name="nueva_contrasena">Escribe tu nueva contraseña</string>
     <string name="forgot_password">¿Olvidaste tu contraseña?</string>
-
+    <string name="actualizando_fotoperfil">Actualizando foto del perfil...</string>
+    <string name="seguro_cerrar_sesion">¿Está seguro de que desea cerrar sesión?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="eliminar_cuenta">Eliminar cuenta</string>
+    <string name="seguro_eliminar_cuenta">¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.</string>
+    <string name="word_eliminar">Eliminar</string>
+    <string name="word_cancelar">Cancelar</string>
+    <string name="añadido_favoritos">Añadido a favoritos</string>
 
     <string-array name="tipo_prenda_array">
         <item>Shirts</item>

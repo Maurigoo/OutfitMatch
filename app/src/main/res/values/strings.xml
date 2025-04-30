@@ -60,6 +60,15 @@
     <string name="confirmar_contrasena">Confirm your password</string>
     <string name="nueva_contrasena">Enter your new password</string>
     <string name="forgot_password">¿Forgot your password?</string>
->>>>>>> mauri
+
+    <string name="actualizando_fotoperfil">Updating profile picture...</string>
+    <string name="seguro_cerrar_sesion">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="eliminar_cuenta">Delete account</string>
+    <string name="seguro_eliminar_cuenta">Are you sure you want to delete your account? This action cannot be undone.</string>
+    <string name="word_eliminar">Delete</string>
+    <string name="word_cancelar">Cancel</string>
+    <string name="añadido_favoritos">Add favourites</string>
 
 </resources>
