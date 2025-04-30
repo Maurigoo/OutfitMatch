@@ -25,6 +25,7 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeManager.applyTheme(this);
         LanguageManager.loadLocale(this); // Cargar idioma antes del layout
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
 

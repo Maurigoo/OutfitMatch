@@ -16,6 +16,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -30,6 +33,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class Perfil extends AppCompatActivity {
+    private ConstraintLayout mainLayout;
 
     private FirebaseAuth mAuth;
     private TextView nombreUsuario, emailUsuario;
@@ -38,10 +42,15 @@ public class Perfil extends AppCompatActivity {
     private ImageButton btnChangeLang;
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private boolean isSpanish;
+    private ImageView btnChangeMode;
+    private boolean isDarkMode;
+
 
     @SuppressLint({"SetTextI18n", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeManager.applyTheme(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
@@ -106,6 +115,57 @@ public class Perfil extends AppCompatActivity {
                 recreate();
             }
         });
+        mainLayout = findViewById(R.id.main);
+
+
+        btnChangeMode = findViewById(R.id.btnChangeMode);
+        isDarkMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+        updateIcon(isDarkMode);
+
+        /**
+        btnChangeMode.setOnClickListener(v -> {
+            int currentMode = AppCompatDelegate.getDefaultNightMode();
+            if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
+                // Cambiar a modo claro
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primaryColor));
+            } else {
+                // Cambiar a modo oscuro
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            }
+            recreate();
+        });
+
+    **/
+
+        btnChangeMode.setOnClickListener(v -> {
+            boolean isCurrentlyDarkMode = SettingsManager.isDarkModeEnabled(this);
+            // Guardar la nueva preferencia
+            SettingsManager.saveThemePreference(this, !isCurrentlyDarkMode);
+
+            // Recrear la actividad actual para aplicar el nuevo tema
+            recreate();
+        });
+
+
+    }
+
+    private void saveThemePreference(boolean darkModeEnabled) {
+        // Guardar preferencia en SharedPreferences
+        getSharedPreferences("settings", MODE_PRIVATE)
+                .edit()
+                .putBoolean("is_dark_mode", darkModeEnabled)
+                .apply();
+    }
+
+    private void updateIcon(boolean darkMode) {
+        // Cambiar el icono entre la luna y el sol
+        if (darkMode) {
+            btnChangeMode.setImageResource(R.drawable.suniconwhite);  // Icono de sol para modo oscuro
+        } else {
+            btnChangeMode.setImageResource(R.drawable.moonicon);  // Icono de luna para modo claro
+        }
     }
 
     private void updateFlag() {
