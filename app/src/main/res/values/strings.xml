@@ -60,6 +60,7 @@
     <string name="confirmar_contrasena">Confirm your password</string>
     <string name="nueva_contrasena">Enter your new password</string>
     <string name="forgot_password">¿Forgot your password?</string>
->>>>>>> mauri
+
+    <string name="clima">Load weather...</string>
 
 </resources>

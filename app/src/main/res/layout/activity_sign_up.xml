@@ -5,57 +5,58 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/backgroundColor"
+    android:background="@drawable/chicosfondo"
     tools:context=".SignUp">
 
-    <ImageView
-        android:layout_width="240dp"
-        android:contentDescription="@string/deco"
-        android:layout_height="240dp"
-        android:layout_marginStart="188dp"
-        android:rotation="90"
-        android:src="@drawable/circle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <EditText
-        android:id="@+id/SignUpName"
-        android:layout_width="330dp"
-        android:layout_height="60dp"
-        android:autofillHints="name"
-        android:backgroundTint="@color/gray"
-        android:fontFamily="@font/autour_one"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.414" />
 
     <EditText
         android:id="@+id/SignUpEmail"
         android:layout_width="330dp"
         android:layout_height="60dp"
         android:autofillHints="emailAddress"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="@color/white"
         android:fontFamily="@font/autour_one"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503" />
+        app:layout_constraintVertical_bias="0.436" />
+
+    <EditText
+        android:id="@+id/SignUpName"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:autofillHints="name"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/autour_one"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColorHint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.347" />
+
+    <ImageButton
+        android:id="@+id/ojo_sing_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:src="@drawable/ojo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.868"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.522" />
 
     <EditText
         android:id="@+id/SignUpPassword"
@@ -64,45 +65,35 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:autofillHints="password"
-        android:backgroundTint="@color/gray"
+        android:backgroundTint="@color/white"
         android:fontFamily="@font/autour_one"
         android:hint="@string/pass"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.593" />
+        app:layout_constraintVertical_bias="0.526" />
 
-    <ImageButton
-        android:id="@+id/ojo_sing_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/ojo"
+    <Button
+        android:id="@+id/SignUpBotonRound"
+        android:layout_width="292dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="72dp"
+        android:backgroundTint="@color/orangedark"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/signup"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.868"
+        app:layout_constraintHorizontal_bias="0.579"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.586" />
-
-    <ImageButton
-        android:id="@+id/SignUpBotonRound"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/round_button"
-        android:contentDescription="@string/boton"
-        android:src="@drawable/arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.769" />
+        app:layout_constraintVertical_bias="0.65" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

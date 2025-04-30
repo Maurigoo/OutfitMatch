@@ -43,34 +43,7 @@ public class StartActivity extends AppCompatActivity {
 
         login = findViewById(R.id.loginButton);
         signUp = findViewById(R.id.signupButton);
-        languageButton = findViewById(R.id.languageButton);
 
-        // Cargar idioma actual y asignar bandera
-        String lang = PreferenceManager.getDefaultSharedPreferences(this)
-                .getString("app_lang", "es");
-
-        if (lang.equals("es")) {
-            languageButton.setImageResource(R.drawable.flag_spain);
-        } else {
-            languageButton.setImageResource(R.drawable.flag_uk);
-        }
-
-        // Listener para cambiar idioma
-        languageButton.setOnClickListener(v -> {
-            String currentLang = PreferenceManager.getDefaultSharedPreferences(this)
-                    .getString("app_lang", "es");
-            String newLang = currentLang.equals("es") ? "en" : "es";
-
-            LanguageManager.setLocale(this, newLang);
-
-            if (newLang.equals("es")) {
-                languageButton.setImageResource(R.drawable.flag_spain);
-            } else {
-                languageButton.setImageResource(R.drawable.flag_uk);
-            }
-
-            recreateActivityWithoutAnimation();
-        });
 
         // Autenticación Firebase
         FirebaseAuth auth = FirebaseAuth.getInstance();
