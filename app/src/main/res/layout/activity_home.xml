@@ -17,13 +17,13 @@
         android:fontFamily="@font/autour_one"
         android:text="@string/hello_user"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintVertical_bias="0.08" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,77 +31,77 @@
         android:fontFamily="@font/autour_one"
         android:text="@string/ready_home"
         android:textColor="@color/gray"
-        android:textSize="16sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.218"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintVertical_bias="0.14" />
 
     <Button
         android:id="@+id/botonIdeas"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/graydark2"
         android:fontFamily="@font/autour_one"
         android:text="@string/ideas"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.876"
+        app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <Button
         android:id="@+id/botongeneraroutfit"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/orangedark"
         android:fontFamily="@font/autour_one"
         android:text="@string/create_outfit"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <Button
         android:id="@+id/botonOufits"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/orangedark"
         android:fontFamily="@font/autour_one"
         android:text="@string/outfits"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.876"
+        app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.662" />
+        app:layout_constraintVertical_bias="0.712" />
 
     <Button
         android:id="@+id/botonArticles"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/graydark2"
         android:fontFamily="@font/autour_one"
         android:text="@string/articulos"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.151"
+        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.662" />
+        app:layout_constraintVertical_bias="0.712" />
 
     <TextView
         android:id="@+id/tvWeather"
@@ -113,22 +113,20 @@
         android:padding="16dp"
         android:text="@string/clima"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.246" />
+        app:layout_constraintVertical_bias="0.275" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/boton_navigation"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@color/orangedark"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
@@ -136,6 +134,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,8 @@
     <color name="primaryColor">#1F1F1F</color> <!-- Color oscuro para el modo claro -->
     <color name="primaryColorDark">#121212</color> <!-- Color aún más oscuro para el modo oscuro -->
     <color name="primaryColorLight">#333333</color> <!-- Color intermedio para el modo claro -->
+    <color name="fondoPerfil">#EDE0D0</color>
+    <color name="fondoPerfilnigth">#121F2F</color>
 
     <!-- Colores para texto -->
     <color name="textPrimary">#FFFFFF</color> <!-- Texto blanco para el modo oscuro -->
