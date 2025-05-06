@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -185,29 +186,22 @@ public class Perfil extends AppCompatActivity {
                     Uri imageUri = result.getData().getData();
                     if (imageUri != null) {
                         try {
-                            // Verificar la versión de Android
                             Bitmap bitmap;
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                                // Usar ImageDecoder en Android 10 y superior
-                                Bitmap finalBitmap = null;
-                                try {
-                                    finalBitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), imageUri));
-                                    profileImage.setImageBitmap(finalBitmap);
-                                    uploadImageToFirebase(imageUri);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                                bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), imageUri));
                             } else {
                                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                                profileImage.setImageBitmap(bitmap);
-                                uploadImageToFirebase(imageUri);
                             }
+                            profileImage.setImageBitmap(bitmap);
+                            uploadImageToFirebase(imageUri);
                         } catch (IOException e) {
                             e.printStackTrace();
+                            Toast.makeText(this, "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
             });
+
 
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
