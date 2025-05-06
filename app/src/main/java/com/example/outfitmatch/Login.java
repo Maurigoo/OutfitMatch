@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
 
     private EditText emailUsuario;
     private EditText passwordUsuario;
-    private ImageButton signInbtnRound;
+    private Button signInbtnRound;
     private Button registerButton;
     private ProgressDialog progressDialog;
     private ImageButton ojo;

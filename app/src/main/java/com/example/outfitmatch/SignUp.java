@@ -26,7 +26,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class SignUp extends AppCompatActivity {
 
     private EditText name, email, password;
-    private ImageButton signUpRoundButton;
+    private Button signUpRoundButton;
     private FirebaseAuth mAuth;
     private ImageButton ojo;
 

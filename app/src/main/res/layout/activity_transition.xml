@@ -7,15 +7,6 @@
     android:background="?attr/backgroundColor"
     tools:context=".Transition">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:contentDescription="@string/deco"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:src="@drawable/fondoazul"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/textView"

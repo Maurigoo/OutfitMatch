@@ -5,12 +5,16 @@
     <color name="green">#32CD32</color>
     <color name="lighblue">#00CED1</color>
     <color name="gray">#7B7676</color>
+    <color name="orangedark">#d1a156</color>
+    <color name="graydark2">#2e2d2c</color>
     <color name="azulClaro">#88FFFB</color>
     <color name="background_menu">#00B8BF</color>
     <color name="red">#FF0000</color>
     <color name="primaryColor">#1F1F1F</color> <!-- Color oscuro para el modo claro -->
     <color name="primaryColorDark">#121212</color> <!-- Color aún más oscuro para el modo oscuro -->
     <color name="primaryColorLight">#333333</color> <!-- Color intermedio para el modo claro -->
+    <color name="fondoPerfil">#EDE0D0</color>
+    <color name="fondoPerfilnigth">#121F2F</color>
 
     <!-- Colores para texto -->
     <color name="textPrimary">#FFFFFF</color> <!-- Texto blanco para el modo oscuro -->

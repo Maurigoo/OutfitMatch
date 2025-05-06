@@ -46,8 +46,9 @@
         <item>Pants</item>
         <item>Shoes</item>
         <item>Dresses</item>
-        <item>Accessories</item>
+        <item>Accessories/Jackets</item>
     </string-array>
+
     <string name="subirprenda">Up</string>
     <string name="create_outfit">Create outfit</string>
     <string name="cerrar_sesion">Close session</string>
@@ -61,6 +62,7 @@
     <string name="nueva_contrasena">Enter your new password</string>
     <string name="forgot_password">¿Forgot your password?</string>
 
+
     <string name="actualizando_fotoperfil">Updating profile picture...</string>
     <string name="seguro_cerrar_sesion">Are you sure you want to log out?</string>
     <string name="yes">Yes</string>
@@ -70,5 +72,18 @@
     <string name="word_eliminar">Delete</string>
     <string name="word_cancelar">Cancel</string>
     <string name="añadido_favoritos">Add favourites</string>
+
+    <string name="clima">Load weather…</string>
+
+    <string name="todo">All</string>
+    <string name="camisas">Shirts</string>
+    <string name="pantalones">Pants</string>
+    <string name="vestidoschaquetas">dresses/Jackets</string>
+    <string name="zapatos">Shoes</string>
+    <string name="Accesorios">Accessories</string>
+
+    <string name="nprendas">0 Clothes</string>
+
+
 
 </resources>

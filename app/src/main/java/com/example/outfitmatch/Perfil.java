@@ -162,9 +162,10 @@ public class Perfil extends AppCompatActivity {
     private void updateIcon(boolean darkMode) {
         // Cambiar el icono entre la luna y el sol
         if (darkMode) {
-            btnChangeMode.setImageResource(R.drawable.suniconwhite);  // Icono de sol para modo oscuro
-        } else {
             btnChangeMode.setImageResource(R.drawable.moonicon);  // Icono de luna para modo claro
+
+        } else {
+            btnChangeMode.setImageResource(R.drawable.suniconwhite);  // Icono de sol para modo oscuro
         }
     }
 

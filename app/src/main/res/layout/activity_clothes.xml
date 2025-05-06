@@ -1,123 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/backgroundColor"
+    android:background="@drawable/fondoclothes"
     tools:context=".Clothes"
     tools:ignore="ExtraText">
 
 
     <TextView
         android:id="@+id/totalPrendasText"
-        android:layout_width="288dp"
-        android:layout_height="58dp"
+        android:layout_width="290dp"
+        android:layout_height="30dp"
         android:fontFamily="@font/autour_one"
-        android:text="0 prendas"
+        android:text="@string/nprendas"
         android:textColor="?attr/android:textColorPrimary"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/boton_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.788"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintVertical_bias="0.067" />
 
     <ImageButton
         android:id="@+id/botonShirts"
-        android:layout_width="142dp"
-        android:layout_height="142dp"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
         android:layout_marginEnd="36dp"
-        android:background="@drawable/rectangleblue"
+        android:background="@drawable/camisa"
         android:contentDescription="@string/boton"
-        android:src="@drawable/shirts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="0.143" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/camisas"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.802"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonShirts"
+        app:layout_constraintVertical_bias="0.022" />
 
     <ImageButton
         android:id="@+id/botonAll"
-        android:layout_width="142dp"
-        android:layout_height="142dp"
-        android:layout_marginEnd="216dp"
-        android:background="@drawable/rectangleblue"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginEnd="228dp"
+        android:background="@drawable/armario"
         android:contentDescription="@string/boton"
-        android:src="@drawable/all"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="0.142" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/todo"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.252"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonAll"
+        app:layout_constraintVertical_bias="0.023" />
 
     <ImageButton
         android:id="@+id/botonPants"
-        android:layout_width="142dp"
-        android:layout_height="142dp"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
         android:layout_marginEnd="36dp"
-        android:background="@drawable/rectangleblue"
+        android:background="@drawable/pantalon"
         android:contentDescription="@string/boton"
-        android:src="@drawable/pants"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.544" />
+        app:layout_constraintVertical_bias="0.431" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/pantalones"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.814"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonPants"
+        app:layout_constraintVertical_bias="0.039" />
 
     <ImageButton
         android:id="@+id/botonDresses"
-        android:layout_width="142dp"
-        android:layout_height="142dp"
-        android:layout_marginEnd="216dp"
-        android:background="@drawable/rectangleblue"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginEnd="228dp"
+        android:background="@drawable/dresseschaqueta"
         android:contentDescription="@string/boton"
-        android:src="@drawable/dresses"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.544" />
+        app:layout_constraintVertical_bias="0.431" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/vestidoschaquetas"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonDresses"
+        app:layout_constraintVertical_bias="0.039" />
 
     <ImageButton
         android:id="@+id/botonShoes"
-        android:layout_width="142dp"
-        android:layout_height="142dp"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
         android:layout_marginEnd="36dp"
-        android:background="@drawable/rectangleblue"
+        android:background="@drawable/zapatos"
         android:contentDescription="@string/boton"
-        android:src="@drawable/shoes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.743" />
 
     <ImageButton
         android:id="@+id/botonAccessories"
-        android:layout_width="142dp"
-        android:layout_height="142dp"
-        android:layout_marginEnd="216dp"
-        android:background="@drawable/rectangleblue"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginEnd="228dp"
+        android:background="@drawable/accesoriosc"
         android:contentDescription="@string/boton"
-        android:src="@drawable/accessories"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+        app:layout_constraintVertical_bias="0.743" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/Accesorios"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonAccessories"
+        app:layout_constraintVertical_bias="0.108" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/boton_navigation"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_nav"
+        android:background="@color/orangedark"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/bottom_navigation_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/zapatos"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonShoes"
+        app:layout_constraintVertical_bias="0.105" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

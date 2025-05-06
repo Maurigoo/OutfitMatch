@@ -59,7 +59,6 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // Inicialización de vistas
-        gifImageView = findViewById(R.id.gifImageView);
         tvWeather = findViewById(R.id.tvWeather);
         userGreetingTextView = findViewById(R.id.saludoUsuario);
         mAuth = FirebaseAuth.getInstance();
@@ -73,8 +72,6 @@ public class Home extends AppCompatActivity {
             userGreetingTextView.setText("Hello, Guest");
         }
 
-        // Cargar animación con Glide
-        Glide.with(this).load(R.drawable.hanger_animation).into(gifImageView);
 
         // Configurar BottomNavigationView
         BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
