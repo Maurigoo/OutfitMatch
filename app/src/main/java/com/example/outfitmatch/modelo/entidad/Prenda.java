@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Prenda implements Serializable {
 
-    private int imagen; // Este se usa para recursos locales
-    private String imagenUrl; // Para la URL de Firebase
+    private int imagen; // Para recursos locales
+    private String imagenUrl; // Para imágenes desde Firebase
     private String talla;
     private String material;
     private String color;
@@ -76,5 +76,17 @@ public class Prenda implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Prenda{" +
+                "imagen=" + imagen +
+                ", imagenUrl='" + imagenUrl + '\'' +
+                ", talla='" + talla + '\'' +
+                ", material='" + material + '\'' +
+                ", color='" + color + '\'' +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 }

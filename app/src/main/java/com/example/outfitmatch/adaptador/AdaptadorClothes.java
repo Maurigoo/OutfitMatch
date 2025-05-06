@@ -67,12 +67,25 @@ public class AdaptadorClothes extends RecyclerView.Adapter<AdaptadorClothes.View
         // Cargar imagen desde la URL usando Glide
         Glide.with(holder.itemView.getContext())
                 .load(prenda.getImagenUrl())  // Asegúrate que esta URL sea válida
+                .placeholder(R.drawable.placeholder_image) // Imagen por defecto si carga es lenta
+                .error(R.drawable.error_image)             // Imagen por defecto si falla la carga
                 .into(holder.imageViewClothes);
 
-        // Cargar el resto de los datos en los TextViews
-        holder.textViewTalla.setText("Talla: " + prenda.getTalla());
-        holder.textViewMateriales.setText("Material: " + prenda.getMaterial());
-        holder.textViewColor.setText("Color: " + prenda.getColor());
+        // Verificar y mostrar valores con fallback a "No especificado"
+        String talla = (prenda.getTalla() != null && !prenda.getTalla().isEmpty())
+                ? prenda.getTalla()
+                : "No especificado";
+        holder.textViewTalla.setText("Talla: " + talla);
+
+        String material = (prenda.getMaterial() != null && !prenda.getMaterial().isEmpty())
+                ? prenda.getMaterial()
+                : "No especificado";
+        holder.textViewMateriales.setText("Material: " + material);
+
+        String color = (prenda.getColor() != null && !prenda.getColor().isEmpty())
+                ? prenda.getColor()
+                : "No especificado";
+        holder.textViewColor.setText("Color: " + color);
 
         // Manejar clic en el ítem
         holder.itemView.setOnClickListener(v -> listener.onItemClick(prenda));

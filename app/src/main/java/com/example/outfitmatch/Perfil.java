@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.annotation.RequiresApi;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -44,7 +47,6 @@ public class Perfil extends AppCompatActivity {
     private boolean isSpanish;
     private ImageView btnChangeMode;
     private boolean isDarkMode;
-
 
     @SuppressLint({"SetTextI18n", "MissingInflatedId"})
     @Override
@@ -99,7 +101,6 @@ public class Perfil extends AppCompatActivity {
         Button deleteButton = findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(view -> mostrarDialogoEliminarCuenta());
 
-
         // Leer el idioma guardado
         String savedLang = getSavedLanguage();
         isSpanish = savedLang.equals("es");
@@ -115,29 +116,12 @@ public class Perfil extends AppCompatActivity {
                 recreate();
             }
         });
-        mainLayout = findViewById(R.id.main);
 
+        mainLayout = findViewById(R.id.main);
 
         btnChangeMode = findViewById(R.id.btnChangeMode);
         isDarkMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
         updateIcon(isDarkMode);
-
-        /**
-        btnChangeMode.setOnClickListener(v -> {
-            int currentMode = AppCompatDelegate.getDefaultNightMode();
-            if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
-                // Cambiar a modo claro
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.primaryColor));
-            } else {
-                // Cambiar a modo oscuro
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                mainLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-            }
-            recreate();
-        });
-
-    **/
 
         btnChangeMode.setOnClickListener(v -> {
             boolean isCurrentlyDarkMode = SettingsManager.isDarkModeEnabled(this);
@@ -147,8 +131,6 @@ public class Perfil extends AppCompatActivity {
             // Recrear la actividad actual para aplicar el nuevo tema
             recreate();
         });
-
-
     }
 
     private void saveThemePreference(boolean darkModeEnabled) {
@@ -203,9 +185,23 @@ public class Perfil extends AppCompatActivity {
                     Uri imageUri = result.getData().getData();
                     if (imageUri != null) {
                         try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                            profileImage.setImageBitmap(bitmap);
-                            uploadImageToFirebase(imageUri);
+                            // Verificar la versión de Android
+                            Bitmap bitmap;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                // Usar ImageDecoder en Android 10 y superior
+                                Bitmap finalBitmap = null;
+                                try {
+                                    finalBitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), imageUri));
+                                    profileImage.setImageBitmap(finalBitmap);
+                                    uploadImageToFirebase(imageUri);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                                profileImage.setImageBitmap(bitmap);
+                                uploadImageToFirebase(imageUri);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -259,9 +255,6 @@ public class Perfil extends AppCompatActivity {
                     });
         }
     }
-    /**
-     * Muestra un cuadro de diálogo para confirmar el cierre de sesión.
-     */
 
     private void mostrarDialogoCerrarSesion() {
         new AlertDialog.Builder(this)
@@ -281,9 +274,6 @@ public class Perfil extends AppCompatActivity {
         finish();
     }
 
-    /**
-     * Muestra un cuadro de diálogo para confirmar la eliminación de la cuenta.
-     */
     private void mostrarDialogoEliminarCuenta() {
         new AlertDialog.Builder(this)
                 .setTitle("Eliminar cuenta")
@@ -294,9 +284,6 @@ public class Perfil extends AppCompatActivity {
                 .show();
     }
 
-    /**
-     * Elimina la cuenta del usuario autenticado.
-     */
     private void eliminarCuenta() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
@@ -324,5 +311,4 @@ public class Perfil extends AppCompatActivity {
                     });
         }
     }
-
 }
