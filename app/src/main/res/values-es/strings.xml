@@ -51,6 +51,27 @@
     <string name="nueva_contrasena">Escribe tu nueva contraseña</string>
     <string name="forgot_password">¿Olvidaste tu contraseña?</string>
 
+    <string name="actualizando_fotoperfil">Updating profile picture...</string>
+    <string name="seguro_cerrar_sesion">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="eliminar_cuenta">Delete account</string>
+    <string name="seguro_eliminar_cuenta">Are you sure you want to delete your account? This action cannot be undone.</string>
+    <string name="word_eliminar">Delete</string>
+    <string name="word_cancelar">Cancel</string>
+    <string name="añadido_favoritos">Add favourites</string>
+
+    <string name="clima">Load weather…</string>
+
+    <string name="todo">All</string>
+    <string name="camisas">Shirts</string>
+    <string name="pantalones">Pants</string>
+    <string name="vestidoschaquetas">dresses/Jackets</string>
+    <string name="zapatos">Shoes</string>
+    <string name="Accesorios">Accessories</string>
+
+    <string name="nprendas">0 Clothes</string>
+
 
     <string-array name="tipo_prenda_array">
         <item>Shirts</item>
