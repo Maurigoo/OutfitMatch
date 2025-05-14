@@ -83,7 +83,8 @@
     <string name="Accesorios">Accessories</string>
 
     <string name="nprendas">0 Clothes</string>
-
+    <string name="cuenta_eliminada">Cuenta eliminada</string>
+    <string name="error_eliminar_cuenta">Error al eliminar cuenta</string>
 
 
 </resources>

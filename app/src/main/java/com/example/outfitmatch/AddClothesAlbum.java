@@ -21,6 +21,9 @@ import androidx.core.content.ContextCompat;
 import com.example.outfitmatch.modelo.persistencia.DaoPrenda;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 /**
  * Actividad que permite agregar prendas al álbum del usuario.
  * Incluye opciones para seleccionar una prenda de una tienda o
@@ -31,6 +34,7 @@ public class AddClothesAlbum extends AppCompatActivity {
     private ImageButton buscarTienda, album;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private DaoPrenda daoPrenda;
+    private SmoothBottomBar bottomBar;
 
     /**
      * Método que se ejecuta cuando se crea la actividad. Inicializa los elementos de la interfaz,
@@ -82,24 +86,31 @@ public class AddClothesAlbum extends AppCompatActivity {
      * según el elemento seleccionado.
      */
     private void configurarBottomNavigation() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_add);
+        bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setItemActiveIndex(4); // Establecemos la posición en la que estamos (Perfil)
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            Class<?> targetActivity = null;
-            int itemId = item.getItemId();
+        bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
+            if (i == 4) return true; // Ya estamos en la página de Perfil
 
-            // Determinar la actividad que se debe abrir según la opción seleccionada
-            if (itemId == R.id.nav_add) return true;
-            else if (itemId == R.id.nav_clothes) targetActivity = Clothes.class;
-            else if (itemId == R.id.nav_profile) targetActivity = Perfil.class;
-            else if (itemId == R.id.nav_home) targetActivity = Home.class;
+            Class<?> destination = null;
+            switch (i) {
+                case 0:
+                    destination = Home.class; // Ir a Home
+                    break;
+                case 1:
+                    destination = Clothes.class; // Ir a Clothes
+                    break;
+                case 2:
+                    destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
+                    break;
+                case 4:
+                    destination = AddClothesStore.class; // Ir a AddClothesStore
+                    break;
+            }
 
-            // Si se selecciona una actividad válida, se inicia la actividad correspondiente
-            if (targetActivity != null) {
-                startActivity(new Intent(getApplicationContext(), targetActivity));
+            if (destination != null) {
+                startActivity(new Intent(getApplicationContext(), destination));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
             }
             return true;
         });

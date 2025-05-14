@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,31 +13,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.example.outfitmatch.modelo.entidad.Prenda;
 import com.example.outfitmatch.modelo.negocio.GestorPrenda;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
-/**
- * Actividad que muestra las prendas del usuario y permite navegar por diferentes categorías.
- *
- * La clase gestiona la visualización de las prendas del usuario, y ofrece una interfaz con botones para
- * filtrar por categorías. Además, contiene un menú de navegación inferior que permite la navegación
- * a otras pantallas de la aplicación.
- */
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 public class Clothes extends AppCompatActivity {
 
     private TextView totalPrendasText;
+    private SmoothBottomBar bottomBar;
 
-    /**
-     * Método que se ejecuta cuando se crea la actividad. Inicializa la interfaz de usuario
-     * y configura la obtención de las prendas del usuario.
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ThemeManager.applyTheme(this);
@@ -47,31 +37,24 @@ public class Clothes extends AppCompatActivity {
         window.getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         window.setStatusBarColor(Color.TRANSPARENT);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
 
-        // Inicializar el TextView para mostrar el total de prendas
         totalPrendasText = findViewById(R.id.totalPrendasText);
 
-        // Obtener el UID del usuario actual
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String userId = user.getUid(); // Obtener el UID
-
-            // Llamar al método para obtener las prendas en tiempo real
+            String userId = user.getUid();
             GestorPrenda.getInstance().obtenerPrendasSoloFirebase(userId, new GestorPrenda.OnTotalPrendasListener() {
                 @Override
                 public void onTotalPrendas(int total, List<Prenda> prendas) {
-                    // Aquí obtienes el total de prendas de Firebase
                     Log.d("PrendasFirebase", "Tienes " + total + " prendas en Firebase.");
-
-                    // Actualizar el TextView con el total de prendas
                     totalPrendasText.setText("Tienes " + total + " prendas :)");
                 }
 
                 @Override
                 public void onError(@NonNull Exception e) {
-                    // Manejo de errores al obtener prendas
                     Log.e("PrendasFirebase", "Error al obtener prendas: " + e.getMessage());
                     totalPrendasText.setText("Error al cargar las prendas :(");
                     Toast.makeText(Clothes.this, "Error al cargar las prendas: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -83,17 +66,11 @@ public class Clothes extends AppCompatActivity {
             Toast.makeText(this, "Por favor, inicia sesión para ver tus prendas.", Toast.LENGTH_SHORT).show();
         }
 
-        // Configurar los botones de categorías y la navegación inferior
         configurarBotones();
         configurarNavegacionInferior();
     }
 
-    /**
-     * Configura los botones de categorías de ropa. Cada botón al ser presionado
-     * abre una nueva actividad con la lista de prendas correspondientes a la categoría seleccionada.
-     */
     private void configurarBotones() {
-        // Inicialización de los botones de categorías
         ImageButton botonShirts = findViewById(R.id.botonShirts);
         ImageButton botonPants = findViewById(R.id.botonPants);
         ImageButton botonShoes = findViewById(R.id.botonShoes);
@@ -101,7 +78,6 @@ public class Clothes extends AppCompatActivity {
         ImageButton botonAccessories = findViewById(R.id.botonAccessories);
         ImageButton botonAll = findViewById(R.id.botonAll);
 
-        // Configuración de los listeners de cada botón
         botonShirts.setOnClickListener(view -> openClothesListActivity("Shirts"));
         botonPants.setOnClickListener(view -> openClothesListActivity("Pants"));
         botonShoes.setOnClickListener(view -> openClothesListActivity("Shoes"));
@@ -110,45 +86,37 @@ public class Clothes extends AppCompatActivity {
         botonAll.setOnClickListener(view -> openClothesListActivity("All"));
     }
 
-    /**
-     * Configura la barra de navegación inferior para permitir la navegación entre pantallas principales
-     * de la aplicación (Home, Clothes, Add y Profile).
-     */
     private void configurarNavegacionInferior() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_clothes);
+        bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setItemActiveIndex(1); // Establecemos la posición en la que estamos (Perfil)
 
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
+        bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
+            if (i == 1) return true; // Ya estamos en la página de Perfil
 
-                // Navegar según la opción seleccionada
-                if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home.class));
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                } else if (itemId == R.id.nav_clothes) {
-                    return true;
-                } else if (itemId == R.id.nav_add) {
-                    startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                } else if (itemId == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), Perfil.class));
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    return true;
-                }
-                return false;
+            Class<?> destination = null;
+            switch (i) {
+                case 0:
+                    destination = Home.class; // Ir a Home
+                    break;
+                case 1:
+                    destination = Clothes.class; // Ir a Clothes
+                    break;
+                case 2:
+                    destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
+                    break;
+                case 4:
+                    destination = AddClothesStore.class; // Ir a AddClothesStore
+                    break;
             }
+
+            if (destination != null) {
+                startActivity(new Intent(getApplicationContext(), destination));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            return true;
         });
     }
 
-    /**
-     * Abre la actividad de lista de prendas según la categoría seleccionada.
-     *
-     * @param category Categoría de ropa a mostrar en la lista.
-     */
     private void openClothesListActivity(String category) {
         Intent intent = new Intent(Clothes.this, ClothesListActivity.class);
         intent.putExtra("CATEGORY", category);

@@ -4,9 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,17 +16,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.bumptech.glide.Glide;
 import com.example.outfitmatch.API.ClimaAPI;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Locale;
+
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar; // Importar SmoothBottomBar en lugar de BottomNavigationView
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,19 +41,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Home extends AppCompatActivity {
 
-    private Button articles, ideas, outfit, generarOutfit; // Botones para navegar a diferentes secciones
-    private ImageView gifImageView;         // Imagen animada usando Glide
-    private TextView tvWeather, userGreetingTextView; // Muestra clima y saludo al usuario
+    private Button articles, ideas, outfit, generarOutfit;
+    private ImageView gifImageView;
+    private TextView tvWeather, userGreetingTextView;
 
-    private FusedLocationProviderClient fusedLocationClient; // Cliente para obtener la ubicación
-    private static final String API_KEY = "a7bc60d2c1304f9cad2150757252402"; // Clave API de WeatherAPI
-    private FirebaseAuth mAuth; // Manejo de autenticación con Firebase
+    private FusedLocationProviderClient fusedLocationClient;
+    private static final String API_KEY = "a7bc60d2c1304f9cad2150757252402";
+    private FirebaseAuth mAuth;
+    private SmoothBottomBar bottomBar; // Cambiar a SmoothBottomBar
 
-    /**
-     * Método llamado al crear la actividad. Inicializa vistas, clima y navegación.
-     *
-     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ThemeManager.applyTheme(this);
@@ -82,29 +76,36 @@ public class Home extends AppCompatActivity {
             userGreetingTextView.setText("Hello, Guest");
         }
 
+        bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setItemActiveIndex(0); // Establecemos la posición en la que estamos (Perfil)
 
-        // Configurar BottomNavigationView
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
+            if (i == 0) return true; // Ya estamos en la página de Perfil
 
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-
-                if (itemId == R.id.nav_home) {
-                    return true;
-                } else if (itemId == R.id.nav_clothes) {
-                    startActivity(new Intent(getApplicationContext(), Clothes.class));
-                } else if (itemId == R.id.nav_add) {
-                    startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-                } else if (itemId == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), Perfil.class));
-                }
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                return true;
+            Class<?> destination = null;
+            switch (i) {
+                case 0:
+                    destination = Home.class; // Ir a Home
+                    break;
+                case 1:
+                    destination = Clothes.class; // Ir a Clothes
+                    break;
+                case 2:
+                    destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
+                    break;
+                case 4:
+                    destination = AddClothesStore.class; // Ir a AddClothesStore
+                    break;
             }
+
+            if (destination != null) {
+                startActivity(new Intent(getApplicationContext(), destination));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            return true;
         });
+
+
 
         // Configurar botones
         articles = findViewById(R.id.botonArticles);

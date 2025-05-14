@@ -40,6 +40,9 @@ import com.google.firebase.storage.StorageReference;
 import java.io.IOException;
 import java.util.Locale;
 
+import me.ibrahimsn.lib.OnItemSelectedListener;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 public class Perfil extends AppCompatActivity {
     private ConstraintLayout mainLayout;
 
@@ -52,6 +55,7 @@ public class Perfil extends AppCompatActivity {
     private boolean isSpanish;
     private ImageView btnChangeMode;
     private boolean isDarkMode;
+    private SmoothBottomBar bottomBar;
 
     @SuppressLint({"SetTextI18n", "MissingInflatedId"})
     @Override
@@ -89,23 +93,39 @@ public class Perfil extends AppCompatActivity {
         logoutButton.setOnClickListener(view -> mostrarDialogoCerrarSesion());
         profileImage.setOnClickListener(v -> openImagePicker());
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+            bottomBar = findViewById(R.id.bottomBar);
+            bottomBar.setItemActiveIndex(4); // Establecemos la posición en la que estamos (Perfil)
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_profile) {
+            bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
+                if (i == 4) return true; // Ya estamos en la página de Perfil
+
+                Class<?> destination = null;
+                switch (i) {
+                    case 0:
+                        destination = Home.class; // Ir a Home
+                        break;
+                    case 1:
+                        destination = Clothes.class; // Ir a Clothes
+                        break;
+                    case 2:
+                        destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
+                        break;
+                    case 3:
+                        destination = AddClothesStore.class; // Ir a AddClothesStore
+                        break;
+                    case 4:
+                        destination = Perfil.class; // Ir a AddClothesStore
+                        break;
+                }
+
+                if (destination != null) {
+                    startActivity(new Intent(getApplicationContext(), destination));
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                }
                 return true;
-            } else if (itemId == R.id.nav_clothes) {
-                startActivity(new Intent(getApplicationContext(), Clothes.class));
-            } else if (itemId == R.id.nav_add) {
-                startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-            } else if (itemId == R.id.nav_home) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
-            }
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            return true;
-        });
+            });
+
+
 
         Button deleteButton = findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(view -> mostrarDialogoEliminarCuenta());
@@ -278,10 +298,10 @@ public class Perfil extends AppCompatActivity {
 
     private void mostrarDialogoEliminarCuenta() {
         new AlertDialog.Builder(this)
-                .setTitle("Eliminar cuenta")
-                .setMessage("¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.")
-                .setPositiveButton("Eliminar", (dialog, which) -> eliminarCuenta())
-                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
+                .setTitle(getString(R.string.eliminar_cuenta))
+                .setMessage(getString(R.string.seguro_eliminar_cuenta))
+                .setPositiveButton(getString(R.string.yes), (dialog, which) -> eliminarCuenta())
+                .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
     }
@@ -289,28 +309,16 @@ public class Perfil extends AppCompatActivity {
     private void eliminarCuenta() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Eliminando cuenta...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
-            user.delete()
-                    .addOnCompleteListener(task -> {
-                        progressDialog.dismiss();
-                        if (task.isSuccessful()) {
-                            Intent intent = new Intent(Perfil.this, StartActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            new AlertDialog.Builder(this)
-                                    .setTitle("Error")
-                                    .setMessage("No se pudo eliminar la cuenta. Por favor, vuelve a iniciar sesión y vuelve a intentarlo.")
-                                    .setPositiveButton("OK", null)
-                                    .create()
-                                    .show();
-                        }
-                    });
+            user.delete().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(Perfil.this, getString(R.string.cuenta_eliminada), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Perfil.this, StartActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(Perfil.this, getString(R.string.error_eliminar_cuenta), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

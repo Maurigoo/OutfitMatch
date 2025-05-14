@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 /**
  * AddClothesStore es una actividad que permite a los usuarios explorar tiendas de ropa en línea
  * y navegar de regreso al álbum de prendas de la aplicación.
@@ -20,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class AddClothesStore extends AppCompatActivity {
 
     private ImageButton buscarAlbum;
+    private SmoothBottomBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
