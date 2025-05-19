@@ -87,10 +87,10 @@ public class AddClothesAlbum extends AppCompatActivity {
      */
     private void configurarBottomNavigation() {
         bottomBar = findViewById(R.id.bottomBar);
-        bottomBar.setItemActiveIndex(4); // Establecemos la posición en la que estamos (Perfil)
+        bottomBar.setItemActiveIndex(2); // Establecemos la posición en la que estamos (Perfil)
 
         bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
-            if (i == 4) return true; // Ya estamos en la página de Perfil
+            if (i == 2) return true; // Ya estamos en la página de Perfil
 
             Class<?> destination = null;
             switch (i) {
@@ -103,8 +103,8 @@ public class AddClothesAlbum extends AppCompatActivity {
                 case 2:
                     destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
                     break;
-                case 4:
-                    destination = AddClothesStore.class; // Ir a AddClothesStore
+                case 3:
+                    destination = Perfil.class; // Ir a AddClothesStore
                     break;
             }
 

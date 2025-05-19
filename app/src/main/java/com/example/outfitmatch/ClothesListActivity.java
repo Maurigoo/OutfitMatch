@@ -88,7 +88,7 @@ public class ClothesListActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String tipo = document.getString("tipo");
 
-                            if (category.equals("All") || category.equals(tipo)) {
+                            if (category.equals("All") || category.equalsIgnoreCase(tipo)) {
                                 String imagenUrl = document.getString("imagenUrl");
 
                                 if (document.contains("imagen")) {

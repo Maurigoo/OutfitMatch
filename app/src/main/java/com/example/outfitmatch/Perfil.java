@@ -94,10 +94,10 @@ public class Perfil extends AppCompatActivity {
         profileImage.setOnClickListener(v -> openImagePicker());
 
             bottomBar = findViewById(R.id.bottomBar);
-            bottomBar.setItemActiveIndex(4); // Establecemos la posición en la que estamos (Perfil)
+            bottomBar.setItemActiveIndex(3); // Establecemos la posición en la que estamos (Perfil)
 
             bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
-                if (i == 4) return true; // Ya estamos en la página de Perfil
+                if (i == 3) return true; // Ya estamos en la página de Perfil
 
                 Class<?> destination = null;
                 switch (i) {
@@ -111,9 +111,6 @@ public class Perfil extends AppCompatActivity {
                         destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
                         break;
                     case 3:
-                        destination = AddClothesStore.class; // Ir a AddClothesStore
-                        break;
-                    case 4:
                         destination = Perfil.class; // Ir a AddClothesStore
                         break;
                 }
