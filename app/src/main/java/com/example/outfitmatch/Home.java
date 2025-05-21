@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class Home extends AppCompatActivity {
 
-    private Button articles, ideas, outfit, generarOutfit;
+    private ImageButton articles, ideas, outfit, generarOutfit;
     private ImageView gifImageView;
     private TextView tvWeather, userGreetingTextView;
 
