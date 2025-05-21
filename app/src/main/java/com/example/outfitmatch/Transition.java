@@ -35,6 +35,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 /**
  * Transition es una actividad que permite al usuario navegar por una lista de prendas usando
  * una interfaz estilo Tinder. Las prendas pueden ser deslizadas hacia la derecha para guardarlas
@@ -55,6 +59,7 @@ public class Transition extends AppCompatActivity {
     private FirebaseFirestore db;                          // Instancia de Firestore
     private String userId;                                 // ID del usuario autenticado
 
+    private SmoothBottomBar bottomBar;
     /**
      * Método llamado al crear la actividad. Inicializa Firestore, la vista y carga datos.
      *
@@ -77,24 +82,42 @@ public class Transition extends AppCompatActivity {
         // Limpiar outfits guardados previamente
         clearSavedOutfitsInFirestore();
 
-        // Configurar navegación inferior
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
+        // Configurar la barra de navegación inferior
+        bottomBar = findViewById(R.id.bottomBar);
 
-            if (itemId == R.id.nav_home) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
-            } else if (itemId == R.id.nav_clothes) {
-                startActivity(new Intent(getApplicationContext(), Clothes.class));
-            } else if (itemId == R.id.nav_add) {
-                startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-            } else if (itemId == R.id.nav_profile) {
-                startActivity(new Intent(getApplicationContext(), Perfil.class));
+        bottomBar.setOnItemSelectedListener(new Function1<Integer, Unit>() {
+            @Override
+            public Unit invoke(Integer index) {
+                if (index == 4) return Unit.INSTANCE; // Ya estás en esta pestaña
+
+                Class<?> destination = null;
+                switch (index) {
+                    case 0:
+                        destination = Home.class;
+                        break;
+                    case 1:
+                        destination = Clothes.class;
+                        break;
+                    case 2:
+                        destination = AddClothesAlbum.class;
+                        break;
+                    case 3:
+                        destination = Perfil.class;
+                        break;
+                    case 4:
+                        destination = GenerarOutfit.class;
+                        break;
+                }
+
+                if (destination != null) {
+                    startActivity(new Intent(getApplicationContext(), destination));
+                    overridePendingTransition(0, 0);
+                }
+
+                return Unit.INSTANCE; // Kotlin's void
             }
-
-            overridePendingTransition(0, 0);
-            return true;
         });
+
 
         // Inicializar vistas
         like = findViewById(R.id.botonLike);

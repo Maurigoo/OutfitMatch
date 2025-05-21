@@ -17,7 +17,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 public class GenerarOutfit extends AppCompatActivity {
+
+    private SmoothBottomBar bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,25 +45,40 @@ public class GenerarOutfit extends AppCompatActivity {
         });
 
         // Configurar la barra de navegación inferior
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
+        bottomBar = findViewById(R.id.bottomBar);
 
-                if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home.class));
-                } else if (itemId == R.id.nav_clothes) {
-                    startActivity(new Intent(getApplicationContext(), Clothes.class));
-                } else if (itemId == R.id.nav_add) {
-                    startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-                } else if (itemId == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), Perfil.class));
+        bottomBar.setOnItemSelectedListener(new Function1<Integer, Unit>() {
+            @Override
+            public Unit invoke(Integer index) {
+                if (index == 4) return Unit.INSTANCE; // Ya estás en esta pestaña
+
+                Class<?> destination = null;
+                switch (index) {
+                    case 0:
+                        destination = Home.class;
+                        break;
+                    case 1:
+                        destination = Clothes.class;
+                        break;
+                    case 2:
+                        destination = AddClothesAlbum.class;
+                        break;
+                    case 3:
+                        destination = Perfil.class;
+                        break;
+                    case 4:
+                        destination = GenerarOutfit.class;
+                        break;
                 }
 
-                overridePendingTransition(0, 0);
-                return true;
+                if (destination != null) {
+                    startActivity(new Intent(getApplicationContext(), destination));
+                    overridePendingTransition(0, 0);
+                }
+
+                return Unit.INSTANCE; // Kotlin's void
             }
         });
+
     }
 }

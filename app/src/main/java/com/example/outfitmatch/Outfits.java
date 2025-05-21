@@ -27,6 +27,10 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+import me.ibrahimsn.lib.SmoothBottomBar;
+
 /**
  * La clase Outfits muestra una lista de outfits guardados por el usuario en Firestore.
  * Los outfits seleccionados desde la actividad Transition se cargan aquí y se muestran
@@ -41,6 +45,7 @@ public class Outfits extends AppCompatActivity {
     private FirebaseFirestore db;                        // Instancia de Firestore
     private String userId;                               // ID del usuario autenticado
 
+    private SmoothBottomBar bottomBar;
     /**
      * Método llamado al crear la actividad. Configura la interfaz y carga los outfits.
      *
@@ -73,26 +78,41 @@ public class Outfits extends AppCompatActivity {
         loadSavedOutfitsFromFirestore();
 
         // Configurar la barra de navegación inferior
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
+        bottomBar = findViewById(R.id.bottomBar);
 
-                if (itemId == R.id.nav_home) {
-                    startActivity(new Intent(getApplicationContext(), Home.class));
-                } else if (itemId == R.id.nav_clothes) {
-                    startActivity(new Intent(getApplicationContext(), Clothes.class));
-                } else if (itemId == R.id.nav_add) {
-                    startActivity(new Intent(getApplicationContext(), AddClothesAlbum.class));
-                } else if (itemId == R.id.nav_profile) {
-                    startActivity(new Intent(getApplicationContext(), Perfil.class));
+        bottomBar.setOnItemSelectedListener(new Function1<Integer, Unit>() {
+            @Override
+            public Unit invoke(Integer index) {
+                if (index == 4) return Unit.INSTANCE; // Ya estás en esta pestaña
+
+                Class<?> destination = null;
+                switch (index) {
+                    case 0:
+                        destination = Home.class;
+                        break;
+                    case 1:
+                        destination = Clothes.class;
+                        break;
+                    case 2:
+                        destination = AddClothesAlbum.class;
+                        break;
+                    case 3:
+                        destination = Perfil.class;
+                        break;
+                    case 4:
+                        destination = GenerarOutfit.class;
+                        break;
                 }
 
-                overridePendingTransition(0, 0);
-                return true;
+                if (destination != null) {
+                    startActivity(new Intent(getApplicationContext(), destination));
+                    overridePendingTransition(0, 0);
+                }
+
+                return Unit.INSTANCE; // Kotlin's void
             }
         });
+
     }
 
     /**
