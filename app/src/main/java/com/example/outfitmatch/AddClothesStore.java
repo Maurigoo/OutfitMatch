@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
 /**
@@ -74,24 +76,40 @@ public class AddClothesStore extends AppCompatActivity {
      * Configura la barra de navegación inferior y su comportamiento al seleccionar opciones.
      */
     private void configurarBottomNavigation() {
-        BottomNavigationView bottomNavigationView = findViewById(R.id.boton_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_add);
+        // Configurar la barra de navegación inferior
+        bottomBar = findViewById(R.id.bottomBar);
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            Class<?> targetActivity = null;
-            int itemId = item.getItemId();
+        bottomBar.setOnItemSelectedListener(new Function1<Integer, Unit>() {
+            @Override
+            public Unit invoke(Integer index) {
+                if (index == 4) return Unit.INSTANCE; // Ya estás en esta pestaña
 
-            if (itemId == R.id.nav_add) return true;
-            else if (itemId == R.id.nav_clothes) targetActivity = Clothes.class;
-            else if (itemId == R.id.nav_profile) targetActivity = Perfil.class;
-            else if (itemId == R.id.nav_home) targetActivity = Home.class;
+                Class<?> destination = null;
+                switch (index) {
+                    case 0:
+                        destination = Home.class;
+                        break;
+                    case 1:
+                        destination = Clothes.class;
+                        break;
+                    case 2:
+                        destination = AddClothesAlbum.class;
+                        break;
+                    case 3:
+                        destination = Perfil.class;
+                        break;
+                    case 4:
+                        destination = GenerarOutfit.class;
+                        break;
+                }
 
-            if (targetActivity != null) {
-                startActivity(new Intent(getApplicationContext(), targetActivity));
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                finish();
+                if (destination != null) {
+                    startActivity(new Intent(getApplicationContext(), destination));
+                    overridePendingTransition(0, 0);
+                }
+
+                return Unit.INSTANCE; // Kotlin's void
             }
-            return true;
         });
     }
 }

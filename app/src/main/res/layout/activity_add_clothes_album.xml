@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/autour_one"
         android:text="@string/registrarprendas"
-        android:textColor="@color/background_menu"
+        android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,49 +23,73 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.087" />
 
+    <!-- Aquí se agregará la imagen desde Firebase Storage -->
+
+
     <ImageButton
         android:id="@+id/botonBuscarTienda"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@color/white"
         android:contentDescription="@string/boton"
-        android:src="@drawable/buscartienda2"
+        android:src="@drawable/busquedalight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintHorizontal_bias="0.732"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.174" />
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Albúm"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.277" />
 
     <ImageButton
         android:id="@+id/botonBuscarAlbum"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@color/white"
         android:contentDescription="@string/boton"
-        android:src="@drawable/seleccionar"
+        android:src="@drawable/galerialight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.269"
+        app:layout_constraintHorizontal_bias="0.305"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.174" />
+        app:layout_constraintVertical_bias="0.19" />
 
-    <!-- Aquí se agregará la imagen desde Firebase Storage -->
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tiendas"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.751"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.277" />
 
     <ImageButton
         android:id="@+id/botonAlbum"
         android:layout_width="142dp"
         android:layout_height="142dp"
-        android:layout_marginEnd="124dp"
+        android:layout_marginEnd="132dp"
         android:background="@drawable/rectanglegrey"
         android:contentDescription="@string/boton"
         android:src="@drawable/addalbum"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.382" />
+        app:layout_constraintVertical_bias="0.526" />
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"

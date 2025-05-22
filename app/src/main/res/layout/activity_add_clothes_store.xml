@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/autour_one"
         android:text="@string/registrarprendas"
-        android:textColor="@color/background_menu"
+        android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,34 +25,62 @@
         app:layout_constraintVertical_bias="0.087" />
 
     <!-- Botón para buscar en tienda -->
-    <ImageButton
-        android:id="@+id/botonBuscarTienda2"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:background="@color/white"
-        android:contentDescription="@string/boton"
-        android:src="@drawable/buscartienda"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.174" />
 
     <!-- Botón para buscar en el álbum -->
     <ImageButton
-        android:id="@+id/botonBuscarAlbum2"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:id="@+id/botonBuscarTienda2"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@color/white"
         android:contentDescription="@string/boton"
-        android:src="@drawable/seleccionar2"
+        android:src="@drawable/busquedalight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.269"
+        app:layout_constraintHorizontal_bias="0.732"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.174" />
+        app:layout_constraintVertical_bias="0.19"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tiendas"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.751"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.277"/>
+
+    <ImageButton
+        android:id="@+id/botonBuscarAlbum2"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:contentDescription="@string/boton"
+        android:src="@drawable/galerialight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Albúm"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.309"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.277"/>
+
+    <!-- Barra de navegación inferior -->
 
     <ImageButton
         android:id="@+id/botonZara"
@@ -60,17 +88,15 @@
         android:layout_height="125dp"
         android:background="@drawable/button_style"
         android:contentDescription="@string/zara"
+        android:onClick="openStore"
         android:scaleType="fitXY"
         android:src="@drawable/img_zara"
-        android:onClick="openStore"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
-
-    <!-- Barra de navegación inferior -->
+        app:layout_constraintVertical_bias="0.481" />
 
     <ImageButton
         android:id="@+id/botonBershka"
@@ -78,15 +104,15 @@
         android:layout_height="125dp"
         android:background="@drawable/button_style"
         android:contentDescription="@string/bershka"
+        android:onClick="openStore"
         android:scaleType="fitXY"
         android:src="@drawable/img_bershka"
-        android:onClick="openStore"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
+        app:layout_constraintVertical_bias="0.757" />
 
     <ImageButton
         android:id="@+id/botonPull"
@@ -94,15 +120,15 @@
         android:layout_height="125dp"
         android:background="@drawable/button_style"
         android:contentDescription="@string/pull"
+        android:onClick="openStore"
         android:scaleType="centerCrop"
         android:src="@drawable/img_pull"
-        android:onClick="openStore"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintVertical_bias="0.481" />
 
     <ImageButton
         android:id="@+id/botonLefties"
@@ -110,15 +136,15 @@
         android:layout_height="125dp"
         android:background="@drawable/button_style"
         android:contentDescription="@string/lefties"
+        android:onClick="openStore"
         android:scaleType="centerCrop"
         android:src="@drawable/img_lefties"
-        android:onClick="openStore"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.665" />
+        app:layout_constraintVertical_bias="0.757" />
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
