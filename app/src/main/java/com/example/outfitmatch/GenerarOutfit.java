@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import me.ibrahimsn.lib.SmoothBottomBar;
 public class GenerarOutfit extends AppCompatActivity {
 
     private SmoothBottomBar bottomBar;
+    private ImageButton dosPiezas, gVestido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,19 @@ public class GenerarOutfit extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        dosPiezas = findViewById(R.id.dospiezas);
+        gVestido = findViewById(R.id.gvestido);
+
+        dosPiezas.setOnClickListener(v -> {
+            Intent intent = new Intent(GenerarOutfit.this, DosPiezas.class);
+            startActivity(intent);
+        });
+
+        gVestido.setOnClickListener(v -> {
+            Intent intent = new Intent(GenerarOutfit.this, Gvestido.class);
+            startActivity(intent);
         });
 
         // Configurar la barra de navegación inferior
