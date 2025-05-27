@@ -15,6 +15,7 @@
     <color name="primaryColorLight">#333333</color> <!-- Color intermedio para el modo claro -->
     <color name="fondoPerfil">#EDE0D0</color>
     <color name="fondoPerfilnigth">#121F2F</color>
+    <color name="graylight">#e5e7e9</color>
 
     <!-- Colores para texto -->
     <color name="textPrimary">#FFFFFF</color> <!-- Texto blanco para el modo oscuro -->
