@@ -132,7 +132,7 @@ public class Transition extends AppCompatActivity {
         // Guardar outfits seleccionados y navegar a Outfits
         outfit.setOnClickListener(view -> {
             saveOutfitsToFirestore();
-            Intent intent = new Intent(Transition.this, Outfits.class);
+            Intent intent = new Intent(Transition.this, Favorito.class);
             startActivity(intent);
         });
 

@@ -69,29 +69,51 @@ public class DosPiezas extends AppCompatActivity {
 
                 for (Prenda p : prendas) {
                     if (p.getTipo() == null) continue;
+                    String tipo = p.getTipo().toLowerCase().trim();
                     Log.d("DosPiezas", "Prenda tipo: '" + p.getTipo() + "'");
 
-                    switch (p.getTipo().toLowerCase()) {
+                    switch (tipo) {
+                        // Camisas
                         case "camisa":
+                        case "shirt":
+                        case "shirts":
                             camisas.add(p);
                             break;
+
+                        // Pantalones
                         case "pantalón":
-                        case "pantalon":   // Añadido para cubrir sin tilde
+                        case "pantalon":
+                        case "pants":
+                        case "trousers":
                             pantalones.add(p);
                             break;
+
+                        // Zapatos
                         case "zapato":
-                        case "zapatos":    // Por si alguien puso en plural
+                        case "zapatos":
+                        case "shoes":
                             zapatos.add(p);
                             break;
+
+                        // Chaquetas
                         case "chaqueta":
+                        case "jacket":
+                        case "jackets":
+                        case "accessories/jackets":
                             chaquetas.add(p);
                             break;
+
+                        // Accesorios
                         case "accesorio":
-                        case "Accessories": // En plural también
+                        case "accesorios":
+                        case "accessory":
+                        case "accessories":
                             accesorios.add(p);
                             break;
+
                         default:
                             Log.w("DosPiezas", "Tipo no reconocido: '" + p.getTipo() + "'");
+                            break;
                     }
                 }
 

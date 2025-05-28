@@ -87,5 +87,6 @@
     <string name="error_eliminar_cuenta">Error al eliminar cuenta</string>
 
     <string name="genereteoutfit">Generete Outfit</string>
+    <string name="Favoritos" />
 
 </resources>

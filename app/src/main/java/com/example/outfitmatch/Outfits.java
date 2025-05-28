@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -126,21 +127,26 @@ public class Outfits extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         savedOutfits.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Obtener datos de la prenda desde Firestore
-                            String imagenUrl = document.getString("imagenUrl");
-                            String talla = document.getString("talla");
-                            String material = document.getString("material");
-                            String color = document.getString("color");
-                            String tipo = document.getString("tipo");
+                            // Obtenemos la lista de prendas dentro del outfit
+                            List<Map<String, Object>> prendasMap = (List<Map<String, Object>>) document.get("prendas");
 
-                            // Crear objeto Prenda
-                            Prenda prenda = new Prenda(0, talla, material, color, tipo);
-                            prenda.setImagenUrl(imagenUrl);
+                            if (prendasMap != null) {
+                                for (Map<String, Object> prendaMap : prendasMap) {
+                                    // Extraemos cada campo con seguridad
+                                    String imagenUrl = (String) prendaMap.get("imagenUrl");
+                                    String talla = (String) prendaMap.get("talla");
+                                    String material = (String) prendaMap.get("material");
+                                    String color = (String) prendaMap.get("color");
+                                    String tipo = (String) prendaMap.get("tipo");
 
-                            // Agregar prenda a la lista
-                            savedOutfits.add(prenda);
+                                    // Crea la prenda y la añade a la lista
+                                    Prenda prenda = new Prenda(0, talla, material, color, tipo);
+                                    prenda.setImagenUrl(imagenUrl);
+
+                                    savedOutfits.add(prenda);
+                                }
+                            }
                         }
-                        // Actualizar RecyclerView
                         adapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(this, "Error al cargar outfits", Toast.LENGTH_SHORT).show();
@@ -148,4 +154,5 @@ public class Outfits extends AppCompatActivity {
                     }
                 });
     }
+
 }
