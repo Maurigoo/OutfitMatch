@@ -121,37 +121,35 @@ public class Outfits extends AppCompatActivity {
      * Los datos se obtienen desde la colección 'saved_outfits' y se muestran en el RecyclerView.
      */
     private void loadSavedOutfitsFromFirestore() {
-        db.collection("users").document(userId).collection("saved_outfits")
+        db.collection("users").document(userId)
+                .collection("current_outfit").document("outfit_actual")
                 .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        savedOutfits.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Obtenemos la lista de prendas dentro del outfit
-                            List<Map<String, Object>> prendasMap = (List<Map<String, Object>>) document.get("prendas");
+                .addOnSuccessListener(document -> {
+                    savedOutfits.clear();
 
-                            if (prendasMap != null) {
-                                for (Map<String, Object> prendaMap : prendasMap) {
-                                    // Extraemos cada campo con seguridad
-                                    String imagenUrl = (String) prendaMap.get("imagenUrl");
-                                    String talla = (String) prendaMap.get("talla");
-                                    String material = (String) prendaMap.get("material");
-                                    String color = (String) prendaMap.get("color");
-                                    String tipo = (String) prendaMap.get("tipo");
+                    if (document.exists()) {
+                        List<Map<String, Object>> prendasMap = (List<Map<String, Object>>) document.get("prendas");
 
-                                    // Crea la prenda y la añade a la lista
-                                    Prenda prenda = new Prenda(0, talla, material, color, tipo);
-                                    prenda.setImagenUrl(imagenUrl);
+                        if (prendasMap != null) {
+                            for (Map<String, Object> prendaMap : prendasMap) {
+                                String imagenUrl = (String) prendaMap.get("imagenUrl");
+                                String talla = (String) prendaMap.get("talla");
+                                String material = (String) prendaMap.get("material");
+                                String color = (String) prendaMap.get("color");
+                                String tipo = (String) prendaMap.get("tipo");
 
-                                    savedOutfits.add(prenda);
-                                }
+                                Prenda prenda = new Prenda(0, talla, material, color, tipo);
+                                prenda.setImagenUrl(imagenUrl);
+                                savedOutfits.add(prenda);
                             }
                         }
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(this, "Error al cargar outfits", Toast.LENGTH_SHORT).show();
-                        Log.e("Firestore", "Error al obtener outfits", task.getException());
                     }
+
+                    adapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error al cargar el outfit actual", Toast.LENGTH_SHORT).show();
+                    Log.e("Firestore", "Error al obtener outfit actual", e);
                 });
     }
 
