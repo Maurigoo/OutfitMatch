@@ -46,7 +46,8 @@
         <item>Pants</item>
         <item>Shoes</item>
         <item>Dresses</item>
-        <item>Accessories/Jackets</item>
+        <item>Accessories</item>
+        <item>Jackets</item>
     </string-array>
 
     <string name="subirprenda">Up</string>
@@ -87,6 +88,13 @@
     <string name="error_eliminar_cuenta">Error al eliminar cuenta</string>
 
     <string name="genereteoutfit">Generete Outfit</string>
-    <string name="Favoritos" />
+
+    <string name="createoutfits">Create your outfit</string>
+    <string name="twopice">Two-piece outfit</string>
+    <string name="dressoutfit">Dress outfit</string>
+    <string name="saveoutfit">Save outfit</string>
+    <string name="favorite">Favorites</string>
+
+
 
 </resources>

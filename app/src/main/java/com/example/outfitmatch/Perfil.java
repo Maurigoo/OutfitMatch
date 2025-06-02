@@ -3,6 +3,7 @@ package com.example.outfitmatch;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
@@ -48,13 +49,11 @@ public class Perfil extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private TextView nombreUsuario, emailUsuario;
-    private Button logoutButton;
-    private ImageView profileImage;
+    private Button logoutButton, tema, idioma, delete;
+    private ImageView profileImage, btnChangeMode, logoutImg, deleteImg;
     private ImageButton btnChangeLang;
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
-    private boolean isSpanish;
-    private ImageView btnChangeMode;
-    private boolean isDarkMode;
+    private boolean isSpanish, isDarkMode;
     private SmoothBottomBar bottomBar;
 
     @SuppressLint({"SetTextI18n", "MissingInflatedId"})
@@ -69,11 +68,27 @@ public class Perfil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
 
+        setContentView(R.layout.activity_perfil);
+        ConstraintLayout mainLayout = findViewById(R.id.main);
+
+        boolean isDarkMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                || (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+
+        if (isDarkMode) {
+            mainLayout.setBackgroundResource(R.drawable.fondohomedarkperfil);
+        } else {
+            mainLayout.setBackgroundResource(R.drawable.fondohomeligthperfil);
+        }
+
+
         nombreUsuario = findViewById(R.id.nameTextView);
         emailUsuario = findViewById(R.id.emailTextView);
         logoutButton = findViewById(R.id.logoutButton);
         profileImage = findViewById(R.id.profileImage);
         btnChangeLang = findViewById(R.id.btnChangeLang);
+        tema = findViewById(R.id.temabotn);
+        idioma = findViewById(R.id.lenguajeboton);
+        delete = findViewById(R.id.deleteButton);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser usuarioActual = mAuth.getCurrentUser();
@@ -90,38 +105,52 @@ public class Perfil extends AppCompatActivity {
             emailUsuario.setText("");
         }
 
+        logoutImg = findViewById(R.id.logoutimgview);
+        deleteImg = findViewById(R.id.deleteimgview);
+
+// Verificar el modo de tema actual
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            logoutImg.setImageResource(R.drawable.logoutdark);
+            deleteImg.setImageResource(R.drawable.deletenight);
+        } else {
+            logoutImg.setImageResource(R.drawable.logoutlight);
+            deleteImg.setImageResource(R.drawable.deletelight);
+        }
+
+
         logoutButton.setOnClickListener(view -> mostrarDialogoCerrarSesion());
         profileImage.setOnClickListener(v -> openImagePicker());
 
-            bottomBar = findViewById(R.id.bottomBar);
-            bottomBar.setItemActiveIndex(3); // Establecemos la posición en la que estamos (Perfil)
+        bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setItemActiveIndex(3); // Establecemos la posición en la que estamos (Perfil)
 
-            bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
-                if (i == 3) return true; // Ya estamos en la página de Perfil
+        bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
+            if (i == 3) return true; // Ya estamos en la página de Perfil
 
-                Class<?> destination = null;
-                switch (i) {
-                    case 0:
-                        destination = Home.class; // Ir a Home
-                        break;
-                    case 1:
-                        destination = Clothes.class; // Ir a Clothes
-                        break;
-                    case 2:
-                        destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
-                        break;
-                    case 3:
-                        destination = Perfil.class; // Ir a AddClothesStore
-                        break;
-                }
+            Class<?> destination = null;
+            switch (i) {
+                case 0:
+                    destination = Home.class; // Ir a Home
+                    break;
+                case 1:
+                    destination = Clothes.class; // Ir a Clothes
+                    break;
+                case 2:
+                    destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
+                    break;
+                case 3:
+                    destination = Perfil.class; // Ir a AddClothesStore
+                    break;
+            }
 
-                if (destination != null) {
-                    startActivity(new Intent(getApplicationContext(), destination));
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                }
-                return true;
-            });
-
+            if (destination != null) {
+                startActivity(new Intent(getApplicationContext(), destination));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            return true;
+        });
 
 
         Button deleteButton = findViewById(R.id.deleteButton);
@@ -131,6 +160,17 @@ public class Perfil extends AppCompatActivity {
         String savedLang = getSavedLanguage();
         isSpanish = savedLang.equals("es");
         updateFlag();
+
+        idioma.setOnClickListener(v -> {
+            String newLang = isSpanish ? "en" : "es";
+            if (!newLang.equals(getSavedLanguage())) {
+                LanguageManager.setLocale(Perfil.this, newLang);
+                saveLanguage(newLang);
+                isSpanish = !isSpanish;
+                overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
+                recreate();
+            }
+        });
 
         btnChangeLang.setOnClickListener(v -> {
             String newLang = isSpanish ? "en" : "es";
@@ -157,8 +197,16 @@ public class Perfil extends AppCompatActivity {
             // Recrear la actividad actual para aplicar el nuevo tema
             recreate();
         });
-    }
 
+        tema.setOnClickListener(v -> {
+            boolean isCurrentlyDarkMode = SettingsManager.isDarkModeEnabled(this);
+            // Guardar la nueva preferencia
+            SettingsManager.saveThemePreference(this, !isCurrentlyDarkMode);
+
+            // Recrear la actividad actual para aplicar el nuevo tema
+            recreate();
+        });
+    }
     private void saveThemePreference(boolean darkModeEnabled) {
         // Guardar preferencia en SharedPreferences
         getSharedPreferences("settings", MODE_PRIVATE)

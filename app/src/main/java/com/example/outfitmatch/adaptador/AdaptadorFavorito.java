@@ -1,26 +1,55 @@
 package com.example.outfitmatch.adaptador;
 
-import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.outfitmatch.R;
+import com.example.outfitmatch.modelo.entidad.Prenda;
 
-public class AdaptadorFavorito extends AppCompatActivity {
+import java.util.List;
+
+public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.ViewHolder> {
+
+    private List<Prenda> prendasFavoritas;
+
+    public AdaptadorFavorito(List<Prenda> prendasFavoritas) {
+        this.prendasFavoritas = prendasFavoritas;
+    }
+
+    @NonNull
+    @Override
+    public AdaptadorFavorito.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_prenda, parent, false);
+        return new ViewHolder(view);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_adaptador_favorito);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+    public void onBindViewHolder(@NonNull AdaptadorFavorito.ViewHolder holder, int position) {
+        Prenda prenda = prendasFavoritas.get(position);
+
+        Glide.with(holder.itemView.getContext())
+                .load(prenda.getImagenUrl())
+                .into(holder.imgPrenda);
+    }
+
+    @Override
+    public int getItemCount() {
+        return prendasFavoritas.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView imgPrenda;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imgPrenda = itemView.findViewById(R.id.imgCardPrenda);
+        }
     }
 }

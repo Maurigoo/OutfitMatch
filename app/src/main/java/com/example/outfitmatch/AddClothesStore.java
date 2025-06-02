@@ -23,7 +23,7 @@ import me.ibrahimsn.lib.SmoothBottomBar;
  */
 public class AddClothesStore extends AppCompatActivity {
 
-    private ImageButton buscarAlbum;
+    private ImageButton buscarAlbum, buscarTienda;
     private SmoothBottomBar bottomBar;
 
     @Override
@@ -36,12 +36,26 @@ public class AddClothesStore extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_clothes_store);
         configurarBottomNavigation();
+
         buscarAlbum = findViewById(R.id.botonBuscarAlbum2);
+        buscarTienda = findViewById(R.id.botonBuscarTienda2);
 
         buscarAlbum.setOnClickListener(v -> {
             Intent intent = new Intent(AddClothesStore.this, AddClothesAlbum.class);
             startActivity(intent);
         });
+
+        int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+            // Modo oscuro
+            buscarTienda.setImageResource(R.drawable.busquedark); // Ícono oscuro para fondo oscuro
+            buscarAlbum.setImageResource(R.drawable.galeriadark);
+        } else {
+            // Modo claro
+            buscarTienda.setImageResource(R.drawable.busquedalight); // Ícono claro para fondo claro
+            buscarAlbum.setImageResource(R.drawable.galerialight);
+        }
     }
 
     /**

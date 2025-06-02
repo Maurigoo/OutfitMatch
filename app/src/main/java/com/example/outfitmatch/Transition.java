@@ -4,24 +4,20 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.example.outfitmatch.adaptador.AdaptadorTransition;
 import com.example.outfitmatch.modelo.entidad.Prenda;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.CollectionReference;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -39,32 +35,21 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
-/**
- * Transition es una actividad que permite al usuario navegar por una lista de prendas usando
- * una interfaz estilo Tinder. Las prendas pueden ser deslizadas hacia la derecha para guardarlas
- * como favoritas o hacia la izquierda para descartarlas.
- *
- * Los outfits seleccionados se almacenan en Firestore y pueden ser visualizados en la actividad Outfits.
- */
 public class Transition extends AppCompatActivity {
 
-    private Button like, x, outfit;                        // Botones de interacción
-    private CardStackView cardStackView;                   // Vista para las tarjetas deslizables
-    private CardStackLayoutManager manager;                // Gestor de las tarjetas
-    private AdaptadorTransition adapter;                   // Adaptador para mostrar las prendas
+    private Button like, x, favorito;
+    private CardStackView cardStackView;
+    private CardStackLayoutManager manager;
+    private AdaptadorTransition adapter;
 
-    private List<Prenda> savedOutfits = new ArrayList<>(); // Lista de prendas seleccionadas
-    private List<Prenda> prendas = new ArrayList<>();      // Lista de todas las prendas
+    private List<Prenda> savedOutfits = new ArrayList<>();
+    private List<Prenda> prendas = new ArrayList<>();
 
-    private FirebaseFirestore db;                          // Instancia de Firestore
-    private String userId;                                 // ID del usuario autenticado
+    private FirebaseFirestore db;
+    private String userId;
 
     private SmoothBottomBar bottomBar;
-    /**
-     * Método llamado al crear la actividad. Inicializa Firestore, la vista y carga datos.
-     *
-     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
-     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Window window = getWindow();
@@ -72,41 +57,29 @@ public class Transition extends AppCompatActivity {
         window.getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         window.setStatusBarColor(Color.TRANSPARENT);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition);
 
-        // Inicialización de Firestore y autenticación
         db = FirebaseFirestore.getInstance();
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Limpiar outfits guardados previamente
+        // Limpiar outfits guardados previamente (opcional, dependiendo del uso)
         clearSavedOutfitsInFirestore();
 
-        // Configurar la barra de navegación inferior
         bottomBar = findViewById(R.id.bottomBar);
-
         bottomBar.setOnItemSelectedListener(new Function1<Integer, Unit>() {
             @Override
             public Unit invoke(Integer index) {
-                if (index == 4) return Unit.INSTANCE; // Ya estás en esta pestaña
+                if (index == 4) return Unit.INSTANCE;
 
                 Class<?> destination = null;
                 switch (index) {
-                    case 0:
-                        destination = Home.class;
-                        break;
-                    case 1:
-                        destination = Clothes.class;
-                        break;
-                    case 2:
-                        destination = AddClothesAlbum.class;
-                        break;
-                    case 3:
-                        destination = Perfil.class;
-                        break;
-                    case 4:
-                        destination = GenerarOutfit.class;
-                        break;
+                    case 0: destination = Home.class; break;
+                    case 1: destination = Clothes.class; break;
+                    case 2: destination = AddClothesAlbum.class; break;
+                    case 3: destination = Perfil.class; break;
+                    case 4: destination = GenerarOutfit.class; break;
                 }
 
                 if (destination != null) {
@@ -114,48 +87,36 @@ public class Transition extends AppCompatActivity {
                     overridePendingTransition(0, 0);
                 }
 
-                return Unit.INSTANCE; // Kotlin's void
+                return Unit.INSTANCE;
             }
         });
 
-
-        // Inicializar vistas
         like = findViewById(R.id.botonLike);
         x = findViewById(R.id.botonX);
-        outfit = findViewById(R.id.botonOufits);
+        favorito = findViewById(R.id.botonfavorito);
         cardStackView = findViewById(R.id.cardStackView);
 
-        // Configurar la vista de tarjetas y cargar prendas
         setupCardStackView();
         loadPrendasFromFirestore();
 
-        // Guardar outfits seleccionados y navegar a Outfits
-        outfit.setOnClickListener(view -> {
-            saveOutfitsToFirestore();
+        favorito.setOnClickListener(view -> {
             Intent intent = new Intent(Transition.this, Favorito.class);
             startActivity(intent);
         });
 
-        // Configurar botones de like y dislike
         like.setOnClickListener(view -> swipeCard(Direction.Right));
         x.setOnClickListener(view -> swipeCard(Direction.Left));
     }
 
-    /**
-     * Ejecuta la animación para deslizar la tarjeta en la dirección indicada.
-     *
-     * @param direction Dirección hacia donde se desliza la tarjeta.
-     */
     private void swipeCard(Direction direction) {
         SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
-                .setDirection(direction).setDuration(200).build();
+                .setDirection(direction)
+                .setDuration(200)
+                .build();
         manager.setSwipeAnimationSetting(setting);
         cardStackView.swipe();
     }
 
-    /**
-     * Configura el CardStackView para mostrar las tarjetas de prendas.
-     */
     private void setupCardStackView() {
         manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
@@ -163,10 +124,15 @@ public class Transition extends AppCompatActivity {
 
             @Override
             public void onCardSwiped(Direction direction) {
+                int swipedPosition = manager.getTopPosition() - 1;
+                if (swipedPosition < 0 || swipedPosition >= prendas.size()) return;
+
+                Prenda prenda = prendas.get(swipedPosition);
+
                 if (direction == Direction.Right) {
-                    int topPosition = manager.getTopPosition() - 1;
-                    if (topPosition >= 0 && topPosition < prendas.size()) {
-                        Prenda prenda = prendas.get(topPosition);
+                    // Evitar guardar duplicados
+                    if (!savedOutfits.contains(prenda)) {
+                        savePrendaToFavorites(prenda);
                         savedOutfits.add(prenda);
                         Toast.makeText(Transition.this, getString(R.string.añadido_favoritos), Toast.LENGTH_SHORT).show();
                     }
@@ -186,7 +152,6 @@ public class Transition extends AppCompatActivity {
             public void onCardDisappeared(View view, int position) { }
         });
 
-        // Configuración visual del CardStack
         manager.setStackFrom(StackFrom.None);
         manager.setVisibleCount(3);
         manager.setTranslationInterval(8.0f);
@@ -201,9 +166,6 @@ public class Transition extends AppCompatActivity {
         cardStackView.setAdapter(adapter);
     }
 
-    /**
-     * Carga las prendas del usuario desde Firestore y las muestra en el CardStackView.
-     */
     private void loadPrendasFromFirestore() {
         db.collection("prendas").document(userId).collection("user_prendas")
                 .get()
@@ -217,9 +179,7 @@ public class Transition extends AppCompatActivity {
                             String color = document.getString("color");
                             String tipo = document.getString("tipo");
 
-                            Prenda prenda = new Prenda(0, talla, material, color, tipo);
-                            prenda.setImagenUrl(imagenUrl);
-
+                            Prenda prenda = new Prenda(imagenUrl, talla, material, color, tipo);
                             prendas.add(prenda);
                         }
                         adapter.notifyDataSetChanged();
@@ -230,32 +190,8 @@ public class Transition extends AppCompatActivity {
                 });
     }
 
-    /**
-     * Guarda los outfits seleccionados en Firestore bajo la colección 'saved_outfits'.
-     */
-    private void saveOutfitsToFirestore() {
-        CollectionReference outfitsRef = db.collection("users").document(userId).collection("saved_outfits");
-
-        for (Prenda prenda : savedOutfits) {
-            Map<String, Object> prendaMap = new HashMap<>();
-            prendaMap.put("imagenUrl", prenda.getImagenUrl());
-            prendaMap.put("talla", prenda.getTalla());
-            prendaMap.put("material", prenda.getMaterial());
-            prendaMap.put("color", prenda.getColor());
-            prendaMap.put("tipo", prenda.getTipo());
-
-            outfitsRef.add(prendaMap)
-                    .addOnSuccessListener(documentReference -> Log.d("Firestore", "Prenda guardada en outfits"))
-                    .addOnFailureListener(e -> Log.e("Firestore", "Error al guardar prenda en outfits", e));
-        }
-    }
-
-    /**
-     * Elimina los outfits guardados en Firestore al iniciar la actividad para permitir una nueva selección.
-     */
     private void clearSavedOutfitsInFirestore() {
         CollectionReference outfitsRef = db.collection("users").document(userId).collection("saved_outfits");
-
         outfitsRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -265,5 +201,23 @@ public class Transition extends AppCompatActivity {
                 Log.e("Firestore", "Error al limpiar outfits", task.getException());
             }
         });
+    }
+
+    private void savePrendaToFavorites(Prenda prenda) {
+        CollectionReference favRef = db.collection("users").document(userId).collection("favoritos");
+
+        // Crear un id único para evitar duplicados en Firestore
+        String docId = prenda.getTipo() + "_" + prenda.getImagenUrl().hashCode();
+
+        Map<String, Object> prendaMap = new HashMap<>();
+        prendaMap.put("imagenUrl", prenda.getImagenUrl());
+        prendaMap.put("talla", prenda.getTalla());
+        prendaMap.put("material", prenda.getMaterial());
+        prendaMap.put("color", prenda.getColor());
+        prendaMap.put("tipo", prenda.getTipo());
+
+        favRef.document(docId).set(prendaMap)
+                .addOnSuccessListener(docRef -> Log.d("Firestore", "Prenda guardada en favoritos"))
+                .addOnFailureListener(e -> Log.e("Firestore", "Error al guardar prenda en favoritos", e));
     }
 }

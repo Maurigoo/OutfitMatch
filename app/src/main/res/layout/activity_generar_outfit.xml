@@ -5,14 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="?attr/backgroundColor"
     tools:context=".GenerarOutfit">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crea tu outfit"
+        android:text="@string/createoutfits"
         android:textSize="24sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -25,6 +26,7 @@
         android:layout_width="150dp"
         android:layout_height="300dp"
         android:background="@drawable/generardospiezas"
+        android:contentDescription="@string/deco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.157"
@@ -35,8 +37,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Outfit dos piezas"
+        android:text="@string/twopice"
         android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.199"
@@ -44,24 +47,26 @@
         app:layout_constraintTop_toBottomOf="@+id/dospiezas"
         app:layout_constraintVertical_bias="0.115" />
 
+
     <ImageButton
         android:id="@+id/gvestido"
         android:layout_width="150dp"
         android:layout_height="300dp"
         android:background="@drawable/generaarvestidos"
+        android:contentDescription="@string/deco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.468" />
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Outfit vestido"
+        android:text="@string/dressoutfit"
         android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.816"
@@ -74,6 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:backgroundColor="@color/black"
+        android:contentDescription="@string/deco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="MissingConstraints"

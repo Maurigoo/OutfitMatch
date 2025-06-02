@@ -17,6 +17,8 @@
     <color name="fondoPerfilnigth">#121F2F</color>
     <color name="graylight">#e5e7e9</color>
 
+
+
     <!-- Colores para texto -->
     <color name="textPrimary">#FFFFFF</color> <!-- Texto blanco para el modo oscuro -->
     <color name="textSecondary">#B0BEC5</color> <!-- Texto secundario -->

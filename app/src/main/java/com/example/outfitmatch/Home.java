@@ -3,6 +3,7 @@ package com.example.outfitmatch;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import com.example.outfitmatch.API.ClimaAPI;
@@ -63,10 +66,22 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        ConstraintLayout mainLayout = findViewById(R.id.main);
+
+        boolean isDarkMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+                || (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+
+        if (isDarkMode) {
+            mainLayout.setBackgroundResource(R.drawable.fondohomedark);
+        } else {
+            mainLayout.setBackgroundResource(R.drawable.fondohomelight);
+        }
+
         // Inicialización de vistas
         tvWeather = findViewById(R.id.tvWeather);
         userGreetingTextView = findViewById(R.id.saludoUsuario);
         mAuth = FirebaseAuth.getInstance();
+
 
         // Configurar saludo personalizado para el usuario actual
         FirebaseUser currentUser = mAuth.getCurrentUser();

@@ -76,11 +76,18 @@
 
     <string name="genereteoutfit">Generar Outfit</string>
 
+    <string name="createoutfits">Crea tu outfit</string>
+    <string name="twopice">Outfit dos piezas</string>
+    <string name="dressoutfit">Outfit vestido</string>
+    <string name="saveoutfit">Guardar Outfit</string>
+    <string name="favorite">Favoritos</string>
+
     <string-array name="tipo_prenda_array">
         <item>Shirts</item>
         <item>Pants</item>
         <item>Shoes</item>
         <item>Dresses</item>
         <item>Accessories</item>
+        <item>Jacket</item>
     </string-array>
 </resources>

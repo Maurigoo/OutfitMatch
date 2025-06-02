@@ -8,79 +8,79 @@
     tools:context=".Transition">
 
 
+    <!-- CardStackView (Para el Swipe) -->
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="270dp"
-        android:layout_height="85dp"
+        android:layout_width="320dp"
+        android:layout_height="61dp"
         android:fontFamily="@font/autour_one"
         android:text="@string/swipe"
-        android:textColor="@color/green"
+        android:textColor="?android:textColorPrimary"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.67"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintVertical_bias="0.052" />
 
 
-    <!-- CardStackView (Para el Swipe) -->
     <com.yuyakaido.android.cardstackview.CardStackView
-        android:contentDescription="@string/deslizar"
         android:id="@+id/cardStackView"
-        android:layout_width="208dp"
-        android:layout_height="303dp"
+        android:layout_width="250dp"
+        android:layout_height="325dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/deslizar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintVertical_bias="0.31" />
-
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
     <Button
         android:id="@+id/botonLike"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:backgroundTint="@color/background_menu"
-        app:icon="@drawable/corazon"
         android:contentDescription="@string/boton"
+        app:icon="@drawable/corazon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.913"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.599" />
+        app:layout_constraintVertical_bias="0.683" />
 
     <Button
         android:id="@+id/botonX"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:backgroundTint="@color/green"
-        app:icon="@drawable/x"
         android:contentDescription="@string/boton"
+        app:icon="@drawable/x"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintHorizontal_bias="0.109"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.599" />
+        app:layout_constraintVertical_bias="0.683" />
 
     <Button
-        android:id="@+id/botonOufits"
-        android:layout_width="149dp"
-        android:layout_height="63dp"
+        android:id="@+id/botonfavorito"
+        android:layout_width="208dp"
+        android:layout_height="83dp"
         android:backgroundTint="@color/azulClaro"
         android:contentDescription="@string/boton"
         android:fontFamily="@font/autour_one"
-        android:text="@string/outfits"
+        android:text="Favoritos"
         android:textColor="@color/background_menu"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
+        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.722" />
+        app:layout_constraintVertical_bias="0.83" />
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"

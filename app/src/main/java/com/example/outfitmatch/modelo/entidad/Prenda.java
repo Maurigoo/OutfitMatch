@@ -4,12 +4,17 @@ import java.io.Serializable;
 
 public class Prenda implements Serializable {
 
+    private String id; // ID del documento en Firestore
     private int imagen; // Para recursos locales
     private String imagenUrl; // Para imágenes desde Firebase
     private String talla;
     private String material;
     private String color;
     private String tipo;
+
+    // Constructor vacío requerido por Firestore
+    public Prenda() {
+    }
 
     // Constructor para recursos locales
     public Prenda(int imagen, String talla, String material, String color, String tipo) {
@@ -27,6 +32,15 @@ public class Prenda implements Serializable {
         this.material = material;
         this.color = color;
         this.tipo = tipo;
+    }
+
+    // Getter y Setter para id
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     // Getters y Setters
@@ -81,7 +95,8 @@ public class Prenda implements Serializable {
     @Override
     public String toString() {
         return "Prenda{" +
-                "imagen=" + imagen +
+                "id='" + id + '\'' +
+                ", imagen=" + imagen +
                 ", imagenUrl='" + imagenUrl + '\'' +
                 ", talla='" + talla + '\'' +
                 ", material='" + material + '\'' +
@@ -89,4 +104,21 @@ public class Prenda implements Serializable {
                 ", tipo='" + tipo + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Prenda)) return false;
+        Prenda prenda = (Prenda) o;
+        return (imagenUrl != null ? imagenUrl.equals(prenda.imagenUrl) : prenda.imagenUrl == null) &&
+                (tipo != null ? tipo.equals(prenda.tipo) : prenda.tipo == null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (imagenUrl != null) ? imagenUrl.hashCode() : 0;
+        result = 31 * result + ((tipo != null) ? tipo.hashCode() : 0);
+        return result;
+    }
+
 }
