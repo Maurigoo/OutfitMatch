@@ -81,7 +81,7 @@ public class Clothes extends AppCompatActivity {
         botonShirts.setOnClickListener(view -> openClothesListActivity("Shirts"));
         botonPants.setOnClickListener(view -> openClothesListActivity("Pants"));
         botonShoes.setOnClickListener(view -> openClothesListActivity("Shoes"));
-        botonDresses.setOnClickListener(view -> openClothesListActivity("Dresses"));
+        botonDresses.setOnClickListener(view -> openClothesListActivity("Jackets"));
         botonAccessories.setOnClickListener(view -> openClothesListActivity("Accessories"));
         botonAll.setOnClickListener(view -> openClothesListActivity("All"));
     }

@@ -1,5 +1,6 @@
 package com.example.outfitmatch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -147,9 +148,16 @@ public class DosPiezas extends AppCompatActivity {
 
         db.collection("users").document(userId).collection("saved_outfits")
                 .add(new Outfit(outfit))
-                .addOnSuccessListener(docRef -> Toast.makeText(DosPiezas.this, "Outfit guardado", Toast.LENGTH_SHORT).show())
+                .addOnSuccessListener(docRef -> {
+                    Toast.makeText(DosPiezas.this, "Outfit guardado", Toast.LENGTH_SHORT).show();
+                    // Aquí navegamos a la actividad Outfit
+                    Intent intent = new Intent(DosPiezas.this, Outfits.class);
+                    startActivity(intent);
+                    finish();  // Opcional, para cerrar esta activity y no volver con back
+                })
                 .addOnFailureListener(e -> Toast.makeText(DosPiezas.this, "Error al guardar", Toast.LENGTH_SHORT).show());
     }
+
 
     public static class Outfit {
         public List<Prenda> prendas;
