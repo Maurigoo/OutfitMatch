@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.outfitmatch.adaptador.AdaptadorDosPiezas;
-import com.example.outfitmatch.modelo.entidad.Outfit;
 import com.example.outfitmatch.modelo.entidad.Prenda;
 import com.example.outfitmatch.modelo.negocio.GestorPrenda;
 import com.google.firebase.auth.FirebaseAuth;
@@ -146,14 +145,13 @@ public class DosPiezas extends AppCompatActivity {
         if (chaquetaSeleccionada != null) outfit.add(chaquetaSeleccionada);
         if (accesorioSeleccionado != null) outfit.add(accesorioSeleccionado);
 
-        db.collection("users").document(userId).collection("current_outfit")
-                .document("outfit_actual")
-                .set(new Outfit(outfit))
-                .addOnSuccessListener(docRef -> Toast.makeText(DosPiezas.this, "Outfit guardado como actual", Toast.LENGTH_SHORT).show())
+        db.collection("users").document(userId).collection("saved_outfits")
+                .add(new Outfit(outfit))
+                .addOnSuccessListener(docRef -> Toast.makeText(DosPiezas.this, "Outfit guardado", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(DosPiezas.this, "Error al guardar", Toast.LENGTH_SHORT).show());
     }
 
-        public static class Outfit {
+    public static class Outfit {
         public List<Prenda> prendas;
         public Outfit(List<Prenda> prendas) {
             this.prendas = prendas;
