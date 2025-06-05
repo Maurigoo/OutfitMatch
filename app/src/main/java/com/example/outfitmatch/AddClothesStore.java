@@ -23,7 +23,7 @@ import me.ibrahimsn.lib.SmoothBottomBar;
  */
 public class AddClothesStore extends AppCompatActivity {
 
-    private ImageButton buscarAlbum, buscarTienda;
+    private ImageButton buscarAlbum, buscarTienda, botonZara, botonBershka, botonPull, botonLefties;
     private SmoothBottomBar bottomBar;
 
     @Override
@@ -39,6 +39,10 @@ public class AddClothesStore extends AppCompatActivity {
 
         buscarAlbum = findViewById(R.id.botonBuscarAlbum2);
         buscarTienda = findViewById(R.id.botonBuscarTienda2);
+        botonZara = findViewById(R.id.botonZara);
+        botonBershka = findViewById(R.id.botonBershka);
+        botonPull = findViewById(R.id.botonPull);
+        botonLefties = findViewById(R.id.botonLefties);
 
         buscarAlbum.setOnClickListener(v -> {
             Intent intent = new Intent(AddClothesStore.this, AddClothesAlbum.class);
@@ -51,10 +55,20 @@ public class AddClothesStore extends AppCompatActivity {
             // Modo oscuro
             buscarTienda.setImageResource(R.drawable.busquedark); // Ícono oscuro para fondo oscuro
             buscarAlbum.setImageResource(R.drawable.galeriadark);
+
+            botonZara.setImageResource(R.drawable.img_zara_dark);
+            botonBershka.setImageResource(R.drawable.img_bershka_dark);
+            botonPull.setImageResource(R.drawable.img_pull_dark);
+            botonLefties.setImageResource(R.drawable.img_lefties_dark);
         } else {
             // Modo claro
             buscarTienda.setImageResource(R.drawable.busquedalight); // Ícono claro para fondo claro
             buscarAlbum.setImageResource(R.drawable.galerialight);
+
+            botonZara.setImageResource(R.drawable.img_zara);
+            botonBershka.setImageResource(R.drawable.img_bershka);
+            botonPull.setImageResource(R.drawable.img_pull);
+            botonLefties.setImageResource(R.drawable.img_lefties);
         }
     }
 

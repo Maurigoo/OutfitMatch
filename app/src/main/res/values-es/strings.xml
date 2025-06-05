@@ -82,6 +82,14 @@
     <string name="saveoutfit">Guardar Outfit</string>
     <string name="favorite">Favoritos</string>
 
+    <string name="language">Idioma</string>
+    <string name="Theme">Tema</string>
+
+    <string name="stores">Tiendas</string>
+    <string name="album">Albúm</string>
+    <string name="leftis">Lefties</string>
+    <string name="pullbear">PullBear</string>
+
     <string-array name="tipo_prenda_array">
         <item>Shirts</item>
         <item>Pants</item>

@@ -43,7 +43,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Albúm"
+        android:text="@string/album"
         android:textSize="16sp"
         android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -70,7 +70,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tiendas"
+        android:text="@string/stores"
         android:textSize="16sp"
         android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"

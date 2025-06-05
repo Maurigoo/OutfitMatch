@@ -50,8 +50,8 @@ public class Perfil extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView nombreUsuario, emailUsuario;
     private Button logoutButton, tema, idioma, delete;
-    private ImageView profileImage, btnChangeMode, logoutImg, deleteImg;
-    private ImageButton btnChangeLang;
+    private ImageView profileImage, btnChangeMode;
+    private ImageButton btnChangeLang, logoutImg, deleteImg;
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private boolean isSpanish, isDarkMode;
     private SmoothBottomBar bottomBar;
