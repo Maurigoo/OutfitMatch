@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,9 @@ public class AdaptadorGvestidos extends RecyclerView.Adapter<AdaptadorGvestidos.
 
         // Mostrar borde si está seleccionada
         if (position == selectedPosition) {
-            holder.imgPrenda.setBackgroundResource(R.drawable.borde_seleccionado);
+            holder.frameSeleccion.setBackgroundResource(R.drawable.borde_seleccionado);
+        } else {
+            holder.frameSeleccion.setBackgroundResource(0);
         }
 
         holder.imgPrenda.setOnClickListener(v -> {
@@ -70,9 +73,12 @@ public class AdaptadorGvestidos extends RecyclerView.Adapter<AdaptadorGvestidos.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgPrenda;
 
+        FrameLayout frameSeleccion;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPrenda = itemView.findViewById(R.id.imgPrendaa);
+            frameSeleccion = itemView.findViewById(R.id.frameSeleccion);
         }
     }
 }

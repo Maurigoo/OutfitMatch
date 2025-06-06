@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -50,9 +52,9 @@ public class AdaptadorDosPiezas extends RecyclerView.Adapter<AdaptadorDosPiezas.
 
         // Mostrar borde si está seleccionada
         if (position == selectedPosition) {
-            holder.imgPrenda.setBackgroundResource(R.drawable.borde_seleccionado); // crea este drawable
+            holder.frameSeleccion.setBackgroundResource(R.drawable.borde_seleccionado);
         } else {
-            holder.imgPrenda.setBackgroundResource(0);
+            holder.frameSeleccion.setBackgroundResource(0);
         }
 
         holder.imgPrenda.setOnClickListener(v -> {
@@ -72,9 +74,12 @@ public class AdaptadorDosPiezas extends RecyclerView.Adapter<AdaptadorDosPiezas.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgPrenda;
 
+        FrameLayout frameSeleccion;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPrenda = itemView.findViewById(R.id.imgPrendaa);
+            frameSeleccion = itemView.findViewById(R.id.frameSeleccion);
         }
     }
 }

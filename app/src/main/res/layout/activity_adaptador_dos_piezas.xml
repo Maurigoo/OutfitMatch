@@ -7,11 +7,19 @@
     card_view:cardCornerRadius="8dp"
     card_view:cardElevation="4dp">
 
-    <ImageView
-        android:id="@+id/imgPrendaa"
+    <FrameLayout
+        android:id="@+id/frameSeleccion"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:contentDescription="Imagen de prenda" />
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/imgPrendaa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Imagen de prenda" />
+
+    </FrameLayout>
 
 </androidx.cardview.widget.CardView>
