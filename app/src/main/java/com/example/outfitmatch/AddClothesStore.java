@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
@@ -37,6 +36,15 @@ public class AddClothesStore extends AppCompatActivity {
         setContentView(R.layout.activity_add_clothes_store);
         configurarBottomNavigation();
 
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish(); // o startActivity si quieres volver explícitamente
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+            }
+        });
+
+
         buscarAlbum = findViewById(R.id.botonBuscarAlbum2);
         buscarTienda = findViewById(R.id.botonBuscarTienda2);
         botonZara = findViewById(R.id.botonZara);
@@ -47,6 +55,7 @@ public class AddClothesStore extends AppCompatActivity {
         buscarAlbum.setOnClickListener(v -> {
             Intent intent = new Intent(AddClothesStore.this, AddClothesAlbum.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
         });
 
         int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
@@ -90,6 +99,8 @@ public class AddClothesStore extends AppCompatActivity {
 
         openWebsite(url);
     }
+
+
 
     /**
      * Método auxiliar para abrir una URL en el navegador predeterminado.
