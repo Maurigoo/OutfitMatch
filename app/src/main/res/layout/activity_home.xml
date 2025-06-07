@@ -9,35 +9,35 @@
     tools:context=".Home"
     tools:ignore="ExtraText">
 
+
     <TextView
         android:id="@+id/saludoUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/autour_one"
         android:text="@string/hello_user"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053" />
+        app:layout_constraintVertical_bias="0.06" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/autour_one"
         android:text="@string/ready_home"
-        android:textColor="@color/gray"
+        android:textColor="?android:textColorPrimary"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.196"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.088" />
-
+        app:layout_constraintVertical_bias="0.097" />
 
     <ImageButton
         android:id="@+id/botonIdeas"
@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:text="@string/ideas"
         android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
@@ -91,6 +92,7 @@
         android:layout_height="wrap_content"
         android:text="@string/genereteoutfit"
         android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.842"
@@ -133,8 +135,9 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@drawable/favoritosimg"
+        android:contentDescription="@string/deco"
         android:fontFamily="@font/autour_one"
-        android:text="@string/Favoritos"
+        android:text="@string/favorite"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -147,8 +150,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Favoritos"
+        android:text="@string/favorite"
         android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.795"
@@ -161,6 +165,7 @@
         android:layout_height="wrap_content"
         android:text="@string/outfits"
         android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.267"
@@ -177,7 +182,7 @@
         android:maxLines="4"
         android:padding="16dp"
         android:text="@string/clima"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -185,17 +190,20 @@
         app:layout_constraintHorizontal_bias="0.169"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.143" />
+        app:layout_constraintVertical_bias="0.176" />
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:backgroundColor="@color/white"
-        app:textColor="@color/black"
-        app:iconTint="@color/black"
-        app:iconTintActive="@color/black"
-        app:indicatorColor="@color/white"
+        app:cornerRadius="10sp"
+        app:backgroundColor="@color/nav_background"
+        app:textColor="@color/nav_text"
+        app:indicatorRadius="10sp"
+        app:iconTint="@color/nav_icon_tint"
+        app:iconTintActive="@color/nav_icon_active"
+        app:indicatorColor="@color/nav_indicator"
+        android:contentDescription="@string/deco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="MissingConstraints"

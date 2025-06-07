@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/autour_one"
         android:text="@string/registrarprendas"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
         android:id="@+id/botonBuscarTienda2"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/boton"
         android:src="@drawable/busquedalight"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,8 +45,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tiendas"
+        android:text="@string/stores"
         android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.751"
@@ -58,7 +59,7 @@
         android:id="@+id/botonBuscarAlbum2"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/boton"
         android:src="@drawable/galerialight"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,8 +72,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Albúm"
+        android:text="@string/album"
         android:textSize="16sp"
+        android:textColor="?android:textColorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.309"
@@ -84,8 +86,8 @@
 
     <ImageButton
         android:id="@+id/botonZara"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:background="@drawable/button_style"
         android:contentDescription="@string/zara"
         android:onClick="openStore"
@@ -93,15 +95,15 @@
         android:src="@drawable/img_zara"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintVertical_bias="0.455" />
 
     <ImageButton
         android:id="@+id/botonBershka"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:background="@drawable/button_style"
         android:contentDescription="@string/bershka"
         android:onClick="openStore"
@@ -109,15 +111,15 @@
         android:src="@drawable/img_bershka"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintHorizontal_bias="0.872"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.757" />
+        app:layout_constraintVertical_bias="0.455" />
 
     <ImageButton
         android:id="@+id/botonPull"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:background="@drawable/button_style"
         android:contentDescription="@string/pull"
         android:onClick="openStore"
@@ -125,15 +127,15 @@
         android:src="@drawable/img_pull"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintHorizontal_bias="0.872"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintVertical_bias="0.805" />
 
     <ImageButton
         android:id="@+id/botonLefties"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:background="@drawable/button_style"
         android:contentDescription="@string/lefties"
         android:onClick="openStore"
@@ -141,19 +143,27 @@
         android:src="@drawable/img_lefties"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.757" />
+        app:layout_constraintVertical_bias="0.805" />
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:backgroundColor="@color/black"
+        app:cornerRadius="10sp"
+        app:backgroundColor="@color/nav_background"
+        app:textColor="@color/nav_text"
+        app:indicatorRadius="10sp"
+        app:iconTint="@color/nav_icon_tint"
+        app:iconTintActive="@color/nav_icon_active"
+        app:indicatorColor="@color/nav_indicator"
+        android:contentDescription="@string/deco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

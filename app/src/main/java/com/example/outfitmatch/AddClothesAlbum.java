@@ -31,7 +31,7 @@ import me.ibrahimsn.lib.SmoothBottomBar;
  */
 public class AddClothesAlbum extends AppCompatActivity {
 
-    private ImageButton buscarTienda, album;
+    private ImageButton buscarTienda, albumadd, album;
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private DaoPrenda daoPrenda;
     private SmoothBottomBar bottomBar;
@@ -54,6 +54,19 @@ public class AddClothesAlbum extends AppCompatActivity {
         configurarSelectorImagen(); // Configurar el selector de imágenes
         configurarBottomNavigation(); // Configurar la navegación inferior
         inicializarBotones(); // Inicializar los botones de acción
+
+        int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+            // Modo oscuro
+            buscarTienda.setImageResource(R.drawable.busquedark); // Ícono oscuro para fondo oscuro
+            album.setImageResource(R.drawable.galeriadark);
+        } else {
+            // Modo claro
+            buscarTienda.setImageResource(R.drawable.busquedalight); // Ícono claro para fondo claro
+            album.setImageResource(R.drawable.galerialight);
+        }
+
     }
 
     /**
@@ -123,7 +136,8 @@ public class AddClothesAlbum extends AppCompatActivity {
     private void inicializarBotones() {
         // Inicializar los botones
         buscarTienda = findViewById(R.id.botonBuscarTienda);
-        album = findViewById(R.id.botonAlbum);
+        albumadd = findViewById(R.id.botonAlbum);
+        album = findViewById(R.id.botonBuscarAlbum);
 
         // Configurar el botón de búsqueda de tienda
         buscarTienda.setOnClickListener(v -> {
@@ -131,7 +145,7 @@ public class AddClothesAlbum extends AppCompatActivity {
         });
 
         // Configurar el botón de álbum para seleccionar una imagen
-        album.setOnClickListener(v -> {
+        albumadd.setOnClickListener(v -> {
             // Intent para seleccionar una imagen del dispositivo
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");

@@ -88,6 +88,11 @@ public class ClothesListActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String tipo = document.getString("tipo");
 
+                            // Normaliza el tipo: Dresses y Jackets se consideran lo mismo
+                            if ("Dresses".equalsIgnoreCase(tipo)) {
+                                tipo = "Jackets";  // o al revés si prefieres usar "Dresses" como tipo principal
+                            }
+
                             if (category.equals("All") || category.equalsIgnoreCase(tipo)) {
                                 String imagenUrl = document.getString("imagenUrl");
 

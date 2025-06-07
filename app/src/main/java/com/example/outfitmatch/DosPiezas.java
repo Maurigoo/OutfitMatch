@@ -1,5 +1,6 @@
 package com.example.outfitmatch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -145,11 +146,27 @@ public class DosPiezas extends AppCompatActivity {
         if (chaquetaSeleccionada != null) outfit.add(chaquetaSeleccionada);
         if (accesorioSeleccionado != null) outfit.add(accesorioSeleccionado);
 
+        Outfit nuevoOutfit = new Outfit(outfit);
+
+        // Guardar en historial
         db.collection("users").document(userId).collection("saved_outfits")
-                .add(new Outfit(outfit))
-                .addOnSuccessListener(docRef -> Toast.makeText(DosPiezas.this, "Outfit guardado", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(DosPiezas.this, "Error al guardar", Toast.LENGTH_SHORT).show());
+                .add(nuevoOutfit)
+                .addOnSuccessListener(docRef -> Log.d("DosPiezas", "Outfit guardado en historial"))
+                .addOnFailureListener(e -> Log.e("DosPiezas", "Error guardando historial", e));
+
+        // Guardar como outfit actual (sobrescribe el anterior)
+        db.collection("users").document(userId)
+                .collection("current_outfit").document("outfit_actual")
+                .set(nuevoOutfit)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(DosPiezas.this, "Outfit actual actualizado", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DosPiezas.this, Outfits.class);
+                    startActivity(intent);
+                    finish();
+                })
+                .addOnFailureListener(e -> Toast.makeText(DosPiezas.this, "Error al guardar outfit actual", Toast.LENGTH_SHORT).show());
     }
+
 
     public static class Outfit {
         public List<Prenda> prendas;
@@ -157,4 +174,6 @@ public class DosPiezas extends AppCompatActivity {
             this.prendas = prendas;
         }
     }
+
+
 }

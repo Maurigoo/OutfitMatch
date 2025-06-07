@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,7 +16,7 @@ import com.example.outfitmatch.modelo.entidad.Prenda;
 
 import java.util.List;
 
-public class AdaptadorDosPiezas extends RecyclerView.Adapter<AdaptadorDosPiezas.ViewHolder> {
+public class AdaptadorGvestidos extends RecyclerView.Adapter<AdaptadorGvestidos.ViewHolder> {
 
     private final List<Prenda> listaPrendas;
     private final OnPrendaSelectedListener listener;
@@ -28,7 +27,7 @@ public class AdaptadorDosPiezas extends RecyclerView.Adapter<AdaptadorDosPiezas.
         void onPrendaSelected(Prenda prenda);
     }
 
-    public AdaptadorDosPiezas(Context context, List<Prenda> listaPrendas, OnPrendaSelectedListener listener) {
+    public AdaptadorGvestidos(Context context, List<Prenda> listaPrendas, OnPrendaSelectedListener listener) {
         this.context = context;
         this.listaPrendas = listaPrendas;
         this.listener = listener;
@@ -37,8 +36,8 @@ public class AdaptadorDosPiezas extends RecyclerView.Adapter<AdaptadorDosPiezas.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_adaptador_dos_piezas, parent, false);
+        View vista = LayoutInflater.from(context)
+                .inflate(R.layout.activity_adaptador_gvestidos, parent, false);
         return new ViewHolder(vista);
     }
 

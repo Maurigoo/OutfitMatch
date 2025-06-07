@@ -8,6 +8,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
+      android:background="?attr/backgroundColor"
       android:padding="16dp">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -49,7 +50,7 @@
         android:id="@+id/btnGuardarOutfit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar Outfit" />
+        android:text="@string/saveoutfit" />
 
   </LinearLayout>
 </androidx.core.widget.NestedScrollView>
