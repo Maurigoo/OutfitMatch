@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import me.ibrahimsn.lib.SmoothBottomBar;
 import nl.dionsegijn.konfetti.core.PartyFactory;
 import nl.dionsegijn.konfetti.core.Position;
@@ -90,6 +92,42 @@ public class Transition extends AppCompatActivity {
 
         like.setOnClickListener(view -> swipeCard(Direction.Right));
         x.setOnClickListener(view -> swipeCard(Direction.Left));
+
+        bottomBar = findViewById(R.id.bottomBar);
+
+        bottomBar.setOnItemSelectedListener(new Function1<Integer, Unit>() {
+            @Override
+            public Unit invoke(Integer index) {
+                if (index == 4) return Unit.INSTANCE; // Ya estás en esta pestaña
+
+                Class<?> destination = null;
+                switch (index) {
+                    case 0:
+                        destination = Home.class;
+                        break;
+                    case 1:
+                        destination = Clothes.class;
+                        break;
+                    case 2:
+                        destination = AddClothesAlbum.class;
+                        break;
+                    case 3:
+                        destination = Perfil.class;
+                        break;
+                    case 4:
+                        destination = GenerarOutfit.class;
+                        break;
+                }
+
+                if (destination != null) {
+                    startActivity(new Intent(getApplicationContext(), destination));
+                    overridePendingTransition(0, 0);
+                }
+
+                return Unit.INSTANCE; // Kotlin's void
+            }
+        });
+
 
     }
     private void showGeneratingDialog() {
@@ -161,7 +199,7 @@ public class Transition extends AppCompatActivity {
             }
         }, 2000); // Retraso simulado de 2 segundos (ajusta según sea necesario)
     }
-    
+
     private void swipeCard(Direction direction) {
         SwipeAnimationSetting setting = new SwipeAnimationSetting.Builder()
                 .setDirection(direction)
