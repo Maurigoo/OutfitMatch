@@ -65,22 +65,44 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.683" />
 
+    <nl.dionsegijn.konfetti.xml.KonfettiView
+        android:id="@+id/konfettiView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+
+
     <Button
         android:id="@+id/botonfavorito"
-        android:layout_width="208dp"
-        android:layout_height="83dp"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="4dp"
         android:backgroundTint="@color/azulClaro"
         android:contentDescription="@string/boton"
         android:fontFamily="@font/autour_one"
         android:text="Favoritos"
         android:textColor="@color/background_menu"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/botonGenerarOutfits"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/azulClaro"
+        android:contentDescription="@string/boton"
+        android:fontFamily="@font/autour_one"
+        android:text="Generar Outfits"
+        android:textColor="@color/background_menu"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/botonfavorito"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
@@ -98,5 +120,8 @@
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

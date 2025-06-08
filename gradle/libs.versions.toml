@@ -17,8 +17,10 @@ materialVersion = "1.9.0"
 recyclerview = "1.4.0"
 firebaseInappmessaging = "21.0.1"
 cronetEmbedded = "119.6045.31"
+konfetti = "2.0.2"
 
 [libraries]
+konfetti-xml = "nl.dionsegijn:konfetti-xml:2.0.2"
 cardstackview = { module = "com.github.yuyakaido:CardStackView", version.ref = "cardstackview" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 constraintlayout-v214 = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }

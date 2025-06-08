@@ -3,7 +3,6 @@ package com.example.outfitmatch.adaptador;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,82 +11,69 @@ import com.bumptech.glide.Glide;
 import com.example.outfitmatch.R;
 import com.example.outfitmatch.modelo.entidad.Prenda;
 
+import android.widget.ImageView;
+
 import java.util.List;
 
-/**
- * AdaptadorTransition es un adaptador personalizado para un RecyclerView
- * que muestra una lista de prendas en una vista de transición tipo "Tinder".
- * Utiliza Glide para cargar imágenes desde una URL.
- */
 public class AdaptadorTransition extends RecyclerView.Adapter<AdaptadorTransition.ViewHolder> {
 
-    private List<Prenda> prendas;  // Lista de prendas a mostrar
+    private List<List<Prenda>> outfits;
 
-    /**
-     * Constructor para AdaptadorTransition.
-     *
-     * @param prendas Lista de objetos Prenda a mostrar en el RecyclerView.
-     */
-    public AdaptadorTransition(List<Prenda> prendas) {
-        this.prendas = prendas;
+    public AdaptadorTransition(@NonNull List<List<Prenda>> outfits) {
+        this.outfits = outfits;
     }
 
-    /**
-     * Infla el layout para cada ítem del RecyclerView.
-     *
-     * @param parent   El ViewGroup al que se añadirá la nueva vista.
-     * @param viewType El tipo de vista (no utilizado en este caso).
-     * @return Una nueva instancia de ViewHolder.
-     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_prenda, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
         return new ViewHolder(view);
     }
 
-    /**
-     * Asocia los datos de una prenda con las vistas del ViewHolder.
-     *
-     * @param holder   ViewHolder que representa el ítem.
-     * @param position Posición del ítem en la lista.
-     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Prenda prenda = prendas.get(position);
+        List<Prenda> outfit = outfits.get(position);
 
-        // Cargar la imagen desde la URL usando Glide
-        Glide.with(holder.itemView.getContext())
-                .load(prenda.getImagenUrl())                  // Cargar desde la URL
-                .into(holder.imgCardPrenda);
+        // Reiniciar imágenes para evitar errores de reciclaje
+        holder.imagenTop.setImageDrawable(null);
+        holder.imagenPant.setImageDrawable(null);
+        holder.imagenShoe.setImageDrawable(null);
+
+        // Cargar imágenes según el tamaño del outfit
+        if (outfit.size() > 0) {
+            Glide.with(holder.itemView.getContext())
+                    .load(outfit.get(0).getImagenUrl())
+                    .into(holder.imagenTop); // Primera prenda
+        }
+
+        if (outfit.size() > 1) {
+            Glide.with(holder.itemView.getContext())
+                    .load(outfit.get(1).getImagenUrl())
+                    .into(holder.imagenPant); // Segunda prenda
+        }
+
+        if (outfit.size() > 2) {
+            Glide.with(holder.itemView.getContext())
+                    .load(outfit.get(2).getImagenUrl())
+                    .into(holder.imagenShoe); // Tercera prenda
+        }
     }
 
-    /**
-     * Retorna el número total de elementos en la lista.
-     *
-     * @return Cantidad de ítems en el RecyclerView.
-     */
     @Override
     public int getItemCount() {
-        return prendas.size();
+        return outfits.size();
     }
 
-    /**
-     * ViewHolder representa cada ítem del RecyclerView.
-     * Contiene referencias a las vistas que se mostrarán.
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgCardPrenda;  // Imagen de la prenda
+        ImageView imagenTop;
+        ImageView imagenPant;
+        ImageView imagenShoe;
 
-        /**
-         * Constructor del ViewHolder.
-         *
-         * @param itemView La vista del ítem.
-         */
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgCardPrenda = itemView.findViewById(R.id.imgCardPrenda);
+            imagenTop = itemView.findViewById(R.id.imgTop);
+            imagenPant = itemView.findViewById(R.id.imgPant);
+            imagenShoe = itemView.findViewById(R.id.imgShoe);
         }
     }
 }

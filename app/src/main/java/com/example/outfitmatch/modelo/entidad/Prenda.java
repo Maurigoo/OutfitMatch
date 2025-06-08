@@ -16,6 +16,7 @@ public class Prenda implements Serializable {
     public Prenda() {
     }
 
+
     // Constructor para recursos locales
     public Prenda(int imagen, String talla, String material, String color, String tipo) {
         this.imagen = imagen;
@@ -110,15 +111,18 @@ public class Prenda implements Serializable {
         if (this == o) return true;
         if (!(o instanceof Prenda)) return false;
         Prenda prenda = (Prenda) o;
-        return (imagenUrl != null ? imagenUrl.equals(prenda.imagenUrl) : prenda.imagenUrl == null) &&
+        return (id != null ? id.equals(prenda.id) : prenda.id == null) &&
+                (imagenUrl != null ? imagenUrl.equals(prenda.imagenUrl) : prenda.imagenUrl == null) &&
                 (tipo != null ? tipo.equals(prenda.tipo) : prenda.tipo == null);
     }
 
     @Override
     public int hashCode() {
-        int result = (imagenUrl != null) ? imagenUrl.hashCode() : 0;
+        int result = (id != null) ? id.hashCode() : 0;
+        result = 31 * result + ((imagenUrl != null) ? imagenUrl.hashCode() : 0);
         result = 31 * result + ((tipo != null) ? tipo.hashCode() : 0);
         return result;
     }
+
 
 }

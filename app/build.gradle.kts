@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
 
+    implementation("nl.dionsegijn:konfetti-xml:2.0.2")
+
 
     implementation (libs.gson) // Para guardar favoritos
 
