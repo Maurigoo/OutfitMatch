@@ -176,7 +176,7 @@ public class Transition extends AppCompatActivity {
                 cardStackView.setAdapter(adapter);
 
                 // Mostrar el Snackbar con el número de outfits generados
-                Snackbar snackbar = Snackbar.make(cardStackView, outfits.size() + " outfits generados", Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(cardStackView,   " outfits generados con éxito", Snackbar.LENGTH_LONG);
                 snackbar.setAction("OK", v -> {
                     // Acción al pulsar "OK" (puedes dejarlo vacío si no necesitas lógica adicional)
                 });
@@ -223,13 +223,12 @@ public class Transition extends AppCompatActivity {
 
 
                 if (direction == Direction.Right) {
-                    // Evitar guardar duplicados
-                    if (!savedOutfits.contains(prenda)) {
+
                         savePrendaToFavorites(prenda);
                         savedOutfits.add(prenda);
                         Toast.makeText(Transition.this, getString(R.string.añadido_favoritos), Toast.LENGTH_SHORT).show();
                     }
-                }
+
             }
 
             @Override
