@@ -5,21 +5,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.example.outfitmatch.modelo.persistencia.DaoPrenda;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
@@ -54,6 +51,14 @@ public class AddClothesAlbum extends AppCompatActivity {
         configurarSelectorImagen(); // Configurar el selector de imágenes
         configurarBottomNavigation(); // Configurar la navegación inferior
         inicializarBotones(); // Inicializar los botones de acción
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                finish();
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
 
         int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
 
@@ -142,6 +147,7 @@ public class AddClothesAlbum extends AppCompatActivity {
         // Configurar el botón de búsqueda de tienda
         buscarTienda.setOnClickListener(v -> {
             startActivity(new Intent(AddClothesAlbum.this, AddClothesStore.class));
+            overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         });
 
         // Configurar el botón de álbum para seleccionar una imagen

@@ -20,50 +20,61 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.57"
+        app:layout_constraintHorizontal_bias="0.603"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049" />
+        app:layout_constraintVertical_bias="0.102" />
 
     <ImageButton
-        android:id="@+id/botonShirts"
+        android:id="@+id/botonPants"
         android:layout_width="126dp"
         android:layout_height="126dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/shirtsc"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/pantsc"
         android:contentDescription="@string/boton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.143" />
+        app:layout_constraintVertical_bias="0.499" />
 
+    <ImageButton
+        android:id="@+id/botonDresses"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginEnd="212dp"
+        android:background="@drawable/dressesjacket"
+        android:contentDescription="@string/boton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="113dp"
+        android:layout_height="37dp"
         android:fontFamily="@font/autour_one"
-        android:text="@string/camisas"
+        android:text="@string/vestidoschaquetas"
         android:textColor="?attr/android:textColorPrimary"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.802"
+        app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonShirts"
-        app:layout_constraintVertical_bias="0.022" />
+        app:layout_constraintTop_toBottomOf="@+id/botonDresses"
+        app:layout_constraintVertical_bias="0.045" />
 
     <ImageButton
         android:id="@+id/botonAll"
         android:layout_width="126dp"
         android:layout_height="126dp"
-        android:layout_marginEnd="228dp"
+        android:layout_marginEnd="212dp"
         android:background="@drawable/clothes"
         android:contentDescription="@string/boton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="0.208" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -75,93 +86,14 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.252"
+        app:layout_constraintHorizontal_bias="0.278"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonAll"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <ImageButton
-        android:id="@+id/botonPants"
-        android:layout_width="126dp"
-        android:layout_height="126dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/pantsc"
-        android:contentDescription="@string/boton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431" />
-
+        app:layout_constraintVertical_bias="0.03" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/autour_one"
-        android:text="@string/pantalones"
-        android:textColor="?attr/android:textColorPrimary"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.814"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonPants"
-        app:layout_constraintVertical_bias="0.039" />
-
-    <ImageButton
-        android:id="@+id/botonDresses"
-        android:layout_width="126dp"
-        android:layout_height="126dp"
-        android:layout_marginEnd="228dp"
-        android:background="@drawable/dressesjacket"
-        android:contentDescription="@string/boton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/autour_one"
-        android:text="@string/vestidoschaquetas"
-        android:textColor="?attr/android:textColorPrimary"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.193"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonDresses"
-        app:layout_constraintVertical_bias="0.039" />
-
-    <ImageButton
-        android:id="@+id/botonShoes"
-        android:layout_width="126dp"
-        android:layout_height="126dp"
-        android:layout_marginEnd="36dp"
-        android:background="@drawable/shoesc"
-        android:contentDescription="@string/boton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.743" />
-
-    <ImageButton
-        android:id="@+id/botonAccessories"
-        android:layout_width="126dp"
-        android:layout_height="126dp"
-        android:layout_marginEnd="228dp"
-        android:background="@drawable/accessoriesc"
-        android:contentDescription="@string/boton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.743" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="115dp"
+        android:layout_height="17dp"
         android:fontFamily="@font/autour_one"
         android:text="@string/Accesorios"
         android:textColor="?attr/android:textColorPrimary"
@@ -169,12 +101,22 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.209"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonAccessories"
-        app:layout_constraintVertical_bias="0.108" />
+        app:layout_constraintVertical_bias="0.154" />
 
-
+    <ImageButton
+        android:id="@+id/botonAccessories"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginEnd="212dp"
+        android:background="@drawable/accessoriesc"
+        android:contentDescription="@string/boton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.811" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -186,10 +128,65 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintHorizontal_bias="0.766"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonShoes"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintVertical_bias="0.153" />
+
+    <ImageButton
+        android:id="@+id/botonShirts"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/shirtsc"
+        android:contentDescription="@string/boton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.208" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/camisas"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonShirts"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/pantalones"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonPants"
+        app:layout_constraintVertical_bias="0.045" />
+
+    <ImageButton
+        android:id="@+id/botonShoes"
+        android:layout_width="126dp"
+        android:layout_height="126dp"
+        android:layout_marginEnd="44dp"
+        android:background="@drawable/shoesc"
+        android:contentDescription="@string/boton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.811" />
+
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
