@@ -286,7 +286,12 @@ public class Transition extends AppCompatActivity {
 
                             // Verificar datos completos
                             if (imagenUrl != null && talla != null && material != null && color != null && tipo != null) {
-                                Prenda prenda = new Prenda(imagenUrl, talla, material, color, tipo);
+                                Prenda prenda = new Prenda();
+                                prenda.setImagenUrl(imagenUrl);
+                                prenda.setTalla(talla);
+                                prenda.setMaterial(material);
+                                prenda.setColor(color);
+                                prenda.setTipo(tipo);
                                 prendas.add(prenda);
                             } else {
                                 Log.w("Firestore", "Documento incompleto: " + document.getData());

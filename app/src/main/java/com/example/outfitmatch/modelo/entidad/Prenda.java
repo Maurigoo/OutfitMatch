@@ -1,64 +1,43 @@
 package com.example.outfitmatch.modelo.entidad;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class Prenda implements Serializable {
-
-    private String id; // ID del documento en Firestore
-    private int imagen; // Para recursos locales
-    private String imagenUrl; // Para imágenes desde Firebase
+public class Prenda implements Serializable{
+    private String id;      // <-- ID del documento en Firestore
     private String talla;
     private String material;
     private String color;
     private String tipo;
+    private String imagenUrl;
 
-    // Constructor vacío requerido por Firestore
-    public Prenda() {
-    }
+    // Constructor vacío (requerido por Firestore)
+    public Prenda() {}
 
-
-    // Constructor para recursos locales
-    public Prenda(int imagen, String talla, String material, String color, String tipo) {
-        this.imagen = imagen;
+    // Constructor con parámetros (sin id, porque se genera)
+    public Prenda(String talla, String material, String color, String tipo) {
         this.talla = talla;
         this.material = material;
         this.color = color;
         this.tipo = tipo;
     }
 
-    // Constructor para imágenes desde Firebase
-    public Prenda(String imagenUrl, String talla, String material, String color, String tipo) {
-        this.imagenUrl = imagenUrl;
+    public Prenda(int id, String talla, String material, String color, String tipo) {
+        this.id = String.valueOf(id); // Convierte el número a una cadena para Firestore
         this.talla = talla;
         this.material = material;
         this.color = color;
         this.tipo = tipo;
     }
 
-    // Getter y Setter para id
+
+    // Getters y setters
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    // Getters y Setters
-    public int getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
-    }
-
-    public String getImagenUrl() {
-        return imagenUrl;
-    }
-
-    public void setImagenUrl(String imagenUrl) {
-        this.imagenUrl = imagenUrl;
     }
 
     public String getTalla() {
@@ -93,36 +72,11 @@ public class Prenda implements Serializable {
         this.tipo = tipo;
     }
 
-    @Override
-    public String toString() {
-        return "Prenda{" +
-                "id='" + id + '\'' +
-                ", imagen=" + imagen +
-                ", imagenUrl='" + imagenUrl + '\'' +
-                ", talla='" + talla + '\'' +
-                ", material='" + material + '\'' +
-                ", color='" + color + '\'' +
-                ", tipo='" + tipo + '\'' +
-                '}';
+    public String getImagenUrl() {
+        return imagenUrl;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Prenda)) return false;
-        Prenda prenda = (Prenda) o;
-        return (id != null ? id.equals(prenda.id) : prenda.id == null) &&
-                (imagenUrl != null ? imagenUrl.equals(prenda.imagenUrl) : prenda.imagenUrl == null) &&
-                (tipo != null ? tipo.equals(prenda.tipo) : prenda.tipo == null);
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
-
-    @Override
-    public int hashCode() {
-        int result = (id != null) ? id.hashCode() : 0;
-        result = 31 * result + ((imagenUrl != null) ? imagenUrl.hashCode() : 0);
-        result = 31 * result + ((tipo != null) ? tipo.hashCode() : 0);
-        return result;
-    }
-
-
 }

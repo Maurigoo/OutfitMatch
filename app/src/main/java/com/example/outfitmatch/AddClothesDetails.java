@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.example.outfitmatch.modelo.entidad.Prenda;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -90,13 +91,11 @@ public class AddClothesDetails extends AppCompatActivity {
         String material = editTextMaterial.getText().toString().trim();
         String tipo = spinnerTipo.getSelectedItem().toString().trim();
 
-        // Validación de campos
         if (color.isEmpty() || talla.isEmpty() || material.isEmpty() || tipo.isEmpty() || imageUri == null) {
             Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Mostrar diálogo de progreso
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Subiendo prenda...");
         progressDialog.setCancelable(false);
@@ -108,19 +107,22 @@ public class AddClothesDetails extends AppCompatActivity {
             StorageReference storageRef = FirebaseStorage.getInstance().getReference();
             StorageReference fileRef = storageRef.child("images/" + tipo + "/" + System.currentTimeMillis() + ".jpg");
 
-            // Subir la imagen a Firebase Storage
             fileRef.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
                         String imageUrl = uri.toString();
 
-                        // Crear objeto Prenda con los datos
-                        Prenda prenda = new Prenda(0, talla, material, color, tipo);
-                        prenda.setImagenUrl(imageUrl); // Establecer la URL de la imagen
-
-                        // Guardar en Firestore
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        DocumentReference prendaRef = db.collection("prendas").document(userId)
-                                .collection("user_prendas").document();
+
+                        CollectionReference userPrendasRef = db.collection("prendas").document(userId)
+                                .collection("user_prendas");
+
+                        DocumentReference prendaRef = userPrendasRef.document();
+                        String generatedId = prendaRef.getId();
+
+                        // Crear objeto Prenda con datos y asignar ID
+                        Prenda prenda = new Prenda(talla, material, color, tipo);
+                        prenda.setImagenUrl(imageUrl);
+                        prenda.setId(generatedId);
 
                         prendaRef.set(prenda)
                                 .addOnCompleteListener(task -> {
@@ -146,4 +148,5 @@ public class AddClothesDetails extends AppCompatActivity {
                     });
         }
     }
+
 }

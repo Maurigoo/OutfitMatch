@@ -1,11 +1,13 @@
 package com.example.outfitmatch.adaptador;
 
+import android.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,16 +26,19 @@ public class AdaptadorClothes extends RecyclerView.Adapter<AdaptadorClothes.View
 
     private List<Prenda> prendas;                // Lista de prendas a mostrar
     private OnItemClickListener listener;        // Listener para manejar clics en los ítems
+    private OnItemLongClickListener longClickListener; // Listener para manejar pulsación larga
 
     /**
      * Constructor para AdaptadorClothes.
      *
-     * @param prendas  Lista de objetos Prenda a mostrar en el RecyclerView.
-     * @param listener Listener para manejar eventos de clic en los ítems.
+     * @param prendas          Lista de objetos Prenda a mostrar en el RecyclerView.
+     * @param listener         Listener para manejar eventos de clic en los ítems.
+     * @param longClickListener Listener para manejar eventos de mantener pulsado.
      */
-    public AdaptadorClothes(List<Prenda> prendas, OnItemClickListener listener) {
+    public AdaptadorClothes(List<Prenda> prendas, OnItemClickListener listener, OnItemLongClickListener longClickListener) {
         this.prendas = prendas;
         this.listener = listener;
+        this.longClickListener = longClickListener;
     }
 
     /**
@@ -89,6 +94,20 @@ public class AdaptadorClothes extends RecyclerView.Adapter<AdaptadorClothes.View
 
         // Manejar clic en el ítem
         holder.itemView.setOnClickListener(v -> listener.onItemClick(prenda));
+
+        // Manejar pulsación larga en el ítem
+        holder.itemView.setOnLongClickListener(v -> {
+            new AlertDialog.Builder(holder.itemView.getContext())
+                    .setTitle("Eliminar prenda")
+                    .setMessage("¿Estás segura de que deseas eliminar esta prenda?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        longClickListener.onItemLongClick(prenda, position);
+                        Toast.makeText(holder.itemView.getContext(), "Prenda eliminada", Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+            return true;
+        });
     }
 
     /**
@@ -129,11 +148,13 @@ public class AdaptadorClothes extends RecyclerView.Adapter<AdaptadorClothes.View
      * Interfaz para manejar eventos de clic en los ítems del RecyclerView.
      */
     public interface OnItemClickListener {
-        /**
-         * Método llamado cuando se hace clic en una prenda.
-         *
-         * @param prenda El objeto Prenda que fue seleccionado.
-         */
         void onItemClick(Prenda prenda);
+    }
+
+    /**
+     * Interfaz para manejar eventos de pulsación larga en los ítems del RecyclerView.
+     */
+    public interface OnItemLongClickListener {
+        void onItemLongClick(Prenda prenda, int position);
     }
 }

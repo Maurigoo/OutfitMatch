@@ -3,6 +3,7 @@ package com.example.outfitmatch;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,9 +54,20 @@ public class ClothesListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // Dos columnas
 
         clothesList = new ArrayList<>();
-        clothesAdapter = new AdaptadorClothes(clothesList, prenda ->
-                Toast.makeText(this, "Seleccionaste: " + prenda.getTalla(), Toast.LENGTH_SHORT).show()
+        clothesAdapter = new AdaptadorClothes(clothesList,
+                prenda -> Toast.makeText(this, "Seleccionaste: " + prenda.getTalla(), Toast.LENGTH_SHORT).show(),
+                (prenda, position) -> {
+                    // Eliminar de la lista local
+                    clothesList.remove(position);
+                    clothesAdapter.notifyItemRemoved(position);
+
+                    // También eliminar de Firestore
+                    eliminarPrendaDeFirestore(prenda);
+
+                    Toast.makeText(this, "Prenda eliminada", Toast.LENGTH_SHORT).show();
+                }
         );
+
         recyclerView.setAdapter(clothesAdapter);
 
         db = FirebaseFirestore.getInstance();
@@ -133,4 +145,28 @@ public class ClothesListActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void eliminarPrendaDeFirestore(Prenda prenda) {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Aquí asumo que tienes algún campo único o ID en prenda para identificar el documento.
+        // Si no, necesitas obtenerlo cuando cargas las prendas y guardarlo en Prenda.
+        // Por ejemplo, podrías agregar un campo idDoc a Prenda con el id del documento Firestore.
+
+        if (prenda.getId() != null) {
+            db.collection("prendas").document(userId)
+                    .collection("user_prendas").document(prenda.getId())
+                    .delete()
+                    .addOnSuccessListener(aVoid -> {
+                        Log.d("Firestore", "Prenda eliminada correctamente");
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Firestore", "Error eliminando prenda", e);
+                        Toast.makeText(this, "Error al eliminar prenda de la base de datos", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Toast.makeText(this, "No se pudo identificar la prenda para eliminar", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
