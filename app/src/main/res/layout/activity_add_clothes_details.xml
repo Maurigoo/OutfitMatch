@@ -12,7 +12,7 @@
         android:contentDescription="@string/img"
         android:id="@+id/imageViewSelected"
         android:layout_width="377dp"
-        android:layout_height="318dp"
+        android:layout_height="400dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,34 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.016" />
 
-
-    <Spinner
-        android:id="@+id/spinnerTipo"
-        android:layout_width="349dp"
-        android:layout_height="51dp"
-        android:background="?attr/backgroundColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.52" />
-
-    <EditText
-        android:id="@+id/editTextTalla"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/autour_one"
-        android:hint="@string/talla"
-        android:inputType="text"
-        android:textColor="?android:textColorPrimary"
-        android:textColorHint="@color/gray"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.699" />
 
     <EditText
         android:id="@+id/editTextColor"
@@ -65,7 +37,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.613" />
+        app:layout_constraintVertical_bias="0.702" />
 
     <EditText
         android:id="@+id/editTextMaterial"
@@ -82,23 +54,52 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintVertical_bias="0.879" />
 
-
-    <Button
-        android:id="@+id/buttonUpload"
+    <EditText
+        android:id="@+id/editTextTalla"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/background_menu"
         android:fontFamily="@font/autour_one"
-        android:text="@string/subirprenda"
+        android:hint="@string/talla"
+        android:inputType="text"
         android:textColor="?android:textColorPrimary"
+        android:textColorHint="@color/gray"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.941" />
+        app:layout_constraintVertical_bias="0.788" />
+
+    <Spinner
+        android:id="@+id/spinnerTipo"
+        android:layout_width="349dp"
+        android:layout_height="51dp"
+        android:background="?attr/backgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.566"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.609" />
+
+
+    <Button
+        android:id="@+id/buttonUpload"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/nav_background"
+        android:fontFamily="@font/autour_one"
+        android:text="@string/subirprenda"
+        android:textColor="@color/nav_icon_tint"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryColorDark</item>
         <item name="colorOnPrimary">@color/gray</item>
-        <item name="colorSecondary">@color/primaryColorLight</item>
+        <item name="colorSecondary">@color/white</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="backgroundColor">@color/white</item> <!-- Fondo blanco para el modo claro -->
         <item name="android:textColorPrimary">@color/black</item> <!-- Texto negro para el modo claro -->
