@@ -10,21 +10,22 @@
 
     <!-- CardStackView (Para el Swipe) -->
 
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="320dp"
-        android:layout_height="61dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/autour_one"
         android:text="@string/swipe"
+        android:textAlignment="center"
         android:textColor="?android:textColorPrimary"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.67"
+        app:layout_constraintHorizontal_bias="0.622"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.052" />
-
+        app:layout_constraintVertical_bias="0.058" />
 
     <com.yuyakaido.android.cardstackview.CardStackView
         android:id="@+id/cardStackView"
@@ -41,7 +42,7 @@
         android:id="@+id/botonLike"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:backgroundTint="@color/background_menu"
+        android:backgroundTint="@color/nav_icon_tint"
         android:contentDescription="@string/boton"
         app:icon="@drawable/corazon"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +56,7 @@
         android:id="@+id/botonX"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/orangedark"
         android:contentDescription="@string/boton"
         app:icon="@drawable/x"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -74,32 +75,32 @@
 
     <Button
         android:id="@+id/botonfavorito"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="4dp"
-        android:backgroundTint="@color/azulClaro"
+        android:backgroundTint="@color/nav_background"
+        android:textColor="@color/nav_icon_tint"
         android:contentDescription="@string/boton"
         android:fontFamily="@font/autour_one"
-        android:text="Favoritos"
-        android:textColor="@color/background_menu"
-        android:textSize="18sp"
+        android:text="@string/favorite"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/botonGenerarOutfits"
-        android:layout_width="0dp"
-        android:layout_height="62dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="4dp"
-        android:backgroundTint="@color/azulClaro"
+        android:backgroundTint="@color/nav_background"
+        android:textColor="@color/nav_icon_tint"
         android:contentDescription="@string/boton"
         android:fontFamily="@font/autour_one"
-        android:text="Generar Outfits"
-        android:textColor="@color/background_menu"
-        android:textSize="18sp"
+        android:text="@string/genereteoutfit"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/botonfavorito"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
