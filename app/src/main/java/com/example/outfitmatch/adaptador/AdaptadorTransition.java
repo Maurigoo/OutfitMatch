@@ -52,11 +52,7 @@ public class AdaptadorTransition extends RecyclerView.Adapter<AdaptadorTransitio
                     .into(holder.imagenPant); // Segunda prenda
         }
 
-        if (outfit.size() > 2) {
-            Glide.with(holder.itemView.getContext())
-                    .load(outfit.get(2).getImagenUrl())
-                    .into(holder.imagenShoe); // Tercera prenda
-        }
+        // Eliminado el bloque que muestra la tercera prenda
     }
 
     @Override
