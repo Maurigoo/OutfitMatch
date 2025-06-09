@@ -217,19 +217,25 @@ public class Transition extends AppCompatActivity {
             @Override
             public void onCardSwiped(Direction direction) {
                 int swipedPosition = manager.getTopPosition() - 1;
-                if (swipedPosition < 0 || swipedPosition >= prendas.size()) return;
+                if (swipedPosition < 0 || swipedPosition >= prendas.size()) {
+                    Log.w("Swipe", "Posición inválida: " + swipedPosition);
+                    return;
+                }
 
                 Prenda prenda = prendas.get(swipedPosition);
 
-
                 if (direction == Direction.Right) {
+                    savePrendaToFavorites(prenda);
+                    savedOutfits.add(prenda);
+                    adapter.notifyItemInserted(savedOutfits.size() - 1);
 
-                        savePrendaToFavorites(prenda);
-                        savedOutfits.add(prenda);
-                        Toast.makeText(Transition.this, getString(R.string.añadido_favoritos), Toast.LENGTH_SHORT).show();
-                    }
-
+                    Toast.makeText(Transition.this, getString(R.string.añadido_favoritos), Toast.LENGTH_SHORT).show();
+                    Log.d("Swipe", "Prenda añadida a favoritos: " + prenda.getImagenUrl());
+                }
             }
+
+
+
 
             @Override
             public void onCardRewound() { }
