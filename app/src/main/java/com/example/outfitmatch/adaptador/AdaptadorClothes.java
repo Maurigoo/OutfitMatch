@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.outfitmatch.R;
 import com.example.outfitmatch.modelo.entidad.Prenda;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -101,13 +104,16 @@ public class AdaptadorClothes extends RecyclerView.Adapter<AdaptadorClothes.View
                     .setTitle("Eliminar prenda")
                     .setMessage("¿Estás segura de que deseas eliminar esta prenda?")
                     .setPositiveButton("Sí", (dialog, which) -> {
-                        longClickListener.onItemLongClick(prenda, position);
+                        // Eliminar solo del RecyclerView
+                        prendas.remove(position);
+                        notifyItemRemoved(position);
                         Toast.makeText(holder.itemView.getContext(), "Prenda eliminada", Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("Cancelar", null)
                     .show();
             return true;
         });
+
     }
 
     /**
