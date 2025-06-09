@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:cornerRadius="10sp"
-        app:backgroundColor="#F9F7F4"
+        app:backgroundColor="?attr/backgroundColor"
         app:textColor="#8B6F47"
         app:indicatorRadius="10sp"
         app:iconTint="#8B6F47"

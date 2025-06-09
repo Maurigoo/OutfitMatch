@@ -147,7 +147,7 @@ public class AddClothesAlbum extends AppCompatActivity {
         // Configurar el botón de búsqueda de tienda
         buscarTienda.setOnClickListener(v -> {
             startActivity(new Intent(AddClothesAlbum.this, AddClothesStore.class));
-            overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         // Configurar el botón de álbum para seleccionar una imagen

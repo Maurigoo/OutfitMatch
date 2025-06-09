@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
+import me.ibrahimsn.lib.OnItemSelectedListener;
 import me.ibrahimsn.lib.SmoothBottomBar;
 
 /**
@@ -117,38 +118,32 @@ public class AddClothesStore extends AppCompatActivity {
     private void configurarBottomNavigation() {
         // Configurar la barra de navegación inferior
         bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setItemActiveIndex(2); // Establecemos la posición en la que estamos (Perfil)
 
-        bottomBar.setOnItemSelectedListener(new Function1<Integer, Unit>() {
-            @Override
-            public Unit invoke(Integer index) {
-                if (index == 4) return Unit.INSTANCE; // Ya estás en esta pestaña
+        bottomBar.setOnItemSelectedListener((OnItemSelectedListener) i -> {
+            if (i == 2) return true; // Ya estamos en la página de Perfil
 
-                Class<?> destination = null;
-                switch (index) {
-                    case 0:
-                        destination = Home.class;
-                        break;
-                    case 1:
-                        destination = Clothes.class;
-                        break;
-                    case 2:
-                        destination = AddClothesAlbum.class;
-                        break;
-                    case 3:
-                        destination = Perfil.class;
-                        break;
-                    case 4:
-                        destination = GenerarOutfit.class;
-                        break;
-                }
-
-                if (destination != null) {
-                    startActivity(new Intent(getApplicationContext(), destination));
-                    overridePendingTransition(0, 0);
-                }
-
-                return Unit.INSTANCE; // Kotlin's void
+            Class<?> destination = null;
+            switch (i) {
+                case 0:
+                    destination = Home.class; // Ir a Home
+                    break;
+                case 1:
+                    destination = Clothes.class; // Ir a Clothes
+                    break;
+                case 2:
+                    destination = AddClothesStore.class; // Ir a AddClothesAlbum
+                    break;
+                case 3:
+                    destination = Perfil.class; // Ir a AddClothesStore
+                    break;
             }
+
+            if (destination != null) {
+                startActivity(new Intent(getApplicationContext(), destination));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+            return true;
         });
     }
 }

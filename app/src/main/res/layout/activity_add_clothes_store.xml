@@ -153,7 +153,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:cornerRadius="10sp"
-        app:backgroundColor="@color/nav_background"
+        app:backgroundColor="?attr/backgroundColor"
         app:textColor="@color/nav_text"
         app:indicatorRadius="10sp"
         app:iconTint="@color/nav_icon_tint"
