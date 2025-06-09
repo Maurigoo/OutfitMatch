@@ -217,22 +217,31 @@ public class Transition extends AppCompatActivity {
             @Override
             public void onCardSwiped(Direction direction) {
                 int swipedPosition = manager.getTopPosition() - 1;
-                if (swipedPosition < 0 || swipedPosition >= prendas.size()) {
-                    Log.w("Swipe", "Posición inválida: " + swipedPosition);
-                    return;
-                }
 
-                Prenda prenda = prendas.get(swipedPosition);
+                if (swipedPosition < 0 || swipedPosition >= outfits.size()) return;
+
+                List<Prenda> outfit = outfits.get(swipedPosition);
 
                 if (direction == Direction.Right) {
-                    savePrendaToFavorites(prenda);
-                    savedOutfits.add(prenda);
-                    adapter.notifyItemInserted(savedOutfits.size() - 1);
-
-                    Toast.makeText(Transition.this, getString(R.string.añadido_favoritos), Toast.LENGTH_SHORT).show();
-                    Log.d("Swipe", "Prenda añadida a favoritos: " + prenda.getImagenUrl());
+                    // Guardar todas las prendas del outfit en favoritos
+                    for (Prenda prenda : outfit) {
+                        guardarEnFavoritos(prenda);
+                    }
+                    Toast.makeText(Transition.this, "¡Outfit guardado en favoritos!", Toast.LENGTH_SHORT).show();
+                } else if (direction == Direction.Left) {
+                    Toast.makeText(Transition.this, "Outfit descartado", Toast.LENGTH_SHORT).show();
                 }
             }
+
+
+
+
+            private void guardarEnFavoritos(Prenda prenda) {
+                 // Evitar duplicados
+                    savePrendaToFavorites(prenda);
+
+            }
+
 
 
 
