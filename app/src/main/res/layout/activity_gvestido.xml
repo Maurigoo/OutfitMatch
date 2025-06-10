@@ -57,10 +57,11 @@
     <Button
         android:id="@+id/btnGuardarOutfit"
         android:layout_width="250dp"
-        android:backgroundTint="@color/nav_background"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/nav_background"
         android:textColor="@color/nav_icon_tint"
         android:text="@string/saveoutfit"
+        android:textSize="16sp"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

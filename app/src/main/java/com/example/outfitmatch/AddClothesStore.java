@@ -56,7 +56,7 @@ public class AddClothesStore extends AppCompatActivity {
         buscarAlbum.setOnClickListener(v -> {
             Intent intent = new Intent(AddClothesStore.this, AddClothesAlbum.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         int nightModeFlags = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
