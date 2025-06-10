@@ -2,6 +2,7 @@ package com.example.outfitmatch.adaptador;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
     private final String userId;
     private final ProgressDialog progressDialog;
     private final OnFavoritosEmptyListener listener;
+    private boolean isDeleting = false;
 
     // Constructor único
     public AdaptadorFavorito(Context context, List<Prenda> prendasFavoritas, String userId, OnFavoritosEmptyListener listener) {
@@ -54,31 +56,39 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorFavorito.ViewHolder holder, int position) {
-        holder.deleteButton.setEnabled(true);
-
-        int adapterPosition = holder.getBindingAdapterPosition();
-        if (adapterPosition == RecyclerView.NO_POSITION) {
-            // posición no válida, evitar crash
-            return;
-        }
-
-        Prenda prenda = prendasFavoritas.get(adapterPosition);
+        Prenda prenda = prendasFavoritas.get(holder.getBindingAdapterPosition());
 
         Glide.with(context)
                 .load(prenda.getImagenUrl())
                 .into(holder.imgPrenda);
 
         holder.deleteButton.setOnClickListener(view -> {
-            holder.deleteButton.setEnabled(false);
+            if (isDeleting) {
+                Log.d("AdaptadorFavorito", "Ignorando click porque ya hay una eliminación en curso");
+                return;
+            }
+
+            int currentPosition = holder.getBindingAdapterPosition();
+            if (currentPosition == RecyclerView.NO_POSITION) {
+                Log.w("AdaptadorFavorito", "Posición inválida, no se eliminará nada.");
+                return;
+            }
+
+            isDeleting = true; // Bloqueamos más clicks hasta acabar
+            Log.d("AdaptadorFavorito", "Click en eliminar. Posición actual: " + currentPosition);
 
             String prendaId = prenda.getId();
             if (prendaId == null || prendaId.isEmpty()) {
+                Log.w("AdaptadorFavorito", "ID de prenda no válido");
                 Toast.makeText(context, "ID de prenda no válido", Toast.LENGTH_SHORT).show();
-                holder.deleteButton.setEnabled(true);
+                isDeleting = false;
                 return;
             }
 
             progressDialog.show();
+
+            long startTime = System.currentTimeMillis();
+            long MIN_DURATION = 2000; // duración mínima en milisegundos (2 segundos)
 
             FirebaseFirestore.getInstance()
                     .collection("users")
@@ -87,24 +97,37 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
                     .document(prendaId)
                     .delete()
                     .addOnSuccessListener(aVoid -> {
-                        int currentPosition = holder.getBindingAdapterPosition();
-                        if (currentPosition != RecyclerView.NO_POSITION) {
-                            prendasFavoritas.remove(currentPosition);
-                            notifyItemRemoved(currentPosition);
+                        long elapsed = System.currentTimeMillis() - startTime;
+                        long remaining = MIN_DURATION - elapsed;
+                        if (remaining < 0) remaining = 0;
+
+                        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                            Log.d("AdaptadorFavorito", "Eliminado en Firestore prenda con posición: " + currentPosition);
+                            if (currentPosition >= 0 && currentPosition < prendasFavoritas.size()) {
+                                prendasFavoritas.remove(currentPosition);
+                                notifyItemRemoved(currentPosition);
+                                Log.d("AdaptadorFavorito", "Eliminado localmente prenda en posición: " + currentPosition);
+                            } else {
+                                Log.w("AdaptadorFavorito", "Posición fuera de rango para eliminar localmente: " + currentPosition);
+                            }
 
                             if (prendasFavoritas.isEmpty() && listener != null) {
                                 listener.onFavoritosEmpty();
                             }
-                        }
-                        progressDialog.dismiss();
+
+                            progressDialog.dismiss();
+                            isDeleting = false; // Desbloqueamos clicks
+                        }, remaining);
                     })
                     .addOnFailureListener(e -> {
                         progressDialog.dismiss();
+                        Log.e("AdaptadorFavorito", "Error al eliminar: " + e.getMessage());
                         Toast.makeText(context, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        holder.deleteButton.setEnabled(true);
+                        isDeleting = false; // Desbloqueamos clicks aunque haya error
                     });
         });
     }
+
 
 
 
