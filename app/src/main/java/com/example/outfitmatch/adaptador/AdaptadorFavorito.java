@@ -1,5 +1,7 @@
 package com.example.outfitmatch.adaptador;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
@@ -8,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-import com.google.android.material.snackbar.Snackbar;
 
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,14 +32,13 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
     private final OnFavoritosEmptyListener listener;
     private boolean isDeleting = false;
 
-    // Constructor único
+    // Constructor
     public AdaptadorFavorito(Context context, List<Prenda> prendasFavoritas, String userId, OnFavoritosEmptyListener listener) {
         this.context = context;
         this.prendasFavoritas = prendasFavoritas;
         this.userId = userId;
         this.listener = listener;
 
-        // Inicializar ProgressDialog
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Eliminando prenda...");
         progressDialog.setCancelable(false);
@@ -58,15 +59,16 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorFavorito.ViewHolder holder, int position) {
-        // Carga imagen
         Prenda prenda = prendasFavoritas.get(position);
 
         Glide.with(context)
                 .load(prenda.getImagenUrl())
                 .into(holder.imgPrenda);
 
-        // Asegura que el botón esté habilitado al bindear
         holder.deleteButton.setEnabled(true);
+        holder.deleteButton.setAlpha(1f);
+        holder.deleteButton.setScaleX(1f);
+        holder.deleteButton.setScaleY(1f);
 
         holder.deleteButton.setOnClickListener(view -> {
             if (isDeleting) {
@@ -74,7 +76,6 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
                 return;
             }
 
-            // Importante: obtener la posición actual EXACTA en el momento del click
             int currentPosition = holder.getBindingAdapterPosition();
             if (currentPosition == RecyclerView.NO_POSITION) {
                 Log.w("AdaptadorFavorito", "Posición inválida, no se eliminará nada.");
@@ -95,68 +96,75 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
                 return;
             }
 
-            progressDialog.show();
+            // Animación dramática: fade out + scale down
+            AnimatorSet animatorSet = new AnimatorSet();
 
-            long startTime = System.currentTimeMillis();
-            long MIN_DURATION = 2000; // Duración mínima
+            ObjectAnimator fadeOut = ObjectAnimator.ofFloat(holder.deleteButton, "alpha", 1f, 0f);
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(holder.deleteButton, "scaleX", 1f, 0f);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(holder.deleteButton, "scaleY", 1f, 0f);
 
-            FirebaseFirestore.getInstance()
-                    .collection("users")
-                    .document(userId)
-                    .collection("favoritos")
-                    .document(prendaId)
-                    .delete()
-                    .addOnSuccessListener(aVoid -> {
-                        long elapsed = System.currentTimeMillis() - startTime;
-                        long remaining = MIN_DURATION - elapsed;
-                        if (remaining < 0) remaining = 0;
+            animatorSet.playTogether(fadeOut, scaleX, scaleY);
+            animatorSet.setDuration(600);
+            animatorSet.start();
 
-                        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-                            // Vuelve a obtener la posición para mayor seguridad
-                            int pos = holder.getBindingAdapterPosition();
-                            if (pos == RecyclerView.NO_POSITION) {
-                                pos = currentPosition; // fallback
-                            }
+            animatorSet.addListener(new android.animation.AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(android.animation.Animator animation) {
+                    progressDialog.show();
 
-                            Log.d("AdaptadorFavorito", "Eliminado en Firestore prenda con posición: " + pos);
+                    long startTime = System.currentTimeMillis();
+                    long MIN_DURATION = 2000;
 
-                            // Verifica que la lista no haya cambiado y posición sea válida
-                            if (pos >= 0 && pos < prendasFavoritas.size()) {
-                                Prenda currentPrenda = prendasFavoritas.get(pos);
-                                if (currentPrenda.getId().equals(prendaId)) {
-                                    prendasFavoritas.remove(pos);
-                                    notifyItemRemoved(pos);
-                                    Log.d("AdaptadorFavorito", "Eliminado localmente prenda en posición: " + pos);
-                                } else {
-                                    Log.w("AdaptadorFavorito", "Prenda en posición no coincide con la eliminada. No se elimina.");
-                                }
-                            } else {
-                                Log.w("AdaptadorFavorito", "Posición fuera de rango para eliminar localmente: " + pos);
-                            }
+                    FirebaseFirestore.getInstance()
+                            .collection("users")
+                            .document(userId)
+                            .collection("favoritos")
+                            .document(prendaId)
+                            .delete()
+                            .addOnSuccessListener(aVoid -> {
+                                long elapsed = System.currentTimeMillis() - startTime;
+                                long remaining = MIN_DURATION - elapsed;
+                                if (remaining < 0) remaining = 0;
 
-                            if (prendasFavoritas.isEmpty() && listener != null) {
-                                listener.onFavoritosEmpty();
-                            }
+                                new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                                    int pos = holder.getBindingAdapterPosition();
+                                    if (pos == RecyclerView.NO_POSITION) pos = currentPosition;
 
-                            progressDialog.dismiss();
-                            isDeleting = false;
+                                    if (pos >= 0 && pos < prendasFavoritas.size()) {
+                                        Prenda currentPrenda = prendasFavoritas.get(pos);
+                                        if (currentPrenda.getId().equals(prendaId)) {
+                                            prendasFavoritas.remove(pos);
+                                            notifyItemRemoved(pos);
+                                        }
+                                    }
 
-                            View rootView = ((ViewGroup) ((ViewGroup) ((android.app.Activity) context)
-                                    .findViewById(android.R.id.content)).getChildAt(0));
-                            Snackbar.make(rootView, "Prenda eliminada", Snackbar.LENGTH_SHORT).show();
+                                    if (prendasFavoritas.isEmpty() && listener != null) {
+                                        listener.onFavoritosEmpty();
+                                    }
 
-                        }, remaining);
-                    })
-                    .addOnFailureListener(e -> {
-                        progressDialog.dismiss();
-                        Log.e("AdaptadorFavorito", "Error al eliminar: " + e.getMessage());
-                        Toast.makeText(context, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        isDeleting = false;
-                        holder.deleteButton.setEnabled(true);
-                    });
+                                    progressDialog.dismiss();
+                                    isDeleting = false;
+
+                                    View rootView = ((ViewGroup) ((ViewGroup) ((android.app.Activity) context)
+                                            .findViewById(android.R.id.content)).getChildAt(0));
+                                    Snackbar.make(rootView, "Prenda eliminada", Snackbar.LENGTH_SHORT).show();
+
+                                }, remaining);
+                            })
+                            .addOnFailureListener(e -> {
+                                progressDialog.dismiss();
+                                Toast.makeText(context, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                isDeleting = false;
+                                holder.deleteButton.setEnabled(true);
+                                // Restaurar estado del botón en caso de error
+                                holder.deleteButton.setAlpha(1f);
+                                holder.deleteButton.setScaleX(1f);
+                                holder.deleteButton.setScaleY(1f);
+                            });
+                }
+            });
         });
     }
-
 
     @Override
     public int getItemCount() {
@@ -165,12 +173,12 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgPrenda;
-        ImageView deleteButton; // Botón de eliminar
+        ImageView deleteButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPrenda = itemView.findViewById(R.id.imgCardPrenda);
-            deleteButton = itemView.findViewById(R.id.deleteButton); // ID del botón de eliminar
+            deleteButton = itemView.findViewById(R.id.deleteButton);
         }
     }
 }
