@@ -231,16 +231,19 @@ public class Transition extends AppCompatActivity {
                 List<Prenda> outfit = outfits.get(swipedPosition);
 
                 if (direction == Direction.Right) {
-                    // Guardar todas las prendas del outfit en favoritos
                     for (Prenda prenda : outfit) {
                         guardarEnFavoritos(prenda);
                     }
-                    adapter.notifyDataSetChanged();
                     Toast.makeText(Transition.this, "¡Outfit guardado en favoritos!", Toast.LENGTH_SHORT).show();
                 } else if (direction == Direction.Left) {
                     Toast.makeText(Transition.this, "Outfit descartado", Toast.LENGTH_SHORT).show();
                 }
+
+                // Remover outfit y actualizar adaptador
+                outfits.remove(swipedPosition);
+                adapter.notifyItemRemoved(swipedPosition);
             }
+
 
 
 
