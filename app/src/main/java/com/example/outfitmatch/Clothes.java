@@ -105,7 +105,7 @@ public class Clothes extends AppCompatActivity {
                     destination = AddClothesAlbum.class; // Ir a AddClothesAlbum
                     break;
                 case 3:
-                    destination = Perfil.class; // Ir a AddClothesStore
+                    destination = Perfil.class; // Ir a Perfil
                     break;
             }
 

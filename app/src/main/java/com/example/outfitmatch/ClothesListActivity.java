@@ -23,10 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Actividad que muestra una lista de prendas que el usuario ha cargado.
- * Las prendas se obtienen de Firebase Firestore y se muestran en un RecyclerView.
- */
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import android.net.Uri;
+
+
 public class ClothesListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -34,10 +35,6 @@ public class ClothesListActivity extends AppCompatActivity {
     private List<Prenda> clothesList;
     private FirebaseFirestore db;
 
-    /**
-     * Método que se ejecuta cuando se crea la actividad. Inicializa el RecyclerView,
-     * el adaptador y carga las prendas desde Firestore.
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ThemeManager.applyTheme(this);
@@ -49,7 +46,6 @@ public class ClothesListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes_list);
 
-        // Inicializar el RecyclerView y su adaptador
         recyclerView = findViewById(R.id.recyclerViewClothes);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2)); // Dos columnas
 
@@ -57,24 +53,16 @@ public class ClothesListActivity extends AppCompatActivity {
         clothesAdapter = new AdaptadorClothes(clothesList,
                 prenda -> Toast.makeText(this, "Seleccionaste: " + prenda.getTalla(), Toast.LENGTH_SHORT).show(),
                 (prenda, position) -> {
-                    // Eliminar de la lista local
                     clothesList.remove(position);
                     clothesAdapter.notifyItemRemoved(position);
-
-                    // También eliminar de Firestore
                     eliminarPrendaDeFirestore(prenda);
-
                     Toast.makeText(this, "Prenda eliminada", Toast.LENGTH_SHORT).show();
                 }
         );
-
         recyclerView.setAdapter(clothesAdapter);
-
         db = FirebaseFirestore.getInstance();
 
-        // Obtener la categoría seleccionada desde el Intent
         String category = getIntent().getStringExtra("CATEGORY");
-
         if (category != null) {
             loadClothesFromFirestore(category);
         } else {
@@ -82,11 +70,6 @@ public class ClothesListActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Método que carga las prendas desde Firestore para una categoría específica.
-     *
-     * @param category La categoría de las prendas a cargar (por ejemplo, "All", "Shirts", etc.).
-     */
     @SuppressLint("NotifyDataSetChanged")
     private void loadClothesFromFirestore(String category) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -100,9 +83,8 @@ public class ClothesListActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String tipo = document.getString("tipo");
 
-                            // Normaliza el tipo: Dresses y Jackets se consideran lo mismo
                             if ("Dresses".equalsIgnoreCase(tipo)) {
-                                tipo = "Jackets";  // o al revés si prefieres usar "Dresses" como tipo principal
+                                tipo = "Jackets";
                             }
 
                             if (category.equals("All") || category.equalsIgnoreCase(tipo)) {
@@ -135,6 +117,10 @@ public class ClothesListActivity extends AppCompatActivity {
                                 if (imagenUrl != null) {
                                     prenda.setImagenUrl(imagenUrl);
                                 }
+
+                                // Aquí guardamos el ID del documento
+                                prenda.setId(document.getId());
+
                                 clothesList.add(prenda);
                             }
                         }
@@ -149,16 +135,18 @@ public class ClothesListActivity extends AppCompatActivity {
     private void eliminarPrendaDeFirestore(Prenda prenda) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Aquí asumo que tienes algún campo único o ID en prenda para identificar el documento.
-        // Si no, necesitas obtenerlo cuando cargas las prendas y guardarlo en Prenda.
-        // Por ejemplo, podrías agregar un campo idDoc a Prenda con el id del documento Firestore.
-
         if (prenda.getId() != null) {
+            // 1. Eliminar documento de Firestore
             db.collection("prendas").document(userId)
                     .collection("user_prendas").document(prenda.getId())
                     .delete()
                     .addOnSuccessListener(aVoid -> {
                         Log.d("Firestore", "Prenda eliminada correctamente");
+
+                        // 2. Eliminar imagen de Firebase Storage (si hay URL)
+                        if (prenda.getImagenUrl() != null) {
+                            eliminarImagenDeStorage(prenda.getImagenUrl());
+                        }
                     })
                     .addOnFailureListener(e -> {
                         Log.e("Firestore", "Error eliminando prenda", e);
@@ -166,6 +154,17 @@ public class ClothesListActivity extends AppCompatActivity {
                     });
         } else {
             Toast.makeText(this, "No se pudo identificar la prenda para eliminar", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void eliminarImagenDeStorage(String imageUrl) {
+        try {
+            StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
+            storageRef.delete()
+                    .addOnSuccessListener(aVoid -> Log.d("Storage", "Imagen eliminada de Firebase Storage"))
+                    .addOnFailureListener(e -> Log.e("Storage", "Error al eliminar imagen", e));
+        } catch (Exception e) {
+            Log.e("Storage", "URL inválida o error eliminando imagen", e);
         }
     }
 

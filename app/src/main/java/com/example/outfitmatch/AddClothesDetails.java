@@ -1,7 +1,6 @@
 package com.example.outfitmatch;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,9 +15,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.outfitmatch.modelo.entidad.Prenda;
@@ -30,23 +27,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-/**
- * AddClothesDetails es una actividad donde el usuario puede agregar detalles a una prenda seleccionada,
- * como color, talla, material y tipo. La imagen se almacena en Firebase Storage y los datos en Firestore.
- */
 public class AddClothesDetails extends AppCompatActivity {
 
-    private ImageView imageViewSelected; // Vista previa de la imagen seleccionada
-    private EditText editTextColor, editTextTalla, editTextMaterial; // Campos de entrada de datos
-    private Spinner spinnerTipo; // Spinner para seleccionar el tipo de prenda
-    private Button buttonUpload; // Botón para subir la prenda
-    private Uri imageUri; // URI de la imagen seleccionada
+    private ImageView imageViewSelected;
+    private EditText editTextColor, editTextTalla, editTextMaterial;
+    private Spinner spinnerTipo;
+    private Button buttonUpload;
+    private Uri imageUri;
 
-    /**
-     * Método llamado al crear la actividad. Inicializa la UI y configura los listeners.
-     *
-     * @param savedInstanceState Estado previamente guardado de la actividad (si aplica).
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Window window = getWindow();
@@ -57,7 +45,6 @@ public class AddClothesDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_clothes_details);
 
-        // Inicialización de vistas
         imageViewSelected = findViewById(R.id.imageViewSelected);
         editTextColor = findViewById(R.id.editTextColor);
         editTextTalla = findViewById(R.id.editTextTalla);
@@ -65,26 +52,20 @@ public class AddClothesDetails extends AppCompatActivity {
         spinnerTipo = findViewById(R.id.spinnerTipo);
         buttonUpload = findViewById(R.id.buttonUpload);
 
-        // Configuración del Spinner con layouts personalizados
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
-                R.array.tipo_prenda_array,        // Asegúrate de que este array está definido en strings.xml
-                R.layout.spinner_item             // Layout personalizado para el Spinner cerrado
+                R.array.tipo_prenda_array,
+                R.layout.spinner_item
         );
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item); // Layout para los ítems desplegables
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerTipo.setAdapter(adapter);
 
-        // Obtener la URI de la imagen seleccionada
         imageUri = getIntent().getParcelableExtra("IMAGE_URI");
         Glide.with(this).load(imageUri).into(imageViewSelected);
 
-        // Configurar el botón para subir la prenda
         buttonUpload.setOnClickListener(v -> uploadClothesToFirebase());
     }
 
-    /**
-     * Sube la prenda a Firebase Storage y guarda los datos en Firestore.
-     */
     private void uploadClothesToFirebase() {
         String color = editTextColor.getText().toString().trim();
         String talla = editTextTalla.getText().toString().trim();
@@ -113,17 +94,20 @@ public class AddClothesDetails extends AppCompatActivity {
 
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+                        // Referencia a la colección donde guardar la prenda del usuario
                         CollectionReference userPrendasRef = db.collection("prendas").document(userId)
                                 .collection("user_prendas");
 
+                        // Genera un documento nuevo con ID único automáticamente
                         DocumentReference prendaRef = userPrendasRef.document();
                         String generatedId = prendaRef.getId();
 
-                        // Crear objeto Prenda con datos y asignar ID
+                        // Crear el objeto Prenda con los datos y asignar el ID generado
                         Prenda prenda = new Prenda(talla, material, color, tipo);
                         prenda.setImagenUrl(imageUrl);
                         prenda.setId(generatedId);
 
+                        // Guardar el objeto Prenda en Firestore bajo ese ID
                         prendaRef.set(prenda)
                                 .addOnCompleteListener(task -> {
                                     if (task.isSuccessful()) {
@@ -148,5 +132,4 @@ public class AddClothesDetails extends AppCompatActivity {
                     });
         }
     }
-
 }
