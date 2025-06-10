@@ -231,7 +231,7 @@ public class Transition extends AppCompatActivity {
                 List<Prenda> outfit = outfits.get(swipedPosition);
 
                 if (direction == Direction.Right) {
-                    // Guardar todas las prendas del outfit en favoritos
+                    Log.d("Favoritos", "Guardando outfit en favoritos: " + outfit.size() + " prendas.");
                     for (Prenda prenda : outfit) {
                         guardarEnFavoritos(prenda);
                     }
@@ -239,7 +239,12 @@ public class Transition extends AppCompatActivity {
                 } else if (direction == Direction.Left) {
                     Toast.makeText(Transition.this, "Outfit descartado", Toast.LENGTH_SHORT).show();
                 }
+
+                outfits.remove(swipedPosition);
+                adapter.notifyItemRemoved(swipedPosition);
             }
+
+
 
 
 
@@ -338,18 +343,27 @@ public class Transition extends AppCompatActivity {
     private void savePrendaToFavorites(Prenda prenda) {
         CollectionReference favRef = db.collection("users").document(userId).collection("favoritos");
 
-        // Crear un id único para evitar duplicados en Firestore
         String docId = prenda.getTipo() + "_" + prenda.getImagenUrl().hashCode();
 
-        Map<String, Object> prendaMap = new HashMap<>();
-        prendaMap.put("imagenUrl", prenda.getImagenUrl());
-        prendaMap.put("talla", prenda.getTalla());
-        prendaMap.put("material", prenda.getMaterial());
-        prendaMap.put("color", prenda.getColor());
-        prendaMap.put("tipo", prenda.getTipo());
+        // Primero comprobar si ya existe la prenda
+        favRef.document(docId).get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (!documentSnapshot.exists()) {
+                        Map<String, Object> prendaMap = new HashMap<>();
+                        prendaMap.put("imagenUrl", prenda.getImagenUrl());
+                        prendaMap.put("talla", prenda.getTalla());
+                        prendaMap.put("material", prenda.getMaterial());
+                        prendaMap.put("color", prenda.getColor());
+                        prendaMap.put("tipo", prenda.getTipo());
 
-        favRef.document(docId).set(prendaMap)
-                .addOnSuccessListener(docRef -> Log.d("Firestore", "Prenda guardada en favoritos"))
-                .addOnFailureListener(e -> Log.e("Firestore", "Error al guardar prenda en favoritos", e));
+                        favRef.document(docId).set(prendaMap)
+                                .addOnSuccessListener(aVoid -> Log.d("Firestore", "Prenda guardada en favoritos"))
+                                .addOnFailureListener(e -> Log.e("Firestore", "Error al guardar prenda en favoritos", e));
+                    } else {
+                        Log.d("Firestore", "Prenda ya existe en favoritos, no se guarda de nuevo");
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Firestore", "Error al comprobar prenda en favoritos", e));
     }
+
 }

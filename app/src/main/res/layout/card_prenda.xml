@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="16dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
-    <ImageView
-        android:id="@+id/imgCardPrenda"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/prendas"/>
+        android:layout_height="wrap_content">
 
+        <!-- Imagen principal de la prenda -->
+        <ImageView
+            android:id="@+id/imgCardPrenda"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/prendas" />
+
+        <!-- Botón de eliminar en la esquina superior derecha -->
+        <ImageView
+            android:id="@+id/deleteButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:scaleType="center"
+            android:background="@drawable/circle_white_transparent"
+            android:src="@drawable/ic_delete" />
+
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

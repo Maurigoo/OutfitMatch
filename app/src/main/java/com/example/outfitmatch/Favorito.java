@@ -54,7 +54,11 @@ public class Favorito extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewClothes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new AdaptadorFavorito(savedOutfits);
+        // Inicializar adaptador con la lista vacía
+        adapter = new AdaptadorFavorito(this, savedOutfits, userId, () -> {
+            recyclerView.setVisibility(View.GONE); // Ocultar RecyclerView
+        });
+
         recyclerView.setAdapter(adapter);
 
         loadSavedOutfitsFromFirestore();
@@ -94,28 +98,46 @@ public class Favorito extends AppCompatActivity {
     }
 
     private void loadSavedOutfitsFromFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(userId).collection("favoritos")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                .addSnapshotListener((querySnapshot, e) -> {
+                    if (e != null) {
+                        Log.e("Firestore", "Error al escuchar cambios", e);
+                        return;
+                    }
+
+                    if (querySnapshot != null) {
                         savedOutfits.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                        for (QueryDocumentSnapshot document : querySnapshot) {
+                            String documentId = document.getId();
                             String imagenUrl = document.getString("imagenUrl");
                             String talla = document.getString("talla");
                             String material = document.getString("material");
                             String color = document.getString("color");
                             String tipo = document.getString("tipo");
 
-                            Prenda prenda = new Prenda(0, talla, material, color, tipo);
-                            prenda.setImagenUrl(imagenUrl);
+                            // Filtrar para no incluir "shoe" ni "accesorio"
+                            if (tipo != null && !tipo.equalsIgnoreCase("shoes") && !tipo.equalsIgnoreCase("accessories")) {
+                                Prenda prenda = new Prenda(talla, material, color, tipo);
+                                prenda.setImagenUrl(imagenUrl);
+                                prenda.setId(documentId);
 
-                            savedOutfits.add(prenda);
+                                savedOutfits.add(prenda);
+                            }
                         }
+
+                        // Ocultar RecyclerView si no hay favoritos
+                        if (savedOutfits.isEmpty()) {
+                            recyclerView.setVisibility(View.GONE);
+                        } else {
+                            recyclerView.setVisibility(View.VISIBLE);
+                        }
+                        Log.i("test", "loadSavedOutfitsFromFirestore: ");
                         adapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(this, "Error al cargar favoritos", Toast.LENGTH_SHORT).show();
-                        Log.e("Firestore", "Error al obtener favoritos", task.getException());
                     }
                 });
     }
+
+
+
 }
