@@ -54,7 +54,8 @@ public class Favorito extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewClothes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new AdaptadorFavorito(savedOutfits);
+        // Inicializar adaptador con la lista vacía
+        adapter = new AdaptadorFavorito(this, savedOutfits, userId);
         recyclerView.setAdapter(adapter);
 
         loadSavedOutfitsFromFirestore();
@@ -94,28 +95,34 @@ public class Favorito extends AppCompatActivity {
     }
 
     private void loadSavedOutfitsFromFirestore() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(userId).collection("favoritos")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                .addSnapshotListener((querySnapshot, e) -> {
+                    if (e != null) {
+                        Toast.makeText(this, "Error al escuchar cambios en Firestore", Toast.LENGTH_SHORT).show();
+                        Log.e("Firestore", "Error al escuchar cambios", e);
+                        return;
+                    }
+
+                    if (querySnapshot != null) {
                         savedOutfits.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
+                        for (QueryDocumentSnapshot document : querySnapshot) {
+                            String documentId = document.getId(); // ID del documento Firestore
                             String imagenUrl = document.getString("imagenUrl");
                             String talla = document.getString("talla");
                             String material = document.getString("material");
                             String color = document.getString("color");
                             String tipo = document.getString("tipo");
 
-                            Prenda prenda = new Prenda(0, talla, material, color, tipo);
+                            Prenda prenda = new Prenda(talla, material, color, tipo);
                             prenda.setImagenUrl(imagenUrl);
+                            prenda.setId(documentId); // Importante asignar ID para luego poder eliminar o actualizar
 
                             savedOutfits.add(prenda);
                         }
                         adapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(this, "Error al cargar favoritos", Toast.LENGTH_SHORT).show();
-                        Log.e("Firestore", "Error al obtener favoritos", task.getException());
                     }
                 });
     }
+
 }
