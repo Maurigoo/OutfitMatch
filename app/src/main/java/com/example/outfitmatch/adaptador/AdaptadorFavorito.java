@@ -24,16 +24,24 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
     private final Context context;
     private final String userId;
     private final ProgressDialog progressDialog;
+    private final OnFavoritosEmptyListener listener;
 
-    public AdaptadorFavorito(Context context, List<Prenda> prendasFavoritas, String userId) {
+    // Constructor único
+    public AdaptadorFavorito(Context context, List<Prenda> prendasFavoritas, String userId, OnFavoritosEmptyListener listener) {
         this.context = context;
         this.prendasFavoritas = prendasFavoritas;
         this.userId = userId;
+        this.listener = listener;
 
         // Inicializar ProgressDialog
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Eliminando prenda...");
         progressDialog.setCancelable(false);
+    }
+
+    // Interfaz para notificar que la lista está vacía
+    public interface OnFavoritosEmptyListener {
+        void onFavoritosEmpty();
     }
 
     @NonNull
@@ -75,8 +83,9 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
 
                         // Verificar si la lista está vacía
                         if (prendasFavoritas.isEmpty()) {
-                            Toast.makeText(context, "No quedan prendas en favoritos", Toast.LENGTH_SHORT).show();
-                            notifyDataSetChanged(); // Refresca la vista para evitar problemas
+                            if (listener != null) {
+                                listener.onFavoritosEmpty(); // Notificar a la actividad o fragmento
+                            }
                         }
 
                         progressDialog.dismiss();
@@ -87,7 +96,6 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
                         Toast.makeText(context, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         });
-
     }
 
     @Override
