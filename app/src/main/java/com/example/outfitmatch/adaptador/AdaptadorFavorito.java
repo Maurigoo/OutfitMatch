@@ -54,20 +54,27 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorFavorito.ViewHolder holder, int position) {
-        Prenda prenda = prendasFavoritas.get(holder.getAdapterPosition());
+        holder.deleteButton.setEnabled(true);
+
+        int adapterPosition = holder.getBindingAdapterPosition();
+        if (adapterPosition == RecyclerView.NO_POSITION) {
+            // posición no válida, evitar crash
+            return;
+        }
+
+        Prenda prenda = prendasFavoritas.get(adapterPosition);
 
         Glide.with(context)
                 .load(prenda.getImagenUrl())
                 .into(holder.imgPrenda);
 
         holder.deleteButton.setOnClickListener(view -> {
-            // Deshabilitamos el botón para evitar dobles clicks
             holder.deleteButton.setEnabled(false);
 
             String prendaId = prenda.getId();
             if (prendaId == null || prendaId.isEmpty()) {
                 Toast.makeText(context, "ID de prenda no válido", Toast.LENGTH_SHORT).show();
-                holder.deleteButton.setEnabled(true); // Rehabilitar botón
+                holder.deleteButton.setEnabled(true);
                 return;
             }
 
@@ -80,23 +87,26 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
                     .document(prendaId)
                     .delete()
                     .addOnSuccessListener(aVoid -> {
-                        int currentPosition = holder.getAdapterPosition();
-                        prendasFavoritas.remove(currentPosition);
-                        notifyItemRemoved(currentPosition);
+                        int currentPosition = holder.getBindingAdapterPosition();
+                        if (currentPosition != RecyclerView.NO_POSITION) {
+                            prendasFavoritas.remove(currentPosition);
+                            notifyItemRemoved(currentPosition);
 
-                        if (prendasFavoritas.isEmpty() && listener != null) {
-                            listener.onFavoritosEmpty();
+                            if (prendasFavoritas.isEmpty() && listener != null) {
+                                listener.onFavoritosEmpty();
+                            }
                         }
-
                         progressDialog.dismiss();
                     })
                     .addOnFailureListener(e -> {
                         progressDialog.dismiss();
                         Toast.makeText(context, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        holder.deleteButton.setEnabled(true); // Rehabilitar botón en caso de fallo
+                        holder.deleteButton.setEnabled(true);
                     });
         });
     }
+
+
 
 
 
