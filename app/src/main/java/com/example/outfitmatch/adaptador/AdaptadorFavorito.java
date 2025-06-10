@@ -1,5 +1,6 @@
 package com.example.outfitmatch.adaptador;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +20,20 @@ import java.util.List;
 
 public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.ViewHolder> {
 
-    private List<Prenda> prendasFavoritas;
-    private Context context;
-    private String userId;
+    private final List<Prenda> prendasFavoritas;
+    private final Context context;
+    private final String userId;
+    private final ProgressDialog progressDialog;
 
     public AdaptadorFavorito(Context context, List<Prenda> prendasFavoritas, String userId) {
         this.context = context;
         this.prendasFavoritas = prendasFavoritas;
         this.userId = userId;
+
+        // Inicializar ProgressDialog
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Eliminando prenda...");
+        progressDialog.setCancelable(false);
     }
 
     @NonNull
@@ -41,15 +48,20 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
     public void onBindViewHolder(@NonNull AdaptadorFavorito.ViewHolder holder, int position) {
         Prenda prenda = prendasFavoritas.get(position);
 
+        // Cargar imagen con Glide
         Glide.with(context)
                 .load(prenda.getImagenUrl())
                 .into(holder.imgPrenda);
+
+        // Configurar el botón de eliminar
         holder.deleteButton.setOnClickListener(view -> {
             String prendaId = prenda.getId();
             if (prendaId == null || prendaId.isEmpty()) {
                 Toast.makeText(context, "ID de prenda no válido", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            progressDialog.show();
 
             FirebaseFirestore.getInstance()
                     .collection("users")
@@ -60,15 +72,23 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
                     .addOnSuccessListener(aVoid -> {
                         prendasFavoritas.remove(position);
                         notifyItemRemoved(position);
+
+                        // Verificar si la lista está vacía
+                        if (prendasFavoritas.isEmpty()) {
+                            Toast.makeText(context, "No quedan prendas en favoritos", Toast.LENGTH_SHORT).show();
+                            notifyDataSetChanged(); // Refresca la vista para evitar problemas
+                        }
+
+                        progressDialog.dismiss();
                         Toast.makeText(context, "Prenda eliminada de favoritos", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
+                        progressDialog.dismiss();
                         Toast.makeText(context, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         });
 
     }
-
 
     @Override
     public int getItemCount() {
@@ -77,12 +97,12 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgPrenda;
-        ImageView deleteButton; // Agregado el botón de eliminar
+        ImageView deleteButton; // Botón de eliminar
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPrenda = itemView.findViewById(R.id.imgCardPrenda);
-            deleteButton = itemView.findViewById(R.id.deleteButton); // Reemplaza con el ID real del botón
+            deleteButton = itemView.findViewById(R.id.deleteButton); // ID del botón de eliminar
         }
     }
 }
