@@ -114,15 +114,19 @@ public class Favorito extends AppCompatActivity {
                             String color = document.getString("color");
                             String tipo = document.getString("tipo");
 
-                            Prenda prenda = new Prenda(talla, material, color, tipo);
-                            prenda.setImagenUrl(imagenUrl);
-                            prenda.setId(documentId); // Importante asignar ID para luego poder eliminar o actualizar
+                            // Filtrar para no incluir "shoe" ni "accesorio"
+                            if (tipo != null && !tipo.equalsIgnoreCase("shoes") && !tipo.equalsIgnoreCase("accessories")) {
+                                Prenda prenda = new Prenda(talla, material, color, tipo);
+                                prenda.setImagenUrl(imagenUrl);
+                                prenda.setId(documentId); // Importante asignar ID para luego poder eliminar o actualizar
 
-                            savedOutfits.add(prenda);
+                                savedOutfits.add(prenda);
+                            }
                         }
                         adapter.notifyDataSetChanged();
                     }
                 });
     }
+
 
 }
