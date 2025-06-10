@@ -54,18 +54,20 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
 
     @Override
     public void onBindViewHolder(@NonNull AdaptadorFavorito.ViewHolder holder, int position) {
-        Prenda prenda = prendasFavoritas.get(position);
+        Prenda prenda = prendasFavoritas.get(holder.getAdapterPosition());
 
-        // Cargar imagen con Glide
         Glide.with(context)
                 .load(prenda.getImagenUrl())
                 .into(holder.imgPrenda);
 
-        // Configurar el botón de eliminar
         holder.deleteButton.setOnClickListener(view -> {
+            // Deshabilitamos el botón para evitar dobles clicks
+            holder.deleteButton.setEnabled(false);
+
             String prendaId = prenda.getId();
             if (prendaId == null || prendaId.isEmpty()) {
                 Toast.makeText(context, "ID de prenda no válido", Toast.LENGTH_SHORT).show();
+                holder.deleteButton.setEnabled(true); // Rehabilitar botón
                 return;
             }
 
@@ -78,25 +80,25 @@ public class AdaptadorFavorito extends RecyclerView.Adapter<AdaptadorFavorito.Vi
                     .document(prendaId)
                     .delete()
                     .addOnSuccessListener(aVoid -> {
-                        prendasFavoritas.remove(position);
-                        notifyItemRemoved(position);
+                        int currentPosition = holder.getAdapterPosition();
+                        prendasFavoritas.remove(currentPosition);
+                        notifyItemRemoved(currentPosition);
 
-                        // Verificar si la lista está vacía
-                        if (prendasFavoritas.isEmpty()) {
-                            if (listener != null) {
-                                listener.onFavoritosEmpty(); // Notificar a la actividad o fragmento
-                            }
+                        if (prendasFavoritas.isEmpty() && listener != null) {
+                            listener.onFavoritosEmpty();
                         }
 
                         progressDialog.dismiss();
-                        Toast.makeText(context, "Prenda eliminada de favoritos", Toast.LENGTH_SHORT).show();
                     })
                     .addOnFailureListener(e -> {
                         progressDialog.dismiss();
                         Toast.makeText(context, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        holder.deleteButton.setEnabled(true); // Rehabilitar botón en caso de fallo
                     });
         });
     }
+
+
 
     @Override
     public int getItemCount() {
