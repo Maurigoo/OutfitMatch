@@ -70,7 +70,7 @@
     <string name="zapatos">Zapatos</string>
     <string name="Accesorios">Accessorios</string>
 
-    <string name="nprendas">0 Clothes</string>
+    <string name="nprendas">0 Prendas</string>
     <string name="cuenta_eliminada">Cuenta eliminada</string>
     <string name="error_eliminar_cuenta">Error al eliminar cuenta</string>
 
@@ -98,4 +98,6 @@
         <item>Accesorios</item>
         <item>Chaquetas</item>
     </string-array>
+
+    <string name="total_items">Tienes %1$d prendas :)</string>
 </resources>

@@ -50,8 +50,10 @@ public class Clothes extends AppCompatActivity {
                 @Override
                 public void onTotalPrendas(int total, List<Prenda> prendas) {
                     Log.d("PrendasFirebase", "Tienes " + total + " prendas en Firebase.");
-                    totalPrendasText.setText("Tienes " + total + " prendas :)");
+                    String texto = getString(R.string.total_items, total);
+                    totalPrendasText.setText(texto);
                 }
+
 
                 @Override
                 public void onError(@NonNull Exception e) {
